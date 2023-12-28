@@ -1,0 +1,13 @@
+---
+import { getTopPagesByLang } from '../../utils/staticPathsGeneration.ts';
+
+export async function getStaticPaths() {
+  return await getTopPagesByLang();
+}
+
+const { filmSlug, lang } = Astro.params;
+const filmInfo = Astro.props
+---
+
+<h1>{filmInfo.locationInfo.title}</h1>
+<p>{filmInfo.locationInfo.synopsis}</p>

@@ -1,0 +1,78 @@
+---
+// Import your getHomePageFilmsByLang function
+import { getHomePageFilmsByLang } from '../../utils/staticPathsGeneration.ts';
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+// Fetch the films
+export async function getStaticPaths() {
+  return await getHomePageFilmsByLang(10);
+}
+
+// Destructure the props
+const { topLocationFilms, topFilms } = Astro.props;
+---
+
+<!-- Your HTML starts here -->
+<div class="container">
+  <section>
+    <h2>Top Location Films</h2>
+    <div class="film-grid">
+      {topLocationFilms.map(film => (
+        <div class="film-card">
+          <img src={film.extended_info.poster_url} alt={`Poster of ${film.locationInfo.title}`} />
+          <h3><a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>{film.locationInfo.title}</a></h3>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2>Top Films</h2>
+    <div class="film-grid">
+      {topFilms.map(film => (
+        <div class="film-card">
+          <img src={film.extended_info.poster_url} alt={`Poster of ${film.locationInfo.title}`} />
+          <h3><a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>{film.locationInfo.title}</a></h3>
+        </div>
+      ))}
+    </div>
+  </section>
+</div>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .film-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 20px;
+  }
+
+  .film-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .film-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .film-card h3 {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .film-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
