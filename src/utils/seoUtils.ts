@@ -1,8 +1,6 @@
 import { getAbsoluteLocaleUrl } from "astro:i18n";
 import { supportedLocales } from "../utils/localization.ts";
-import { getEntry } from 'astro:content';
 
-const translations = (await getEntry('configs', 'site-config')).data
 
 
 export function getAstroSeoAlternateLocales(afterLangUrl: string, defaultLang: string = "en"): Array<{ href: string; hrefLang: string }> {

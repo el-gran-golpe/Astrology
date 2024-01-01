@@ -5,10 +5,15 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
 //import { getAnalytics } from "firebase/analytics";
 
-const firebaseConfig = (await getEntry('secrets', 'firebase')).data
+const firebaseConfig = await getEntry('secrets', 'firebase')
+
+// If firebaseConfig is not imported, you'll have to ask someone for the credentials
+if (!firebaseConfig) {
+    throw new Error('Firebase config not found at content/secret/firebase.json. Please ask someone for the credentials.');
+}
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig.data);
 const db = getFirestore(app);
 //const analytics = getAnalytics(app);
 
