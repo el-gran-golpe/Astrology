@@ -1,7 +1,17 @@
+import { getEntry } from 'astro:content';
+
 import { collection, getDocs, query, where, orderBy, limit } from 'firebase/firestore';
-import { db } from './src/configs/firebase.js'; // Assuming this is your Firebase app initialization
-import { CountriesByLang, CountriesByLangFiltered } from '../configs/locationConstants.js';
-// To fetch data from Firestore, you need to use the Firebase SDK.
+import { initializeApp } from "firebase/app";
+import { getFirestore } from 'firebase/firestore';
+//import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = (await getEntry('secrets', 'firebase')).data
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+//const analytics = getAnalytics(app);
+
 
 export async function fetchAllFilms(collectionName: string) {
     /**

@@ -21,7 +21,9 @@ export default defineConfig({
           routing: {
             prefixDefaultLocale: true
          }
+        },
+        //TODO: Run code for redirecting all films to /en/films
+        redirects: {
+          "/": "/en"
         }
 });
-// USE Astro.currentLocale to get the current folder locale [getRelativeLocaleUrl("french", "blog")]
-//import { getPathByLocale, getRelativeLocaleUrl, getLocaleByPath } from "astro:i18n";

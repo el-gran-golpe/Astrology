@@ -3,6 +3,10 @@
 import { getHomePageFilmsByLang } from '../../utils/staticPathsGeneration.ts';
 import { getRelativeLocaleUrl } from "astro:i18n";
 
+import Head from '../../components/Head.astro';
+import { getTranslationFunction } from '../../utils/localization.ts';
+import { getEntry } from 'astro:content';
+
 // Fetch the films
 export async function getStaticPaths() {
   return await getHomePageFilmsByLang(10);
@@ -10,8 +14,25 @@ export async function getStaticPaths() {
 
 // Destructure the props
 const { topLocationFilms, topFilms } = Astro.props;
----
+const { lang } = Astro.params;
 
+// Get the translation function
+const t = getTranslationFunction(lang);
+const config = (await getEntry('configs', 'site-config')).data
+---
+<html lang={lang}>
+  <Head
+    title={config["siteName"]}
+    description={t("meta.description")}
+    lang={lang}
+    afterLangUrl={""}
+
+    OGTitle={config["siteName"]}
+    OGType={"website"}
+    OGImage={config["OGImage.home"]},
+    OGImageAlt={`${config["siteName"]} Banner`}
+  />
+  <body>
 <!-- Your HTML starts here -->
 <div class="container">
   <section>
@@ -38,6 +59,8 @@ const { topLocationFilms, topFilms } = Astro.props;
     </div>
   </section>
 </div>
+</body>
+</html>
 
 <style>
   .container {

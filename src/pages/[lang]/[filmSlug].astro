@@ -1,5 +1,7 @@
 ---
 import { getTopPagesByLang } from '../../utils/staticPathsGeneration.ts';
+import Head from '../../components/Head.astro';
+import { getTranslationFunction } from '../../utils/localization.ts';
 
 export async function getStaticPaths() {
   return await getTopPagesByLang();
@@ -7,7 +9,25 @@ export async function getStaticPaths() {
 
 const { filmSlug, lang } = Astro.params;
 const filmInfo = Astro.props
----
 
-<h1>{filmInfo.locationInfo.title}</h1>
-<p>{filmInfo.locationInfo.synopsis}</p>
+const t = getTranslationFunction(lang);
+---
+<html lang={lang}>
+  <Head
+    title={filmInfo.locationInfo.title}
+    description={filmInfo.locationInfo.synopsis}
+    lang={lang}
+    afterLangUrl={filmSlug}
+
+    OGTitle={`${t("Watch")} ${filmInfo.locationInfo.title} Online`}
+    OGType="video.movie"
+    OGImage={filmInfo.extended_info.poster_url},
+    OGImageAlt={`${filmInfo.locationInfo.title} Poster`}
+  />
+
+  <body>
+    <h1>{filmInfo.locationInfo.title}</h1>
+    <p>{filmInfo.locationInfo.synopsis}</p>
+  </body>
+
+</html>

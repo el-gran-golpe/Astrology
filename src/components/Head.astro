@@ -1,0 +1,50 @@
+---
+import { SEO } from 'astro-seo';
+import { getAstroSeoAlternateLocales } from '../utils/seoUtils.ts';
+import { supportedLocales } from '../utils/localization.ts';
+import { getMIMETypeFromURL } from '../utils/utils.ts';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: string;
+  afterLangUrl: string;
+  OGTitle: string;
+  OGType: string;
+  OGImage: string;
+  OGImageAlt: string;
+}
+
+const { title, description, lang, afterLangUrl, OGTitle, OGType, OGImage, OGImageAlt } = Astro.props;
+
+const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
+---
+
+<head>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEO
+      title={title},
+      description={description}
+      charset='utf-8'
+      languageAlternates={getAstroSeoAlternateLocales(afterLangUrl)}
+
+      openGraph={{
+        basic: {
+    		  //TODO: https://ogp.me/#types (Add the actors). Also use the duration, release date... And set it if it is an episode or tv show
+          title: OGTitle,
+          type: OGType,
+          image: OGImage,
+          //Study about url (https://github.com/jonasmerlin/astro-seo?tab=readme-ov-file)
+        },
+        optional: {
+          locale: lang,
+          localeAlternate: supportedLocales,
+          siteName: "SiteName"
+        },
+        image:{
+          type: OGImageMIMEType || 'image/jpeg',
+          alt: OGImageAlt
+        }
+        }}
+    />
+</head>

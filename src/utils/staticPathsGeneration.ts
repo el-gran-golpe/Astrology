@@ -1,5 +1,5 @@
 import { fetchAllFilms, fetchMostVotedFilms, fetchFilmsByCountries } from './db.ts';
-import { CountriesByLangFiltered } from '../configs/locationConstants.js';
+import { CountriesByLangFiltered } from '../utils/localization.ts';
 
 
 const TOP_PAGES: string = 'top_pages';
