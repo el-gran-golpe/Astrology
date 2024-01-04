@@ -1,0 +1,37 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+    posterURL: string;
+    movieTitle: string;
+    movieSlug: string;
+};
+
+const { posterURL, movieTitle, movieSlug } = Astro.props;
+---
+
+<div class="film-card">
+    <img src={posterURL} alt={`Poster of ${movieTitle}`} />
+    <h3><a href={getRelativeLocaleUrl(Astro.currentLocale, movieSlug)}>{movieTitle}</a></h3>
+</div>
+
+<style>
+      .film-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .film-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .film-card h3 {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+</style>

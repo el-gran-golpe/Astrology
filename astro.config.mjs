@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,5 +26,6 @@ export default defineConfig({
         //TODO: Run code for redirecting all films to /en/films
         redirects: {
           "/": "/en"
-        }
+        },
+        integrations: [react()],
 });

@@ -1,15 +1,17 @@
 ---
 // Import your getHomePageFilmsByLang function
-import { getHomePageFilmsByLang } from '../../utils/staticPathsGeneration.ts';
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
 
-import Head from '../../components/Head.astro';
-import { getTranslationFunction } from '../../utils/localization.ts';
-import { getEntry } from 'astro:content';
+import { getTranslationFunction } from "../../utils/localization.ts";
+import { getEntry } from "astro:content";
+
+import Head from "../../components/Head.astro";
+import MovieCard from "../../components/react/MovieCard.jsx";
+import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
 
 // Fetch the films
 export async function getStaticPaths() {
-  return await getHomePageFilmsByLang(10);
+    return await getHomePageFilmsByLang(10);
 }
 
 // Destructure the props
@@ -18,84 +20,81 @@ const { lang } = Astro.params;
 
 // Get the translation function
 const t = getTranslationFunction(lang);
-const config = (await getEntry('configs', 'site-config')).data
+const config = (await getEntry("configs", "site-config")).data;
 ---
+
 <html lang={lang}>
-  <Head
-    title={config["siteName"]}
-    description={t("meta.description")}
-    lang={lang}
-    afterLangUrl={""}
+    <Head
+        title={config["siteName"]}
+        description={t("meta.description")}
+        lang={lang}
+        afterLangUrl={""}
+        OGTitle={config["siteName"]}
+        OGType={"website"}
+        OGImage={config["OGImage.home"]}
+        ,
+        OGImageAlt={`${config["siteName"]} Banner`}
+    />
+    <body>
+        <!-- Your HTML starts here -->
+        <div class='container'>
+            <section>
+                <h2>Top Location Films</h2>
+                <div class='film-grid'>
+                    {
+                        topLocationFilms.map((film) => (
+                            <MovieCard
+                                posterURL={film.extended_info.poster_url}
+                                movieTitle={film.locationInfo.title}
+                                movieSlug={film.slug}
+                                currentLocale={Astro.currentLocale}
+                            />
+                        ))
+                    }
+                </div>
+            </section>
 
-    OGTitle={config["siteName"]}
-    OGType={"website"}
-    OGImage={config["OGImage.home"]},
-    OGImageAlt={`${config["siteName"]} Banner`}
-  />
-  <body>
-<!-- Your HTML starts here -->
-<div class="container">
-  <section>
-    <h2>Top Location Films</h2>
-    <div class="film-grid">
-      {topLocationFilms.map(film => (
-        <div class="film-card">
-          <img src={film.extended_info.poster_url} alt={`Poster of ${film.locationInfo.title}`} />
-          <h3><a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>{film.locationInfo.title}</a></h3>
+            <section>
+                <h2>Top Films</h2>
+                <div class='film-grid'>
+                    {
+                        topFilms.map((film) => (
+                            <MovieCard
+                                key={film.slug}
+                                posterURL={film.extended_info.poster_url}
+                                movieTitle={film.locationInfo.title}
+                                movieSlug={film.slug}
+                                currentLocale={Astro.currentLocale}
+                            />
+                        ))
+                    }
+                </div>
+            </section>
+            <div class='container'>
+                <p> Probably won't need that part on the home page so we can avoid client hydrated components</p>
+                {<VisitedFilmsGrid currentLocale={Astro.currentLocale} client:only="react"/>}
+            </div>
         </div>
-      ))}
-    </div>
-  </section>
-
-  <section>
-    <h2>Top Films</h2>
-    <div class="film-grid">
-      {topFilms.map(film => (
-        <div class="film-card">
-          <img src={film.extended_info.poster_url} alt={`Poster of ${film.locationInfo.title}`} />
-          <h3><a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>{film.locationInfo.title}</a></h3>
-        </div>
-      ))}
-    </div>
-  </section>
-</div>
-</body>
+    </body>
+    
 </html>
 
 <style>
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
   }
 
   .film-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 20px;
-  }
-
-  .film-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .film-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-
-  .film-card h3 {
-    margin-top: 10px;
-    font-size: 1rem;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 20px;
   }
 
   @media screen and (max-width: 768px) {
-    .film-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+      .film-grid {
+          grid-template-columns: repeat(2, 1fr);
+      }
   }
 </style>

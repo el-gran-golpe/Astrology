@@ -11,9 +11,13 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.3.3",
+    "@astrojs/react": "^3.0.9",
+    "@nanostores/persistent": "^0.9.1",
+    "@nanostores/react": "^0.7.1",
     "astro": "^4.0.7",
     "astro-seo": "^0.8.0",
     "firebase": "^10.7.1",
+    "nanostores": "^0.9.5",
     "typescript": "^5.3.3"
   }
 }

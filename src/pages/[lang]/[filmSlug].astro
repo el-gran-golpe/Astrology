@@ -1,6 +1,7 @@
 ---
 import { getTopPagesByLang } from '../../utils/staticPathsGeneration.ts';
 import Head from '../../components/Head.astro';
+import UpdateVisitedFilms from '../../stores/updateVisitedFilms';
 import { getTranslationFunction } from '../../utils/localization.ts';
 
 export async function getStaticPaths() {
@@ -11,6 +12,7 @@ const { filmSlug, lang } = Astro.params;
 const filmInfo = Astro.props
 
 const t = getTranslationFunction(lang);
+
 ---
 <html lang={lang}>
   <Head
@@ -30,4 +32,6 @@ const t = getTranslationFunction(lang);
     <p>{filmInfo.locationInfo.synopsis}</p>
   </body>
 
+  {/* Save the visited film in the local-storage to have it accessible for visited films recommendations (crossTab update)*/}
+  <UpdateVisitedFilms slug={filmSlug} title={filmInfo.locationInfo.title} posterURL={filmInfo.extended_info.poster_url} client:idle/>
 </html>
