@@ -11,7 +11,7 @@ export function getTranslationFunction(lang: string) {
 
 function t(word: string, lang: string) {
 
-    word = word.toLowerCase();
+    //word = word.toLowerCase();
     
     let translatedWord: string | null  = null;
 
