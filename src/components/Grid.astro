@@ -1,0 +1,12 @@
+---
+const gridStyle = {
+    gridTemplateColumns: 'repeat(auto-fit, minmax(11rem, 1fr))', 
+    gridAutoRows: '17rem', 
+    gridColumnGap: '0.5rem', 
+    gridRowGap: '0.5rem'    
+};
+---
+
+<div class="grid" style={gridStyle}>
+    <slot></slot>
+</div>

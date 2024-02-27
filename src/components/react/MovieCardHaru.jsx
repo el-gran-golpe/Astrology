@@ -1,7 +1,7 @@
 import React from 'react';
 import { getRelativeLocaleUrl } from "astro:i18n";
 
-const MovieCard = ({ posterURL, movieTitle, movieSlug, currentLocale }) => {
+const MovieCardHaru = ({ posterURL, movieTitle, movieSlug, currentLocale }) => {
 
     const filmCardStyle = {
         display: 'flex',
@@ -31,4 +31,4 @@ const MovieCard = ({ posterURL, movieTitle, movieSlug, currentLocale }) => {
     );
 };
 
-export default MovieCard;
+export default MovieCardHaru;

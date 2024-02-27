@@ -1,13 +1,20 @@
 ---
 // Import your getHomePageFilmsByLang function
 import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
-
 import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from "astro:content";
 
+// Imports of Front-End components
+import "./global.css"
 import Head from "../../components/Head.astro";
-import MovieCard from "../../components/react/MovieCard.jsx";
+import Banner from "../../components/Banner.jsx";
+import NavBar from "../../components/NavBar/NavBar.jsx";
+import MovieCard from "../../components/MovieCard/MovieCard.jsx";
+import MovieCardHaru from "../../components/react/MovieCardHaru.jsx";
 import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
+import Grid from '../../components/Grid.astro';
+// javascript code:
+const movieIds = Array.from({ length: 24 }, (_, i) => i + 1); 
 
 // Fetch the films
 export async function getStaticPaths() {
@@ -32,18 +39,65 @@ const config = (await getEntry("configs", "site-config")).data;
         OGTitle={config["siteName"]}
         OGType={"website"}
         OGImage={config["OGImage.home"]}
-        ,
         OGImageAlt={`${config["siteName"]} Banner`}
     />
     <body>
-        <!-- Your HTML starts here -->
+        <!-- If I don't use client load here, navbar goes crazy until I move the scroll bar. Weird that with only=react behaves better -->
+        <NavBar client:only="react" />
+
+        <!-- Main container with background and text color -->
+        <div class="bg-gray-900 text-white">
+
+            <Banner client:load/> {/* <-- Ask Haru abut this client:load thing*/}
+
+            {/* Main content */}
+            <main class="container mx-auto px-6 py-4"> 
+                
+                <!-- Title -->
+                <div class="flex items-center text-2xl font-bold text-white-600 mb-4">
+                    <span>Watch movies online</span>
+                </div>
+
+                {/* Responsive Movie Grid */}
+                <!-- <Grid>
+                    {movieIds.map((id) => (
+                        <MovieCard movieId={id.toString()} />
+                    ))}
+                </Grid> -->
+                
+                <Grid>
+                    {topFilms.map((film) => (
+                        <MovieCard
+                            movieId={film.slug}
+                            movieYear={2023}
+                            posterUrl={film.extended_info.poster_url}
+                            movieTitle={film.locationInfo.title}
+                            movieSlug={film.slug}
+                            currentLocale={Astro.currentLocale} />
+                    ))}
+                </Grid>
+
+            
+
+
+                <section>
+                    <h2>Top Location Films</h2>
+                <section/>
+            </main>
+        </div>
+
+
+
+
+
+
         <div class='container'>
             <section>
                 <h2>Top Location Films</h2>
                 <div class='film-grid'>
                     {
                         topLocationFilms.map((film) => (
-                            <MovieCard
+                            <MovieCardHaru
                                 posterURL={film.extended_info.poster_url}
                                 movieTitle={film.locationInfo.title}
                                 movieSlug={film.slug}
@@ -59,7 +113,7 @@ const config = (await getEntry("configs", "site-config")).data;
                 <div class='film-grid'>
                     {
                         topFilms.map((film) => (
-                            <MovieCard
+                            <MovieCardHaru
                                 key={film.slug}
                                 posterURL={film.extended_info.poster_url}
                                 movieTitle={film.locationInfo.title}
@@ -75,8 +129,9 @@ const config = (await getEntry("configs", "site-config")).data;
                 {<VisitedFilmsGrid currentLocale={Astro.currentLocale} client:only="react"/>}
             </div>
         </div>
+
+
     </body>
-    
 </html>
 
 <style>

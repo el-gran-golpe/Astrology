@@ -1,5 +1,5 @@
 import React from "react";
-import MovieCard from "./MovieCard";
+import MovieCard from "./MovieCardHaru";
 import { useStore } from "@nanostores/react";
 import { visitedFilms } from "../../stores/visitedFilms";
 
