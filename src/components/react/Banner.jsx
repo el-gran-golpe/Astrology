@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 // Replace the first image import with the URL
-const comingSoonImage1 = 'https://gulabs.in/cdn/shop/articles/stay_healthy_stay_hydrated.jpg?v=1621411961&width=1100';
-import comingSoonImage2 from '../Images/Banner2.jpg';
-import comingSoonImage3 from '../Images/Banner3.webp';
-import comingSoonImage4 from '../Images/Banner4.webp';
-import comingSoonImage5 from '../Images/Banner5.jpg';
+const comingSoonImage1 = new URL('../../Images/Oppenheimer.jpg', import.meta.url);
+const comingSoonImage2 = new URL('../../Images/Banner2.jpg', import.meta.url);
+const comingSoonImage3 = new URL('../../Images/Banner3.webp', import.meta.url);
+const comingSoonImage4 = new URL('../../Images/Banner4.webp', import.meta.url);
+const comingSoonImage5 = new URL('../../Images/Banner5.jpg', import.meta.url);
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -42,7 +43,7 @@ export default function Banner() {
             <div className="absolute w-full h-full transition-opacity duration-1000 ease-in-out">
                     <img src={activeImage} alt="Banner" className="w-full h-full object-cover" style={{ opacity: activeDot === dots.indexOf(activeDot) ? 1 : 0 }} />
             </div>
-            
+
             {/* Adjusted gradient for stronger fading on the left */}
             <div className="absolute w-full h-full bg-gradient-to-r from-black via-gray-800 to-transparent opacity-70"></div>
 
@@ -98,6 +99,11 @@ export default function Banner() {
                         />
                     </div>
                 </div>
+            </div>
+            {/* Gradient Overlay */}
+            {/* I think the pointerEvents can be improve by placing this div in a correct place */}
+            <div className="absolute inset-0 z-0" style={{ pointerEvents: 'none' }}> 
+                <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
             </div>
         </div>
         </>

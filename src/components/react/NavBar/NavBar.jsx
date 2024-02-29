@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faTv, faBolt, faShapes, faPlay } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
 
+
 export default function Navbar() {
     const menuItems = [
         { path: "https://www.google.com", icon: faFilm, label: "Películas" },
@@ -16,14 +17,16 @@ export default function Navbar() {
 
                 {/* Render the title of the website */}
                 <div className="flex-none pl-6 pr-4">
-                    <a href="/" className="text-3xl font-bold hover:opacity-75 transition-opacity duration-300">
-                        <FontAwesomeIcon icon={faPlay} className="mr-3"/>
-                        FilmAffinity 2
+                    <a href="/" className="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center">
+                        {/* <FontAwesomeIcon icon={faPlay} className="mr-3"/> */}
+                        <img src={new URL('./LogoAeroStreamFinal.png', import.meta.url)} className="mr-3" alt="Logo" style={{height: '1.5em'}} />
+                        <span style={{fontFamily: 'Arial', fontSize: '24px', fontWeight: 'bold', color: 'white'}}>Aero</span><span style={{color: 'red', fontFamily: 'Arial', fontSize: '24px', fontWeight: 'bold'}}>Stream</span>
                     </a>
                 </div>
 
+
                 {/* Render the menu items and the search bar */}
-                <div className="flex justify-center items-center flex-grow">
+                <div className="flex justify-center items-center flex-grow text-lg">
 
                     <ul className="flex gap-x-4 ml-10">
                         {menuItems.map(({ label, path, icon }) => (

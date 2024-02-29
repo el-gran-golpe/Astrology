@@ -1,0 +1,30 @@
+---
+interface Props {
+  movieId: string;
+  movieTitle: string;
+  movieSlug: string;
+  currentLocale: string;
+}
+const props: Props = Astro.props;
+---
+<section class="relative cursor-pointer group px-4 pt-4 space-y-4 movie_info flex flex-col items-center w-full h-full justify-between">
+  <div class="w-full">
+    <h2 class="text-2xl font-bold text-white text-center">{props.movieTitle}</h2>
+    <div class="scaling-container transform scale-90">
+      <div class="flex items-center space-x-4">
+        <span class="text-white">Duration: 120min</span>
+        <span class="text-white">Rating: PG-13</span>
+      </div>
+      <p class="text-white">
+        This is a brief overview of the movie.
+      </p>
+    </div>
+  </div>
+  <div class="flex flex-col justify-end w-full pb-3">
+    <a class="flex items-center py-1 px-2 rounded-full mx-auto text-white bg-red-500 hover:bg-red-700" href="https://www.justwatch.com/es/pelicula/oppenheimer" target="_blank" rel="noopener noreferrer">
+      <!-- Direct SVG usage for the FontAwesome Eye Icon -->
+      <svg aria-hidden="true" focusable="false" class="svg-inline--fa fa-eye w-6 h-7" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M572.52 241.4C518.07 135.9 407.1 72 288 72S57.93 135.9 3.48 241.4a35.14 35.14 0 0 0 0 29.2C57.93 376.1 168.9 440 288 440s230.1-63.88 284.5-169.4a35.14 35.14 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 144 144 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-32 5.38v179.25A95.77 95.77 0 1 0 288 160z"></path></svg>
+      <div class="text-sm text-white ml-2">Watch now</div>
+    </a>
+  </div>
+</section>

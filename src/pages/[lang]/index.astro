@@ -4,18 +4,6 @@ import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
 import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from "astro:content";
 
-// Imports of Front-End components
-import "./global.css"
-import Head from "../../components/Head.astro";
-import Banner from "../../components/Banner.jsx";
-import NavBar from "../../components/NavBar/NavBar.jsx";
-import MovieCard from "../../components/MovieCard/MovieCard.jsx";
-import MovieCardHaru from "../../components/react/MovieCardHaru.jsx";
-import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
-import Grid from '../../components/Grid.astro';
-// javascript code:
-const movieIds = Array.from({ length: 24 }, (_, i) => i + 1); 
-
 // Fetch the films
 export async function getStaticPaths() {
     return await getHomePageFilmsByLang(10);
@@ -28,6 +16,17 @@ const { lang } = Astro.params;
 // Get the translation function
 const t = getTranslationFunction(lang);
 const config = (await getEntry("configs", "site-config")).data;
+
+// Import Tailwind CSS
+import "../../layouts/global.css";
+
+// Import the components
+import Head from "../../components/Head.astro";
+import Banner from "../../components/react/Banner.jsx";
+import NavBar from "../../components/react/NavBar/NavBar.jsx";
+import MovieCard from "../../components/MovieCard/MovieCard.astro";
+import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
+import Grid from '../../components/Grid.astro';
 ---
 
 <html lang={lang}>
@@ -48,108 +47,51 @@ const config = (await getEntry("configs", "site-config")).data;
         <!-- Main container with background and text color -->
         <div class="bg-gray-900 text-white">
 
-            <Banner client:load/> {/* <-- Ask Haru abut this client:load thing*/}
+            <Banner client:only="react"/> {/* <-- Ask Haru abut this client:load thing*/}
 
             {/* Main content */}
             <main class="container mx-auto px-6 py-4"> 
                 
                 <!-- Title -->
-                <div class="flex items-center text-2xl font-bold text-white-600 mb-4">
-                    <span>Watch movies online</span>
+                <div class="flex items-center text-3xl font-bold text-red-500 mb-6">
+                    <span>Top Films</span>
                 </div>
 
-                {/* Responsive Movie Grid */}
-                <!-- <Grid>
-                    {movieIds.map((id) => (
-                        <MovieCard movieId={id.toString()} />
-                    ))}
-                </Grid> -->
-                
+                <!-- Grid of movie cards -->
                 <Grid>
                     {topFilms.map((film) => (
                         <MovieCard
                             movieId={film.slug}
-                            movieYear={2023}
+                            movieYear={'2023'}
                             posterUrl={film.extended_info.poster_url}
                             movieTitle={film.locationInfo.title}
                             movieSlug={film.slug}
-                            currentLocale={Astro.currentLocale} />
+                            currentLocale={Astro.currentLocale || 'defaultLocale'} />
                     ))}
                 </Grid>
 
-            
+                <div class="flex items-center text-3xl font-bold text-red-500 py-6">
+                    <span>Top Location Films</span>
+                </div>
 
+                <!-- Grid of movie cards -->
+                <Grid>
+                    {topLocationFilms.map((film) => (
+                        <MovieCard
+                            movieId={film.slug}
+                            movieYear={'2023'}
+                            posterUrl={film.extended_info.poster_url}
+                            movieTitle={film.locationInfo.title}
+                            movieSlug={film.slug}
+                            currentLocale={Astro.currentLocale || 'defaultLocale'} />
+                    ))}
+                </Grid>
 
-                <section>
-                    <h2>Top Location Films</h2>
-                <section/>
+                <div class='container'>
+                    <p> Probably won't need that part on the home page so we can avoid client hydrated components</p>
+                    {<VisitedFilmsGrid currentLocale={Astro.currentLocale} client:only="react"/>}
+                </div>
             </main>
         </div>
-
-
-
-
-
-
-        <div class='container'>
-            <section>
-                <h2>Top Location Films</h2>
-                <div class='film-grid'>
-                    {
-                        topLocationFilms.map((film) => (
-                            <MovieCardHaru
-                                posterURL={film.extended_info.poster_url}
-                                movieTitle={film.locationInfo.title}
-                                movieSlug={film.slug}
-                                currentLocale={Astro.currentLocale}
-                            />
-                        ))
-                    }
-                </div>
-            </section>
-
-            <section>
-                <h2>Top Films</h2>
-                <div class='film-grid'>
-                    {
-                        topFilms.map((film) => (
-                            <MovieCardHaru
-                                key={film.slug}
-                                posterURL={film.extended_info.poster_url}
-                                movieTitle={film.locationInfo.title}
-                                movieSlug={film.slug}
-                                currentLocale={Astro.currentLocale}
-                            />
-                        ))
-                    }
-                </div>
-            </section>
-            <div class='container'>
-                <p> Probably won't need that part on the home page so we can avoid client hydrated components</p>
-                {<VisitedFilmsGrid currentLocale={Astro.currentLocale} client:only="react"/>}
-            </div>
-        </div>
-
-
     </body>
 </html>
-
-<style>
-  .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-  }
-
-  .film-grid {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 20px;
-  }
-
-  @media screen and (max-width: 768px) {
-      .film-grid {
-          grid-template-columns: repeat(2, 1fr);
-      }
-  }
-</style>
