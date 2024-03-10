@@ -4,7 +4,6 @@ import { useStore } from "@nanostores/react";
 import { visitedFilms } from "../../stores/visitedFilms";
 
 
-// This is my first comment to see how braches work in GitKraken
 const VisitedFilmsGrid = ({ currentLocale }) => {
     const $visitedFilms = useStore(visitedFilms);
 

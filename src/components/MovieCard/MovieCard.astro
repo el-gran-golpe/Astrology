@@ -2,12 +2,13 @@
 import ShadowMovieCard from './ShadowMovieCard.astro';
 
 interface Props {
-  movieId: string;
   movieYear: string;
   posterUrl: string;
   movieTitle: string;
   movieSlug: string;
-  currentLocale: string;
+  movieDuration: number;
+  moviePlot: string;
+  movieScore: number;
 }
 const props: Props = Astro.props;
 ---
@@ -18,6 +19,12 @@ const props: Props = Astro.props;
     {props.movieYear}
   </div>
   <div class="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 z-50 transition duration-500">
-    <ShadowMovieCard movieId={props.movieId} movieTitle={props.movieTitle} movieSlug={props.movieSlug} currentLocale={props.currentLocale} />
+    <ShadowMovieCard
+        movieSlug={props.movieSlug} 
+        movieTitle={props.movieTitle} 
+        movieDuration={props.movieDuration}
+        moviePlot={props.moviePlot}
+        movieScore={props.movieScore}
+        />
   </div>
 </article>

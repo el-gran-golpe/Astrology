@@ -40,9 +40,11 @@ export default function Banner() {
         {/* Enhanced Hero Image */}
         <div className="mb-6 mx-0 relative w-full h-screen rounded">
             {/* Use CSS transition for fade effect */}
-            <div className="absolute w-full h-full transition-opacity duration-1000 ease-in-out">
-                    <img src={activeImage} alt="Banner" className="w-full h-full object-cover" style={{ opacity: activeDot === dots.indexOf(activeDot) ? 1 : 0 }} />
-            </div>
+            {bannerImages.map((image, index) => (
+                <div key={index} className="absolute w-full h-full transition-opacity duration-1000 ease-in-out" style={{ opacity: activeDot === index ? 1 : 0 }}>
+                    <img src={image} alt="Banner" className="w-full h-full object-cover" />
+                </div>
+            ))}
 
             {/* Adjusted gradient for stronger fading on the left */}
             <div className="absolute w-full h-full bg-gradient-to-r from-black via-gray-800 to-transparent opacity-70"></div>
@@ -59,7 +61,7 @@ export default function Banner() {
                     <h2 className="text-3xl font-light text-gray-300">Titulo Original: Loki</h2>
                     
                     {/* Sub | Dub Text */}
-                    <div className="text-xl font-medium mb-2 text-orange-400">Sub | Dub</div>
+                    <div className="text-xl font-medium mb-2 text-red-400">Sub | Dub</div>
                     {/* Description */}
                     <p className="text-lg leading-relaxed text-gray-300">SERIE<br />
                     Loki, el impredecible villano Loki (Hiddleston) regresa como el Dios del engaño en una nueva serie tras los acontecimientos de Avengers.
@@ -73,18 +75,18 @@ export default function Banner() {
                     </div>
 
                     {/* Button */}
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
-                        COMENZAR A VER T1 E1
+                    <button className="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
+                        WATCH MOVIES ONLINE FOR FREE
                     </button>
-            
+
                     {/* Dots */}
                     <div className="flex space-x-10 mt-4">
                         {dots.map(dotIndex => (
                             <div
                                 key={dotIndex}
                                 onClick={() => selectDot(dotIndex)}
-                                className={`w-3 h-3 rounded-full cursor-pointer transition duration-500 ease-in-out ${
-                                    activeDot === dotIndex ? 'bg-orange-500' : 'bg-gray-500 hover:bg-orange-600'
+                                className={`w-3 h-3 rounded cursor-pointer transform transition-transform duration-500 ease-in-out ${
+                                    activeDot === dotIndex ? 'bg-red-400 scale-150' : 'bg-gray-500 hover:bg-red-500'
                                 }`}
                             />
                         ))}

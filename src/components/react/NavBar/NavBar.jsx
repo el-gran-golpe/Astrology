@@ -19,14 +19,15 @@ export default function Navbar() {
                 <div className="flex-none pl-6 pr-4">
                     <a href="/" className="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center">
                         {/* <FontAwesomeIcon icon={faPlay} className="mr-3"/> */}
-                        <img src={new URL('./LogoAeroStreamFinal.png', import.meta.url)} className="mr-3" alt="Logo" style={{height: '1.5em'}} />
-                        <span style={{fontFamily: 'Arial', fontSize: '24px', fontWeight: 'bold', color: 'white'}}>Aero</span><span style={{color: 'red', fontFamily: 'Arial', fontSize: '24px', fontWeight: 'bold'}}>Stream</span>
+                        <img src={new URL('./Icon_enhanced.png', import.meta.url)} className="mr-3" alt="Logo" style={{height: '1em'}} />
+                        <img src={new URL('./NameGravityFlicks.png', import.meta.url)} className="mr-3" alt="Logo" style={{height: '1em'}} />
+                        {/* <span style={{fontFamily: 'Arial', fontSize: '24px', fontWeight: 'bold', color: 'white'}}>Gravity</span><span style={{color: 'red', fontFamily: 'Arial', fontSize: '24px', fontWeight: 'bold'}}>Flicks</span> */}
                     </a>
                 </div>
 
 
                 {/* Render the menu items and the search bar */}
-                <div className="flex justify-center items-center flex-grow text-lg">
+                <div className="flex justify-center items-center flex-grow">
 
                     <ul className="flex gap-x-4 ml-10">
                         {menuItems.map(({ label, path, icon }) => (

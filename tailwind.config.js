@@ -17,8 +17,13 @@ export default {
         'auto-fit': 'repeat(auto-fit, minmax(150px, 1fr))',
       },
       // add other theme extensions here
+      textShadow: {
+        'default': '2px 2px 4px rgba(0, 0, 0, 0.5)',
+      },
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require('tailwindcss-textshadow')
+  ],
 }

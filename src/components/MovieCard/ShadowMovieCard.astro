@@ -1,30 +1,58 @@
 ---
+import { parse } from 'url';
+
 interface Props {
-  movieId: string;
-  movieTitle: string;
   movieSlug: string;
-  currentLocale: string;
+  movieTitle: string;
+  movieDuration: number;
+  moviePlot: string;
+  movieScore: number;
 }
 const props: Props = Astro.props;
+
+function formatDuration(minutes) {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return `${hours}h ${remainingMinutes}m`;
+}
+
+// Get the current URL
+const { url } = Astro.request;
+
+// Parse the URL and extract the pathname
+const { pathname } = parse(url);
+
+// Split the pathname into segments
+const segments = pathname.split('/');
+
+// The second segment should be the language
+const language = segments[1];
+
 ---
-<section class="relative cursor-pointer group px-4 pt-4 space-y-4 movie_info flex flex-col items-center w-full h-full justify-between">
-  <div class="w-full">
-    <h2 class="text-2xl font-bold text-white text-center">{props.movieTitle}</h2>
-    <div class="scaling-container transform scale-90">
-      <div class="flex items-center space-x-4">
-        <span class="text-white">Duration: 120min</span>
-        <span class="text-white">Rating: PG-13</span>
+
+<section class="relative cursor-pointer group px-2 pt-2 space-y-4 flex flex-col items-center w-full h-full justify-between">
+  <div class="w-full flex flex-col h-full">
+    <!-- TODO: I'm not sure about this text-shadow class -->
+    <h2 class="text-2xl font-extrabold text-white text-center tracking-wider text-shadow-default">{props.movieTitle}</h2> 
+    <div class="scaling-container transform scale-90 flex-grow overflow-auto">
+      <div class="flex items-center justify-between text-gray-300">
+        <span>{formatDuration(props.movieDuration)}</span>
+        <span class="flex items-center min-w-min">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star-fill text-gray-400 w-5 h-5 mr-1" viewBox="0 0 16 16">
+            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+          </svg> 
+          {props.movieScore}
+        </span>
       </div>
-      <p class="text-white">
-        This is a brief overview of the movie.
+      <p class="text-white mt-2 ">
+        {props.moviePlot}
       </p>
     </div>
-  </div>
-  <div class="flex flex-col justify-end w-full pb-3">
-    <a class="flex items-center py-1 px-2 rounded-full mx-auto text-white bg-red-500 hover:bg-red-700" href="https://www.justwatch.com/es/pelicula/oppenheimer" target="_blank" rel="noopener noreferrer">
-      <!-- Direct SVG usage for the FontAwesome Eye Icon -->
-      <svg aria-hidden="true" focusable="false" class="svg-inline--fa fa-eye w-6 h-7" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M572.52 241.4C518.07 135.9 407.1 72 288 72S57.93 135.9 3.48 241.4a35.14 35.14 0 0 0 0 29.2C57.93 376.1 168.9 440 288 440s230.1-63.88 284.5-169.4a35.14 35.14 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 144 144 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-32 5.38v179.25A95.77 95.77 0 1 0 288 160z"></path></svg>
-      <div class="text-sm text-white ml-2">Watch now</div>
-    </a>
+    <div class="flex flex-col justify-end w-full pb-3 mt-auto">
+      <a class="flex items-center py-1 px-2 rounded-full mx-auto text-white bg-red-500 hover:bg-red-700" href={`http://localhost:4321/${language}/${props.movieSlug}`} target="_blank" rel="noopener noreferrer">
+        <svg aria-hidden="true" focusable="false" class="svg-inline--fa fa-eye w-6 h-7" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M572.52 241.4C518.07 135.9 407.1 72 288 72S57.93 135.9 3.48 241.4a35.14 35.14 0 0 0 0 29.2C57.93 376.1 168.9 440 288 440s230.1-63.88 284.5-169.4a35.14 35.14 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 144 144 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-32 5.38v179.25A95.77 95.77 0 1 0 288 160z"></path></svg>
+        <div class="text-sm text-white ml-2">Watch now</div>
+      </a>
+    </div>
   </div>
 </section>
