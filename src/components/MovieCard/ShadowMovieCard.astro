@@ -1,5 +1,6 @@
 ---
 import { parse } from 'url';
+import "../../layouts/global.css";
 
 interface Props {
   movieSlug: string;
@@ -27,14 +28,13 @@ const segments = pathname.split('/');
 
 // The second segment should be the language
 const language = segments[1];
-
 ---
 
 <section class="relative cursor-pointer group px-2 pt-2 space-y-4 flex flex-col items-center w-full h-full justify-between">
   <div class="w-full flex flex-col h-full">
     <!-- TODO: I'm not sure about this text-shadow class -->
     <h2 class="text-2xl font-extrabold text-white text-center tracking-wider text-shadow-default">{props.movieTitle}</h2> 
-    <div class="scaling-container transform scale-90 flex-grow overflow-auto">
+    <div class="scaling-container transform scale-90 flex-grow overflow-auto scrollbar">
       <div class="flex items-center justify-between text-gray-300">
         <span>{formatDuration(props.movieDuration)}</span>
         <span class="flex items-center min-w-min">
