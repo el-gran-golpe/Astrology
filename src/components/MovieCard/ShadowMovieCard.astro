@@ -29,6 +29,15 @@ const segments = pathname.split('/');
 // The second segment should be the language
 const language = segments[1];
 ---
+<style>
+  /* Custom style for vertical truncation */
+  .multi-line-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 8; /* Number of lines you want to display before truncating */
+  }
+</style>
 
 <section class="relative cursor-pointer group px-2 pt-2 space-y-4 flex flex-col items-center w-full h-full justify-between">
   <div class="w-full flex flex-col h-full">
@@ -44,15 +53,16 @@ const language = segments[1];
           {props.movieScore}
         </span>
       </div>
-      <p class="text-white mt-2 ">
+      <p class="text-sm text-white mt-2 overflow-hidden multi-line-truncate">
         {props.moviePlot}
       </p>
     </div>
+    <!-- It wouldn't work on mobile
     <div class="flex flex-col justify-end w-full pb-3 mt-auto">
       <a class="flex items-center py-1 px-2 rounded-full mx-auto text-white bg-red-500 hover:bg-red-700" href={`http://localhost:4321/${language}/${props.movieSlug}`} target="_blank" rel="noopener noreferrer">
         <svg aria-hidden="true" focusable="false" class="svg-inline--fa fa-eye w-6 h-7" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M572.52 241.4C518.07 135.9 407.1 72 288 72S57.93 135.9 3.48 241.4a35.14 35.14 0 0 0 0 29.2C57.93 376.1 168.9 440 288 440s230.1-63.88 284.5-169.4a35.14 35.14 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 144 144 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-32 5.38v179.25A95.77 95.77 0 1 0 288 160z"></path></svg>
         <div class="text-sm text-white ml-2">Watch now</div>
       </a>
-    </div>
+    </div>-->
   </div>
 </section>

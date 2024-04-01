@@ -2,8 +2,7 @@ import { fetchAllFilms, fetchMostVotedFilms, fetchFilmsByCountries } from './db.
 import { CountriesByLangFiltered } from '../utils/localization.ts';
 
 
-const TOP_PAGES: string = 'top_pages';
-const ALL_FILMS: string = 'pages';
+const FILMS_COLLECTION: string = 'relevant_films';
 
 export async function getTopPagesByLang() {
     /**
@@ -14,7 +13,7 @@ export async function getTopPagesByLang() {
      * 
      * @returns An array of pages paths
      */
-    const top_films = await fetchAllFilms(TOP_PAGES);
+    const top_films = await fetchAllFilms(FILMS_COLLECTION);
     let pages = [];
 
     // For each film in the top_films array
@@ -50,7 +49,7 @@ export async function getHomePageFilmsByLang(amount: number) {
      */
 
     // Get the top N most voted films
-    const topFilmsRaw = await fetchMostVotedFilms(TOP_PAGES, amount);
+    const topFilmsRaw = await fetchMostVotedFilms(FILMS_COLLECTION, amount);
     
     let paths = [];
     for (const lang in CountriesByLangFiltered) {
@@ -59,7 +58,7 @@ export async function getHomePageFilmsByLang(amount: number) {
         // Get the codes of the countries that speak that language
         const countries = CountriesByLangFiltered[lang];
         // Get the top N most voted films that were produced at the specified countries
-        const filmsByCountries = await fetchFilmsByCountries(ALL_FILMS, amount, countries);
+        const filmsByCountries = await fetchFilmsByCountries(FILMS_COLLECTION, amount, countries);
 
         // Substitute the languages list with the locationInfo
         let topLocationFilms = filmsByCountries.map(film => ({
