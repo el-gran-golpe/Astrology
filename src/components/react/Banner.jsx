@@ -38,7 +38,7 @@ export default function Banner() {
     return (
         <>
         {/* Enhanced Hero Image */}
-        <div className="mb-6 mx-0 relative w-full h-screen rounded">
+        <div className="mb-6 mx-0 relative w-full rounded" style={{ height: '75vh' }}>
             {/* Use CSS transition for fade effect */}
             {bannerImages.map((image, index) => (
                 <div key={index} className="absolute w-full h-full transition-opacity duration-1000 ease-in-out" style={{ opacity: activeDot === index ? 1 : 0 }}>
@@ -76,7 +76,7 @@ export default function Banner() {
 
                     {/* Button */}
                     <button className="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
-                        WATCH MOVIES ONLINE FOR FREE
+                        ENJOY MOVIES AT NO COST
                     </button>
 
                     {/* Dots */}

@@ -19,7 +19,7 @@ import "../../layouts/global.css";
 // Import the components
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import  renderStars from '../../components/react/RenderStars.jsx';
+import  RenderStars from '../../components/react/RenderStars.jsx';
 import  CastSection  from '../../components/react/CastSection.jsx';
 import FakeLinkTable from '../../components/react/FakeLinkTable';
 import NavBar from '../../components/react/NavBar/NavBar';
@@ -110,7 +110,8 @@ import NavBar from '../../components/react/NavBar/NavBar';
               <div class="flex justify-between items-center mb-6">
                 <span class="text-xl font-medium text-gray-400">Sub | Dub</span>
                 <div class="flex items-center space-x-2 bg-gray-800 p-2 rounded-lg">
-                  {renderStars(4.6)}
+                  {/* @ts-ignore */}
+                  {<RenderStars rating={3.6} client:only="react"/>}
                   <span class="text-xl text-white">4.6</span>
                   <span class="text-gray-400">/</span>
                   <span class="text-sm text-gray-400">(16K votes)</span>
