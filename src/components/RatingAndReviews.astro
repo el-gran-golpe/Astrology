@@ -1,0 +1,35 @@
+---
+import RenderStars from './react/RenderStars.jsx';
+
+interface RatingAndReviewsProps {
+  score: number; 
+}
+
+const { score } = Astro.props as RatingAndReviewsProps;
+
+const ratingText = score >= 4.5 ? "Overwhelmingly Positive" :
+                   score >= 4.0 ? "Very Positive" :
+                   score >= 3.5 ? "Mostly Positive" :
+                   score >= 3.0 ? "Mixed" :
+                   score >= 2.5 ? "Mostly Negative" :
+                   score >= 2.0 ? "Very Negative" :
+                   "Overwhelmingly Negative";
+---
+
+<div class="bg-gray-800 p-4 rounded-lg shadow">
+  <h3 class="text-xl text-white">Rating & Reviews</h3>
+  <div class="flex items-end justify-between">
+    <div class="flex items-center">
+      <RenderStars rating={score} client:only="react" />
+      <div class="ml-2">
+        <p class="text-lg text-white">
+          {ratingText}
+        </p>
+      </div>
+    </div>
+    <div>
+      <p class="text-lg text-white text-right">{score}</p>
+      <p class="text-sm text-gray-400 text-right">User Score</p>
+    </div> 
+  </div>
+</div>

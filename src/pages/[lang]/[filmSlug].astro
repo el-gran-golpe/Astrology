@@ -19,10 +19,11 @@ import "../../layouts/global.css";
 // Import the components
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import  RenderStars from '../../components/react/RenderStars.jsx';
 import  CastSection  from '../../components/react/CastSection.jsx';
 import FakeLinkTable from '../../components/react/FakeLinkTable';
 import NavBar from '../../components/react/NavBar/NavBar';
+import RatingAndReviews from '../../components/RatingAndReviews.astro';
+import Cast from '../../components/Cast.astro';
 ---
 
 <html lang={lang}>
@@ -98,51 +99,36 @@ import NavBar from '../../components/react/NavBar/NavBar';
             </ul>
           </div>
 
-          {/* Right column content */}
+          {/* Right Column Content */}
           <div class="w-2/3 px-5">
             <div class="mb-6">
               <h1 class="text-5xl text-gray-900 dark:text-white">
                 {filmInfo.locationInfo.title} <span class="text-3xl">(2023)</span>
               </h1>
             </div>
-            {/* Movie details with a refined layout */}
-            <div class="mt-4">
-              <div class="flex justify-between items-center mb-6">
-                <span class="text-xl font-medium text-gray-400">Sub | Dub</span>
-                <div class="flex items-center space-x-2 bg-gray-800 p-2 rounded-lg">
-                  {/* @ts-ignore */}
-                  {<RenderStars rating={3.6} client:only="react"/>}
-                  <span class="text-xl text-white">4.6</span>
-                  <span class="text-gray-400">/</span>
-                  <span class="text-sm text-gray-400">(16K votes)</span>
-                </div>
-              </div>
-              <div class="bg-gray-800 p-4 rounded-lg shadow">
-                <h3 class="text-xl text-white mb-2">Rating & Reviews</h3>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <div class="text-yellow-400">
-                      <FontAwesomeIcon icon={faStar} />
-                    </div>
-                    <div class="ml-2">
-                      <p class="text-lg text-white">94% Overwhelmingly positive</p> {/* (Steam reference XD) */}
-                      <p class="text-sm text-gray-400">(416k reviews)</p>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <p class="text-lg text-white">8.4</p>
-                    <p class="text-sm text-gray-400">User Score</p>
-                  </div>
-                </div>
-              </div>
+
+            {/* Film Info Section */}
+            <div class="flex justify-between items-center mb-6 mt-4">
+              <span class="text-xl font-medium text-gray-400">Sub | Dub</span>
             </div>
 
+            <RatingAndReviews score={parseFloat(filmInfo.film_affinity_info.score.average)} />
+
             <h2 class="text-2xl text-gray-300 mt-10">Synopsis</h2>
-            <p class="text-lg text-gray-400 mt-3">
-              {filmInfo.locationInfo.synopsis}
-            </p>
+            <div class="bg-gray-800 p-4 rounded-lg shadow">   
+              <p class="text-lg text-white mt-3">
+                {filmInfo.locationInfo.synopsis}
+              </p>
+            </div>
+          
 
             <FakeLinkTable client:load/>
+
+            <Cast cast={filmInfo.staff.cast} 
+                  producers={filmInfo.staff.producers} 
+                  screenwriters={filmInfo.staff.screenwriters}
+                  directors={filmInfo.staff.directors}
+                  musicians={filmInfo.staff.musicians} />
 
             <CastSection />
 
