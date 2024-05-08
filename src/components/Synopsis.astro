@@ -1,0 +1,14 @@
+---
+interface Synopsis {
+  synopsis: string; 
+}
+
+const synopsis = Astro.props.synopsis
+---
+
+<h2 class="text-2xl text-gray-300 mt-10 mb-4 font-bold">Synopsis</h2>
+<div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+    <p class="text-lg leading-relaxed text-white">
+        {synopsis}
+    </p>
+</div>

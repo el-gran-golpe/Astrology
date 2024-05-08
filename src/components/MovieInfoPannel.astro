@@ -1,0 +1,58 @@
+---
+interface MovieInfoPannelProps {
+    posterUrl: string;
+    rating: string;
+    ratingCount: string;
+    imdbScore: string;
+    genres: string;
+    duration: string;
+    ageRating: string;
+    productionCountries: string;
+    director: string;
+}
+
+const { posterUrl, rating, ratingCount, imdbScore, genres, duration, ageRating, productionCountries, director } = Astro.props;
+---
+
+<div class="bg-gray-900 rounded-lg shadow overflow-hidden text-white">
+    <img src={posterUrl} alt="Movie Poster" class="w-full object-cover rounded-t-lg"/>
+
+    <div class="bg-gray-800 p-4 rounded-b-lg">
+        <div class="space-y-2">
+            <div class="space-y-1">
+                <div class="font-semibold text-indigo-300">CALIFICACIÓN</div>
+                <div class="text-xs">{rating} ({ratingCount}) {imdbScore}</div>
+                <div class="text-gray-600">------</div>
+            </div>
+            
+            <div class="space-y-1">
+                <div class="font-semibold text-indigo-300">GÉNEROS</div>
+                <div class="text-xs">{genres}</div>
+                <div class="text-gray-600">------</div>
+            </div>
+            
+            <div class="space-y-1">
+                <div class="font-semibold text-indigo-300">DURACIÓN</div>
+                <div class="text-xs">{duration}</div>
+                <div class="text-gray-600">------</div>
+            </div>
+            
+            <div class="space-y-1">
+                <div class="font-semibold text-indigo-300">PAÍS DE PRODUCCIÓN</div>
+                <div class="text-xs">{productionCountries}</div>
+                <div class="text-gray-600">------</div>
+            </div>
+            
+            <div class="space-y-1">
+                <div class="font-semibold text-indigo-300">DIRECTOR</div>
+                <div class="text-xs">{director}</div>
+                <div class="text-gray-600">------</div>
+            </div>
+            
+            <div class="space-y-1">
+                <div class="font-semibold text-indigo-300">AGE RATING</div>
+                <div class="text-xs">{ageRating}</div>
+            </div>
+        </div>
+    </div>
+</div>

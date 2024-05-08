@@ -2,29 +2,32 @@
 const { cast, producers, screenwriters, directors, musicians } = Astro.props;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faFilm, faPenFancy, faChair, faMusic } from '@fortawesome/free-solid-svg-icons';
+
+const subsections = [
+    { title: "Cast", data: cast, icon: faUser },
+    { title: "Producers", data: producers, icon: faFilm },
+    { title: "Screenwriters", data: screenwriters, icon: faPenFancy },
+    { title: "Directors", data: directors, icon: faChair },
+    { title: "Musicians", data: musicians, icon: faMusic }
+];
 ---
 
 <div class="mt-8 px-4 lg:px-0">
-    <h2 class="text-2xl font-bold text-gray-300 mb-6">Movie Staff</h2>
+    <h2 class="text-2xl text-gray-300 mb-4 font-bold">Movie Staff</h2>
 
     <div class="space-y-6">
-        {[
-            { title: "Cast", data: cast, icon: faUser },
-            { title: "Producers", data: producers, icon: faFilm },
-            { title: "Screenwriters", data: screenwriters, icon: faPenFancy },
-            { title: "Directors", data: directors, icon: faChair },
-            { title: "Musicians", data: musicians, icon: faMusic }
-        ].map((section, idx) => section.data && section.data.length > 0 && (
+        {subsections.map((section, idx) => section.data && section.data.length > 0 && (
+            <h3 class="text-xl font-semibold px-5 flex items-center space-x-2 text-white justify-end">
+                <FontAwesomeIcon icon={section.icon} class="fa-lg" />
+                <span>{section.title}</span>
+            </h3>
+
             <div key={idx} class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                <h3 class="text-xl font-semibold py-2 px-4 flex items-center space-x-2 bg-gray-900 text-gray-300">
-                    <FontAwesomeIcon icon={section.icon} class="text-gray-300 fa-lg" />
-                    <span>{section.title}</span>
-                </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 p-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
                     {section.data.map((person, personIndex) => (
-                        <div key={personIndex} class="bg-gray-700 rounded-lg p-3 hover:bg-gray-600 transition-colors duration-200">
+                        <div key={personIndex} class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200">
                             <p class="text-md text-white truncate">{person.name}</p>
-                            {person.character && <p class="text-sm text-gray-400 truncate">as {person.character}</p>}
+                            <p class="text-sm text-gray-400 truncate">{person.role}</p>
                         </div>
                     ))}
                 </div>

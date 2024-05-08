@@ -76,7 +76,7 @@ export default function Banner() {
 
                     {/* Button */}
                     <button className="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
-                        ENJOY MOVIES AT NO COST
+                        ENJOY MOVIES 
                     </button>
 
                     {/* Dots */}
