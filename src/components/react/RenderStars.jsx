@@ -2,19 +2,27 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
-const Star = ({ color }) => (
+const YellowStar = () => (
     <FontAwesomeIcon 
         icon={faStar} 
-        className={`text-${color}-400`} 
+        className="text-yellow-400" 
+        style={{ stroke: 'black', strokeWidth: '10px', fontSize: '24px' }}
+    />
+);
+
+const GrayStar = () => (
+    <FontAwesomeIcon 
+        icon={faStar} 
+        className="text-gray-400" 
         style={{ stroke: 'black', strokeWidth: '10px', fontSize: '24px' }}
     />
 );
 
 const FractionalStar = ({ fraction }) => (
     <div style={{ display: 'flex', position: 'relative', justifyContent: 'flex-start', overflow: 'hidden' }}>
-        <Star color="gray" />
+        <GrayStar />
         <div style={{ position: 'absolute', top: 0, left: 0, width: `${fraction * 100}%`, overflow: 'hidden' }}>
-            <Star color="yellow" />
+            <YellowStar />
         </div>
     </div>
 );
@@ -26,9 +34,9 @@ export default function RenderStars({ rating }) {
 
     return (
         <>
-            {[...Array(fullStars)].map((_, index) => <Star key={`star-${index}`} color="yellow" />)}
+            {[...Array(fullStars)].map((_, index) => <YellowStar key={`star-${index}`} />)}
             {fraction > 0 && <FractionalStar fraction={fraction} />}
-            {[...Array(emptyStars)].map((_, index) => <Star key={`star-${fullStars + index + (fraction > 0 ? 1 : 0)}`} color="gray" />)}
+            {[...Array(emptyStars)].map((_, index) => <GrayStar key={`star-${fullStars + index + (fraction > 0 ? 1 : 0)}`} />)}
         </>
     );
 };
