@@ -3,12 +3,52 @@ interface Synopsis {
   synopsis: string; 
 }
 
-const synopsis = Astro.props.synopsis
+const synopsis = Astro.props.synopsis;
 ---
 
 <h2 class="text-2xl text-gray-300 mt-10 mb-4 font-bold">Synopsis</h2>
 <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-    <p class="text-lg leading-relaxed text-white">
+    <p class="text-lg leading-relaxed text-white"><!--  style="max-width: 100%; cursor: pointer;"> -->
         {synopsis}
     </p>
 </div>
+
+<!-- TODO: Might implement this in the future -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const typewriter = document.querySelector('.typewriter');
+    const fullText = typewriter.textContent;
+    typewriter.textContent = '';
+    let i = 0;
+
+    function completeTyping() {
+      typewriter.textContent = fullText;
+      i = fullText.length;
+      typewriter.style.borderRight = 'none'; // Remove cursor after completion
+      clearInterval(interval);
+    }
+
+    const interval = setInterval(function typeWriter() {
+      if (i < fullText.length) {
+        typewriter.textContent += fullText.charAt(i);
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50); // Adjust typing speed
+
+    typewriter.addEventListener('click', completeTyping);
+  });
+</script>
+
+<style>
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white }
+  }
+
+  .typewriter {
+    border-right: 0.15em solid white; /* The cursor */
+    animation: blink-caret 0.75s step-end infinite;
+  }
+</style>

@@ -17,7 +17,6 @@ const t = getTranslationFunction(lang);
 import "../../layouts/global.css";
 
 // Import components
-import  CastSection  from '../../components/react/CastSection.jsx';
 import FakeLinkTable from '../../components/react/FakeLinkTable';
 import NavBar from '../../components/react/NavBar/NavBar';
 import RatingAndReviews from '../../components/RatingAndReviews.astro';
@@ -71,18 +70,15 @@ import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
         <div class="flex">
 
           {/* Left column content */}
-
           <div class="w-1/3">
+
             <MovieInfoPannel
                 posterUrl={filmInfo.extended_info.poster_url}
-                rating="94%"
-                ratingCount="416k"
-                imdbScore="8.4/634k"
-                genres="Drama, History"
-                duration="3h 1min"
-                ageRating="12"
-                productionCountries="United Kingdom, United States"
-                director="[Director's Name]" 
+                genres={filmInfo.basic_info.genres} 
+                duration={filmInfo.basic_info.duration_minutes}
+                productionCountries={filmInfo.basic_info.countries}
+                movieSaga={filmInfo.basic_info.saga}
+                otherTitles={filmInfo.basic_info.other_titles}
             />
           </div>
             
