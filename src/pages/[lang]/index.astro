@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 // Destructure the props
 const { topLocationFilms, topFilms } = Astro.props;
 const { lang } = Astro.params;
+const firstFiveTopLocationFilms = topLocationFilms.slice(0, 5);
 
 // Get the translation function
 const t = getTranslationFunction(lang);
@@ -41,13 +42,26 @@ import Grid from '../../components/Grid.astro';
         OGImageAlt={`${config["siteName"]} Banner`}
     />
     <body>
-        <!-- If I don't use client load here, navbar goes crazy until I move the scroll bar. Weird that with only=react behaves better -->
         <NavBar client:only="react" />
-
-        <!-- Main container with background and text color -->
         <div class="bg-gray-900 text-white">
 
-            <Banner client:only="react"/> {/* <-- Ask Haru abut this client:load thing*/}
+            <Banner client:only/> 
+
+<!-- 
+            {firstFiveTopLocationFilms.map(film => (
+                <Banner 
+                    client:only="react"
+                    posterUrl={film.extended_info.poster_url}
+                    movieTitle={film.locationInfo.title}
+                    moviePlot={film.locationInfo.synopsis}
+                    cast={film.staff.cast}
+                    producers={film.staff.producers}
+                    screenwriters={film.staff.screenwriters}
+                    directors={film.staff.directors}
+                    musicians={film.staff.musicians}
+                    originalTitle={film.basic_info.original_title}
+                />
+            ))} -->
 
             {/* Main content */}
             <main class="container mx-auto px-6 py-4"> 

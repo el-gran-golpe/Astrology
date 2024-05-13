@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 // Replace the first image import with the URL
 const comingSoonImage1 = new URL('../../Images/Oppenheimer.jpg', import.meta.url);
 const comingSoonImage2 = new URL('../../Images/Banner2.jpg', import.meta.url);
@@ -6,8 +8,6 @@ const comingSoonImage3 = new URL('../../Images/Banner3.webp', import.meta.url);
 const comingSoonImage4 = new URL('../../Images/Banner4.webp', import.meta.url);
 const comingSoonImage5 = new URL('../../Images/Banner5.jpg', import.meta.url);
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Banner() {
      // Array of banner images

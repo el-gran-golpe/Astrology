@@ -1,5 +1,6 @@
 ---
 import { parse } from 'url';
+import { formatDuration } from "../../utils/utils.ts";
 import "../../layouts/global.css";
 
 interface Props {
@@ -10,12 +11,6 @@ interface Props {
   movieScore: number;
 }
 const props: Props = Astro.props;
-
-function formatDuration(minutes) {
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  return `${hours}h ${remainingMinutes}m`;
-}
 
 // Get the current URL
 const { url } = Astro.request;

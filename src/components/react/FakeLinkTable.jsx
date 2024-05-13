@@ -55,7 +55,7 @@ const FakeLinkTable = () => {
     };
 
     return (
-        <div className="bg-gray-900 p-6 mt-8 rounded-xl shadow-xl"> {/* Careful there is two background colors here */}
+        <div className="bg-gray-900 mt-10 rounded-xl shadow-xl"> {/* Careful there is two background colors here */}
             <h2 className="text-gray-300 text-2xl mb-4 font-bold">Where to watch</h2>
             <div className="bg-gray-800 p-4 rounded-lg overflow-hidden shadow-lg">
                 <div className="grid grid-cols-6 text-center text-base font-semibold text-gray-200 py-3 border-b border-gray-600">

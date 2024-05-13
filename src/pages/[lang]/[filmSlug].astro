@@ -20,8 +20,8 @@ import "../../layouts/global.css";
 import FakeLinkTable from '../../components/react/FakeLinkTable';
 import NavBar from '../../components/react/NavBar/NavBar';
 import RatingAndReviews from '../../components/RatingAndReviews.astro';
-import Cast from '../../components/Cast.astro';
-import MovieInfoPannel from '../../components/MovieInfoPannel.astro';
+import MovieStaff from '../../components/MovieStaff.astro';
+import LeftColumnInfoPannel from '../../components/LeftColumnInfoPannel.astro';
 import Synopsis from '../../components/Synopsis.astro';
 import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
 ---
@@ -68,11 +68,10 @@ import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
    
       <main class="container mx-auto px-6 py-4"> 
         <div class="flex">
-
           {/* Left column content */}
           <div class="w-1/3">
 
-            <MovieInfoPannel
+            <LeftColumnInfoPannel
                 posterUrl={filmInfo.extended_info.poster_url}
                 genres={filmInfo.basic_info.genres} 
                 duration={filmInfo.basic_info.duration_minutes}
@@ -80,32 +79,28 @@ import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
                 movieSaga={filmInfo.basic_info.saga}
                 otherTitles={filmInfo.basic_info.other_titles}
             />
+
           </div>
-            
           {/* Right Column Content */}
-          <div class="w-2/3 px-5">
+          <div class="w-2/3 pl-8">
 
             <MovieTitleAndYear title={filmInfo.locationInfo.title} year={filmInfo.basic_info.year} />
             <RatingAndReviews score={parseFloat(filmInfo.film_affinity_info.score.average)} />
             <Synopsis synopsis={filmInfo.locationInfo.synopsis} />
-            <FakeLinkTable client:load/>
-            <Cast cast={filmInfo.staff.cast} 
-                  producers={filmInfo.staff.producers} 
-                  screenwriters={filmInfo.staff.screenwriters}
-                  directors={filmInfo.staff.directors}
-                  musicians={filmInfo.staff.musicians} />
-
+            <FakeLinkTable client:only="react"/>
+            <MovieStaff 
+              cast={filmInfo.staff.cast} 
+              producers={filmInfo.staff.producers} 
+              screenwriters={filmInfo.staff.screenwriters}
+              directors={filmInfo.staff.directors}
+              musicians={filmInfo.staff.musicians} 
+            />
             
-            <h2 class="text-2xl text-gray-300 mt-10">Qué saber</h2>
-            <p class="text-lg text-gray-400 mt-3">
-              {filmInfo.extended_info.plot}
-            </p>
-          
           </div>
         </div>  
       </main>
       {/* Save the visited film in the local-storage to have it accessible for visited films recommendations (crossTab update)*/}
-      <UpdateVisitedFilms slug={filmSlug} title={filmInfo.locationInfo.title} posterURL={filmInfo.extended_info.poster_url} client:idle/>
+      <!-- <UpdateVisitedFilms slug={filmSlug} title={filmInfo.locationInfo.title} posterURL={filmInfo.extended_info.poster_url} client:idle/> -->
     </div>
   </body>
 </html>

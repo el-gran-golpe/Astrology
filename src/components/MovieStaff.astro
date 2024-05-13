@@ -1,8 +1,8 @@
 ---
-const { cast, producers, screenwriters, directors, musicians } = Astro.props;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faFilm, faPenFancy, faChair, faMusic } from '@fortawesome/free-solid-svg-icons';
 
+const { cast, producers, screenwriters, directors, musicians } = Astro.props;
 const subsections = [
     { title: "Cast", data: cast, icon: faUser },
     { title: "Producers", data: producers, icon: faFilm },
@@ -12,22 +12,28 @@ const subsections = [
 ];
 ---
 
-<div class="mt-8 px-4 lg:px-0">
+<style>
+.title::before {
+    content: "• ";
+    color: white;
+}
+</style>
+
+<div class="mt-10 px-4 lg:px-0">
     <h2 class="text-2xl text-gray-300 mb-2 font-bold">Movie Staff</h2>
 
     <div class="space-y-6">
-        {subsections.map((section, idx) => section.data && section.data.length > 0 && (
-            // Is this idx being used?
+        {subsections.map((subsection, idx) => subsection.data && subsection.data.length > 0 && (
             <div key={idx}>  
                 <div class="flex justify-between items-center px-5 py-3 ">
-                    <span class="text-xl font-semibold text-white font-mono">{section.title}</span>
+                    <span class="text-xl font-semibold text-white font-mono title">{subsection.title}</span>
                     <div class="p-2 border-4 border-gray-500 rounded-full bg-gray-700 shadow">
-                        <FontAwesomeIcon icon={section.icon} class="fa-lg text-white" />
+                        <FontAwesomeIcon icon={subsection.icon} class="fa-lg text-white" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-800 rounded-lg ">
-                    {section.data.map((person, personIndex) => (
+                    {subsection.data.map((person, personIndex) => (
                         <div key={personIndex} class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200">
                             <p class="text-md text-white truncate">{person.name}</p>
                             <p class="text-sm text-gray-400 truncate">{person.role}</p>

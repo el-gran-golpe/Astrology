@@ -35,3 +35,9 @@ export async function getMIMETypeFromURL(url: string): Promise<string | null> {
       return null; // Error case or not a valid image
     }
   }
+
+  export function formatDuration(minutes: number): string {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}m`;
+}
