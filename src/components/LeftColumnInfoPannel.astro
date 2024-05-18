@@ -13,7 +13,7 @@ const t = getTranslationFunction(lang);
 // Load the dictionaries that map codes to names (i.e ES -> Spain)
 const genre_codes_to_name = (await getEntry('codes', 'genres')).data;
 const country_codes_to_name = (await getEntry('codes', 'countries')).data;
-
+const country_codes_to_flag = (await getEntry('codes', 'country-flags')).data;
 
 const { posterUrl, duration, movieSaga, otherTitles } = Astro.props;
 let { genres, productionCountries } = Astro.props;
@@ -21,7 +21,8 @@ let { genres, productionCountries } = Astro.props;
 // Map the genre codes to their names, and translate them
 genres = genres.map(genre => genre_codes_to_name[genre]).map(genre => t(genre))
 
-//TODO: Should we do the same for production countries? Maybe use flag emojis? Let it as codes?
+// Append the flag emoji to the production countries
+productionCountries = productionCountries.map(country => `${country_codes_to_flag[country]} ${country_codes_to_name[country]}`)
 
 ---
 
