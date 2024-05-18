@@ -45,24 +45,9 @@ import Grid from '../../components/Grid.astro';
         <NavBar client:only="react" />
         <div class="bg-gray-900 text-white">
 
-            <Banner client:only/> 
-
-<!-- 
-            {firstFiveTopLocationFilms.map(film => (
-                <Banner 
-                    client:only="react"
-                    posterUrl={film.extended_info.poster_url}
-                    movieTitle={film.locationInfo.title}
-                    moviePlot={film.locationInfo.synopsis}
-                    cast={film.staff.cast}
-                    producers={film.staff.producers}
-                    screenwriters={film.staff.screenwriters}
-                    directors={film.staff.directors}
-                    musicians={film.staff.musicians}
-                    originalTitle={film.basic_info.original_title}
-                />
-            ))} -->
-
+            <!-- Banner component with film data -->
+            <Banner client:only="react" films={firstFiveTopLocationFilms} />
+            
             {/* Main content */}
             <main class="container mx-auto px-6 py-4"> 
                 
