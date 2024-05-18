@@ -1,0 +1,21 @@
+{
+    "AC": "Action",
+    "AV": "Adventure",
+    "AN": "Animation",
+    "CO": "Comedy",
+    "DO": "Documentary",
+    "DR": "Drama",
+    "FAN": "Fantasy",
+    "F-N": "Film noir",
+    "TE": "Horror",
+    "INF": "Kids",
+    "MU": "Musical",
+    "INT": "Mystery",
+    "RO": "Romance",
+    "C-F": "Sci-Fi",
+    "TH": "Thriller",
+    "TV_SE": "TV Series",
+    "DESC": "Unknown",
+    "BE": "War",
+    "WE": "Western"
+}

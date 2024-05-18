@@ -10,8 +10,10 @@ export function getTranslationFunction(lang: string) {
 }
 
 function t(word: string, lang: string) {
-
-    word = word.toLowerCase();
+    if (!translations[word] && translations[word.toLowerCase()]) {
+        console.warn(`Translation for "${word}" not found, found the lowercase version "${word.toLowerCase()}" instead.`);
+        word = word.toLowerCase();
+    }
     
     let translatedWord: string | null  = null;
 
