@@ -1,14 +1,19 @@
 ---
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faFilm, faPenFancy, faChair, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { getTranslationFunction } from '../utils/localization.ts';
+
+// Get the translation function
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
 
 const { cast, producers, screenwriters, directors, musicians } = Astro.props;
 const subsections = [
-    { title: "Cast", data: cast, icon: faUser },
-    { title: "Producers", data: producers, icon: faFilm },
-    { title: "Screenwriters", data: screenwriters, icon: faPenFancy },
-    { title: "Directors", data: directors, icon: faChair },
-    { title: "Musicians", data: musicians, icon: faMusic }
+    { title: t("Cast"), data: cast, icon: faUser },
+    { title: t("Producers"), data: producers, icon: faFilm },
+    { title: t("Screenwriters"), data: screenwriters, icon: faPenFancy },
+    { title: t("Directors"), data: directors, icon: faChair },
+    { title: t("Musicians"), data: musicians, icon: faMusic }
 ];
 ---
 
@@ -20,7 +25,7 @@ const subsections = [
 </style>
 
 <div class="mt-10 px-4 lg:px-0">
-    <h2 class="text-2xl text-gray-300 mb-2 font-bold">Movie Staff</h2>
+    <h2 class="text-2xl text-gray-300 mb-2 font-bold">{t("Movie Staff")}</h2>
 
     <div class="space-y-6">
         {subsections.map((subsection, idx) => subsection.data && subsection.data.length > 0 && (

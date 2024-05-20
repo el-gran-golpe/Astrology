@@ -1,5 +1,10 @@
 ---
 import RenderStars from './react/RenderStars.jsx';
+import { getTranslationFunction } from '../utils/localization.ts';
+
+// Get the translation function
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
 
 interface RatingAndReviewsProps {
   score: number; 
@@ -7,16 +12,16 @@ interface RatingAndReviewsProps {
 
 const { score } = Astro.props as RatingAndReviewsProps;
 
-const ratingText = score >= 4.5 ? "Overwhelmingly Positive" :
-                   score >= 4.0 ? "Very Positive" :
-                   score >= 3.5 ? "Mostly Positive" :
-                   score >= 3.0 ? "Mixed" :
-                   score >= 2.5 ? "Mostly Negative" :
-                   score >= 2.0 ? "Very Negative" :
-                   "Overwhelmingly Negative";
+const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
+                   score >= 4.0 ? t("Very Positive") :
+                   score >= 3.5 ? t("Mostly Positive") :
+                   score >= 3.0 ? t("Mixed") :
+                   score >= 2.5 ? t("Mostly Negative") :
+                   score >= 2.0 ? t("Very Negative") :
+                   t("Overwhelmingly Negative");
 ---
 
-<h3 class="text-2xl text-gray-300 font-bold mb-4">Rating & Reviews</h3>
+<h3 class="text-2xl text-gray-300 font-bold mb-4">{t("Rating & Reviews")}</h3>
 <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md">
   <div class="flex items-center">
     <RenderStars rating={score} client:only="react" />
@@ -28,6 +33,6 @@ const ratingText = score >= 4.5 ? "Overwhelmingly Positive" :
   </div>
   <div class="ml-4">
     <p class="text-xl text-white font-semibold text-right">{score.toFixed(1)}</p>
-    <p class="text-sm text-gray-400 text-right">User Score</p>
+    <p class="text-sm text-gray-400 text-right">{t("User Score")}</p>
   </div>
 </div>

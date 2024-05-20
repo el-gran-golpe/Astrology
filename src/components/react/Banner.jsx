@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { getTranslationFunction } from '../../utils/localization.ts';
 
-export default function Banner({ films }) {
+export default function Banner({ films, lang }) {
+    // Get the translation function
+    const t = getTranslationFunction(lang);
+
     // State to keep track of the active dot
     const [activeDot, setActiveDot] = useState(0);
 
@@ -44,17 +48,18 @@ export default function Banner({ films }) {
                     <h1 className="text-6xl font-bold mb-4 text-white drop-shadow-xl">{films[activeDot].locationInfo.title}</h1>
 
                     {/* Subtitle */}
-                    <h2 className="text-3xl font-light text-gray-300">Original Title: {films[activeDot].basic_info.original_title}</h2>
-                    
+                    {/* TODO: Might implement a "Origina title" in the banner */}
+                    {/* <h2 className="text-3xl font-light text-gray-300">Original Title: {films[activeDot].basic_info.original_title}</h2> */}
+                                        
                     {/* Sub | Dub Text */}
-                    <div className="text-xl font-medium mb-2 text-red-400">Sub | Dub</div>
+                    <div className="text-xl font-medium mb-2 text-red-400">{t("Sub | Dub")}</div>
 
                     {/* Description */}
                     <p className="text-lg leading-relaxed text-gray-300 line-clamp-4">{films[activeDot].locationInfo.synopsis}</p>
 
                     {/* Button */}
                     <button className="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
-                        ENJOY THIS MOVIE ONLINE
+                        {t("ENJOY THIS MOVIE ONLINE")}
                     </button>
 
                     {/* Dots */}

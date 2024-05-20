@@ -87,7 +87,7 @@ import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
             <MovieTitleAndYear title={filmInfo.locationInfo.title} year={filmInfo.basic_info.year} />
             <RatingAndReviews score={parseFloat(filmInfo.film_affinity_info.score.average)} />
             <Synopsis synopsis={filmInfo.locationInfo.synopsis} />
-            <FakeLinkTable client:only="react"/>
+            <FakeLinkTable client:only="react" lang={Astro.params.lang} availableAt={filmInfo.available_at}/>
             <MovieStaff 
               cast={filmInfo.staff.cast} 
               producers={filmInfo.staff.producers} 
