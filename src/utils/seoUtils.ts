@@ -1,5 +1,5 @@
 import { getAbsoluteLocaleUrl } from "astro:i18n";
-import { supportedLocales } from "../utils/localization.ts";
+import { AVAILABLE_LANGUAGES } from "../utils/localization.ts";
 
 
 
@@ -13,7 +13,7 @@ export function getAstroSeoAlternateLocales(afterLangUrl: string, defaultLang: s
      * @returns An array of alternate locales
      */
 
-    const alternateLocales = supportedLocales.map(lang => {
+    const alternateLocales = AVAILABLE_LANGUAGES.map(lang => {
         return {
             href: getAbsoluteLocaleUrl(lang, afterLangUrl),
             hrefLang: lang

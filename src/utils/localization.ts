@@ -1,9 +1,9 @@
 import { getEntry } from 'astro:content';
 
 const translations = (await getEntry('location', 'translations')).data
-export const CountriesByLang: Record<string, string[]> = (await getEntry('location', 'countries-by-lang')).data
 
-export const supportedLocales = Object.keys(CountriesByLang);
+const __availableLanguages: Record<string, boolean> = (await getEntry('location', 'available-languages')).data;
+export const AVAILABLE_LANGUAGES: string[] = Object.keys(__availableLanguages).filter(lang => __availableLanguages[lang]);
 
 export function getTranslationFunction(lang: string) {
     return (word: string) => t(word, lang)
@@ -28,11 +28,3 @@ function t(word: string, lang: string) {
 
     return translatedWord || word;
 }
-
-// Just keep at most three elements by country list
-export const CountriesByLangFiltered = Object.keys(CountriesByLang).reduce((acc, key) => {
-// If the key is 'en', 'es', 'ca' or 'fr', just copy the whole array
-if (['en', 'es', 'ca', 'fr'].includes(key)){
-  acc[key] = CountriesByLang[key].slice(0, 3);}
-  return acc;
-}, {});

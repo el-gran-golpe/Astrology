@@ -1,6 +1,9 @@
 import { fetchAllFilms, fetchMostVotedFilms, fetchFilmsByLang, getBannerFilms } from './db.ts';
-import { CountriesByLangFiltered } from '../utils/localization.ts';
+import { getEntry } from 'astro:content';
 
+// Keep only the languages where value is true
+const __availableLanguages: Record<string, boolean> = (await getEntry('location', 'available-languages')).data;
+export const AVAILABLE_LANGUAGES: string[] = Object.keys(__availableLanguages).filter(lang => __availableLanguages[lang]);
 
 const FILMS_COLLECTION: string = 'relevant_films';
 const BANNERS_COLLECTION: string = 'banner_films';
@@ -53,9 +56,11 @@ export async function getHomePageFilmsByLang(amount: number) {
     const topFilmsRaw = await fetchMostVotedFilms(FILMS_COLLECTION, amount);
     
     let paths = [];
-    for (const lang in CountriesByLangFiltered) {
+    
+    for (const lang of AVAILABLE_LANGUAGES) {
         // For each language that the website supports
         console.log("Searching for lang: " + lang)
+
         // Get the top N most voted films that were produced at countries that speak that language
         const filmsByLang = await fetchFilmsByLang(FILMS_COLLECTION, amount, lang);
 
