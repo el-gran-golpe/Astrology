@@ -61,11 +61,11 @@ import Grid from '../../components/Grid.astro';
                     {topFilms.map((film) => (
                         <MovieCard
                             movieYear={film.basic_info.year}
-                            posterUrl={film.extended_info.poster_url}
+                            posterUrl={film.extended_info.poster_thumbnail_url}
                             movieTitle={film.locationInfo.title}
                             movieSlug={film.slug}
                             movieDuration={film.basic_info.duration_minutes}
-                            moviePlot={film.locationInfo.synopsis}
+                            moviePlot={film.locationInfo.short_synopsis}
                             movieScore={film.film_affinity_info?.score?.average ?? 'Not available'} />
                     ))}
                 </Grid>
