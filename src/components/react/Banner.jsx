@@ -34,7 +34,8 @@ export default function Banner({ films, lang }) {
             {/* Use CSS transition for fade effect */}
             {films.map((film, index) => (
                 <div key={index} className="absolute w-full h-full transition-opacity duration-1000 ease-in-out" style={{ opacity: activeDot === index ? 1 : 0 }}>
-                    <img src={film.extended_info.poster_url} alt={film.locationInfo.title} className="w-full h-full object-cover" />
+                    <img src={film.extended_info.poster_max_quality_url}
+                    alt={film.locationInfo.title} className="w-full h-full object-cover" />
                 </div>
             ))}
 

@@ -33,7 +33,7 @@ import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
     lang={lang}
     afterLangUrl={filmSlug}
 
-    OGTitle={`${t("Watch")} ${filmInfo.locationInfo.title} Online`}
+    OGTitle={t("Watch %1 Online").replace("%1", filmInfo.locationInfo.title)}
     OGType="video.movie"
     OGImage={filmInfo.extended_info.poster_url},
     OGImageAlt={`${filmInfo.locationInfo.title} Poster`}

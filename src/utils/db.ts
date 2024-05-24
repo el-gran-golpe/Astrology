@@ -79,35 +79,54 @@ export async function fetchMostVotedFilms(
     return films;
 }
 
-export async function fetchFilmsByCountries(
+export async function getBannerFilms(category: string, key: string, amount: number) {
+    // They are in the collection banner_films, in the document category, in the sub collection key.
+    const BannerFilmsCol = collection(db, 'banner_films', category, key);
+    const scoreKey = `${category}_score_${key}`;
+    const q = query(
+        BannerFilmsCol,
+        orderBy(`scores.${scoreKey}`, "desc"),
+        limit(amount)
+    );
+
+    const filmSnapshot = await getDocs(q);
+    const films = filmSnapshot.docs.map((doc) => ({
+        filmInfo: { ...doc.data(), slug: doc.id },
+        id: doc.id,
+    })).map((film) => apply_film_info_transformations(film));
+
+    return films;
+}
+
+export async function fetchFilmsByLang(
     collectionName: string,
     amount: number,
-    countries: string[]
+    lang: string | string[]
 ) {
     /**
      * This function fetches the N most voted films from the specified collection
-     * that were produced at the specified countries, and returns them in an array
+     * that were produced at countries that speak the specified language, and returns them in an array
      * @param collectionName The name of the collection to fetch the films from
      * @param amount The amount of films to fetch
-     * @param countries An array of countries to filter by (e.g. ['US', 'UK', 'ES'...])
+     * @param lang The language or languages to search for
      * @returns An array of films
      */
 
     //If countries is a string, convert it to an array
-    if (typeof countries === "string") {
-        countries = [countries];
+    if (typeof lang === "string") {
+        lang = [lang];
     }
     // Get a collection reference
     const filmsCol = collection(db, collectionName);
     let films = [];
 
     // For each country in the countries array, get the top N most voted films that were produced at that country
-    for (const country of countries) {
+    for (const language of lang) {
         //Build the query
         const q = query(
             filmsCol,
-            where(`basic_info.countries`, "array-contains", country),
-            orderBy("film_affinity_info.score.votes", "desc"),
+            where(`basic_info.original_langs`, "array-contains", language),
+            orderBy(`scores.lang_score_${lang}`, "desc"),
             limit(amount)
         );
         // Get the docs from the query
@@ -123,13 +142,15 @@ export async function fetchFilmsByCountries(
             }
         });
     }
-
-    // Optionally sort the combined results by votes (if needed)
-    films.sort(
-        (a, b) =>
-            b.filmInfo.film_affinity_info.score.votes -
-            a.filmInfo.film_affinity_info.score.votes
-    );
+    
+    if (lang.length > 1) {
+        // Optionally sort the combined results by votes (if needed)
+        films.sort(
+            (a, b) =>
+                b.filmInfo.film_affinity_info.score.votes -
+                a.filmInfo.film_affinity_info.score.votes
+        );
+    }
 
     // Limit the results to the specified amount after combining
     return films

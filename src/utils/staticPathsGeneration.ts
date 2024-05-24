@@ -1,8 +1,9 @@
-import { fetchAllFilms, fetchMostVotedFilms, fetchFilmsByCountries } from './db.ts';
+import { fetchAllFilms, fetchMostVotedFilms, fetchFilmsByLang, getBannerFilms } from './db.ts';
 import { CountriesByLangFiltered } from '../utils/localization.ts';
 
 
 const FILMS_COLLECTION: string = 'relevant_films';
+const BANNERS_COLLECTION: string = 'banner_films';
 
 export async function getTopPagesByLang() {
     /**
@@ -55,13 +56,18 @@ export async function getHomePageFilmsByLang(amount: number) {
     for (const lang in CountriesByLangFiltered) {
         // For each language that the website supports
         console.log("Searching for lang: " + lang)
-        // Get the codes of the countries that speak that language
-        const countries = CountriesByLangFiltered[lang];
-        // Get the top N most voted films that were produced at the specified countries
-        const filmsByCountries = await fetchFilmsByCountries(FILMS_COLLECTION, amount, countries);
+        // Get the top N most voted films that were produced at countries that speak that language
+        const filmsByLang = await fetchFilmsByLang(FILMS_COLLECTION, amount, lang);
 
         // Substitute the languages list with the locationInfo
-        let topLocationFilms = filmsByCountries.map(film => ({
+        let topLocationFilms = filmsByLang.map(film => ({
+            ...film.filmInfo,
+            locationInfo: film.filmInfo.languages[lang]
+        }));
+        
+        const bannerLangFilms = await getBannerFilms('lang', lang);
+
+        let bannerFilms = bannerLangFilms.map(film => ({
             ...film.filmInfo,
             locationInfo: film.filmInfo.languages[lang]
         }));
@@ -94,7 +100,8 @@ export async function getHomePageFilmsByLang(amount: number) {
             params: { lang: lang },
             props: { 
                 topLocationFilms: topLocationFilms,
-                topFilms: topFilms
+                topFilms: topFilms,
+                bannerFilms: bannerFilms
             }
         };
         paths.push(path);

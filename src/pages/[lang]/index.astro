@@ -1,23 +1,4 @@
 ---
-// Import your getHomePageFilmsByLang function
-import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
-import { getTranslationFunction } from "../../utils/localization.ts";
-import { getEntry } from "astro:content";
-
-// Fetch the films
-export async function getStaticPaths() {
-    return await getHomePageFilmsByLang(10);
-}
-
-// Destructure the props
-const { topLocationFilms, topFilms } = Astro.props;
-const { lang } = Astro.params;
-const firstFiveTopLocationFilms = topLocationFilms.slice(0, 5);
-
-// Get the translation function
-const t = getTranslationFunction(lang);
-const config = (await getEntry("configs", "site-config")).data;
-
 // Import Tailwind CSS
 import "../../layouts/global.css";
 
@@ -28,6 +9,25 @@ import NavBar from "../../components/react/NavBar/NavBar.jsx";
 import MovieCard from "../../components/MovieCard/MovieCard.astro";
 import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
 import Grid from '../../components/Grid.astro';
+
+// Import your getHomePageFilmsByLang function
+import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
+import { getTranslationFunction } from "../../utils/localization.ts";
+import { getBannerFilms } from "../../utils/db.ts";
+import { getEntry } from "astro:content";
+
+// Fetch the films
+export async function getStaticPaths() {
+    return await getHomePageFilmsByLang(10);
+}
+
+// Destructure the props
+const { topLocationFilms, topFilms, bannerFilms } = Astro.props;
+const { lang } = Astro.params;
+
+// Get the translation function
+const t = getTranslationFunction(lang);
+const config = (await getEntry("configs", "site-config")).data;
 ---
 
 <html lang={lang}>
@@ -46,7 +46,7 @@ import Grid from '../../components/Grid.astro';
         <div class="bg-gray-900 text-white">
 
             <!-- Banner component with film data -->
-            <Banner client:only="react" films={firstFiveTopLocationFilms} lang={Astro.params.lang} />
+            <Banner client:only="react" films={bannerFilms} lang={Astro.params.lang} />
             
             {/* Main content */}
             <main class="container mx-auto px-6 py-4"> 
