@@ -18,7 +18,7 @@ import "../../layouts/global.css";
 
 // Import components
 import FakeLinkTable from '../../components/react/FakeLinkTable';
-import NavBar from '../../components/react/NavBar/NavBar';
+import NavBar from '../../components/NavBar.astro';
 import RatingAndReviews from '../../components/RatingAndReviews.astro';
 import MovieStaff from '../../components/MovieStaff.astro';
 import LeftColumnInfoPannel from '../../components/LeftColumnInfoPannel.astro';
@@ -40,7 +40,7 @@ import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
   />
   
   <body>
-    <NavBar client:only="react" />
+    <NavBar/>
     <div class="bg-gray-900 text-white">
 
       {/* Banner */}
