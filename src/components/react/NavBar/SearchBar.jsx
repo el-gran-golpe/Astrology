@@ -3,7 +3,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchSearchBarSuggestions } from '../../../utils/file_fetching.ts';
 
-export default function SearchBar() {
+export default function SearchBar({ lang }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [suggestions, setSuggestions] = useState({});
@@ -42,8 +42,6 @@ export default function SearchBar() {
     }
     const searchBarClass = `transition-all duration-300 ease-in-out absolute right-0 top-0 py-2 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${isExpanded ? 'w-64 opacity-100' : 'w-0 opacity-0'}`;
     const iconClass = "text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 p-2";
-    console.log(currentOptions)
-
     const dropdownClass = "absolute right-0 top-10 w-64 bg-white border border-gray-300 rounded-lg shadow-lg mt-1 z-10 max-h-48 overflow-y-auto";
 
     return (
@@ -69,9 +67,13 @@ export default function SearchBar() {
                 <div className={dropdownClass}>
                     {Object.keys(currentOptions).length ? (
                         Object.keys(currentOptions).map(key => (
-                            <div key={key} className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
-                                {key}: {currentOptions[key]}
-                            </div>
+                            <a 
+                                key={key} 
+                                href={`/${lang}/${currentOptions[key]}`} 
+                                className="block px-4 py-2 text-black hover:bg-gray-100 cursor-pointer"
+                            >
+                                {key}
+                            </a>
                         ))
                     ) : (
                         <div className="px-4 py-2 text-gray-500">No suggestions found</div>

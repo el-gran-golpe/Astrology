@@ -6,6 +6,8 @@ import SearchBar from './react/NavBar/SearchBar';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import GenreSwitcher from './GenreSwitcher.astro';
 
+const { lang } = Astro.params;
+
 const menuItems = [
     { path: "https://www.google.com", icon: faFilm, label: "Películas" },
     { path: "https://www.google.com", icon: faTv, label: "Series" },
@@ -42,7 +44,7 @@ const menuItems = [
             
 
             <div class="flex flex-grow items-center justify-end pl-5 pr-2">
-                <SearchBar client:only="react" />
+                <SearchBar client:only="react" lang={lang}/>
                 <div class="ml-4">
                     <LanguageSwitcher />
                 </div>
