@@ -7,9 +7,9 @@ const LANG_CODES_TO_NAMES = (await getEntry('location', 'languages-to-names')).d
 const currentLocale = Astro.currentLocale;
 const t = getTranslationFunction(currentLocale);
 
-const afterLocalePath = Astro.url.pathname.replace(`/${currentLocale}`, '');
+// Get the path without the local (e.g /en/... -> /...)
 
-console.log('currentLocale', afterLocalePath);
+const afterLocalePath = Astro.url.pathname === `/${currentLocale}` ? '' : Astro.url.pathname.replace(`/${currentLocale}/`, '');
 
 ---
 
