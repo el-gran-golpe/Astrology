@@ -27,6 +27,8 @@ const { lang, genre } = Astro.params;
 // Get the translation function
 const t = getTranslationFunction(lang);
 const config = (await getEntry("configs", "site-config")).data;
+const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
+const LANGUAGE_CODES_TO_NAME = (await getEntry('location', 'language-to-names')).data;
 ---
 
 <html lang={lang}>
@@ -52,7 +54,7 @@ const config = (await getEntry("configs", "site-config")).data;
                 
                 <!-- Title -->
                 <div class="flex items-center text-3xl font-bold text-white mb-6">
-                    <span>Top {genre} films</span>
+                    <span>Top {t(GENRE_CODES_TO_NAME[genre])} Films</span>
                 </div>
 
                 <!-- Grid of movie cards -->
@@ -70,7 +72,7 @@ const config = (await getEntry("configs", "site-config")).data;
                 </Grid>
 
                 <div class="flex items-center text-3xl font-bold text-white py-6">
-                    <span>Top {genre} films in {lang}</span>
+                    <span>Top {t(GENRE_CODES_TO_NAME[genre])} Films in {t(LANGUAGE_CODES_TO_NAME[lang])}</span>
                 </div>
 
                 <!-- Grid of movie cards -->
