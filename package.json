@@ -3,9 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
+    "build:suggestions": "node ./build_scripts/searchbar_suggestions.js",
+    "dev": "npm run build:suggestions && astro dev",
+    "start": "npm run dev",
+    "build": "npm run build:suggestions && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

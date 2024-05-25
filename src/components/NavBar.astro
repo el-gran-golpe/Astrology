@@ -1,6 +1,7 @@
 ---
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faTv, faBolt, faShapes, faPlay } from '@fortawesome/free-solid-svg-icons';
+//import SearchBar from './react/NavBar/SearchBar';
 import SearchBar from './react/NavBar/SearchBar';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import GenreSwitcher from './GenreSwitcher.astro';
@@ -41,7 +42,7 @@ const menuItems = [
             
 
             <div class="flex flex-grow items-center justify-end pl-5 pr-2">
-                <SearchBar />
+                <SearchBar client:only="react" />
                 <div class="ml-4">
                     <LanguageSwitcher />
                 </div>
