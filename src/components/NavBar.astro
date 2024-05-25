@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faTv, faBolt, faShapes, faPlay } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './react/NavBar/SearchBar';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import GenreSwitcher from './GenreSwitcher.astro';
 
 const menuItems = [
     { path: "https://www.google.com", icon: faFilm, label: "Películas" },
     { path: "https://www.google.com", icon: faTv, label: "Series" },
-    { path: "https://www.google.com", icon: faBolt, label: "Novedades" },
-    { path: "https://www.google.com", icon: faShapes, label: "Géneros" },
+    { path: "https://www.google.com", icon: faBolt, label: "Novedades" }
 ];
 
 ---
@@ -27,6 +27,7 @@ const menuItems = [
 
         <!-- Render the menu items and the search bar -->
         <div class="flex justify-center items-center flex-grow">
+            <GenreSwitcher />
             <ul class="flex gap-x-4 ml-10">
                 {menuItems.map(({ label, path, icon }) => (
                     <li>

@@ -1,0 +1,45 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShapes } from '@fortawesome/free-solid-svg-icons';
+import { getTranslationFunction } from "../utils/localization.ts";
+import { getEntry } from 'astro:content';
+
+
+const GENRES_TO_NAMES: Record<string, string> = (await getEntry('codes', 'genres')).data;
+const AVAILABLE_GENRES: string[] = Object.keys(GENRES_TO_NAMES);
+
+const lang = Astro.currentLocale;
+const t = getTranslationFunction(lang);
+
+---
+
+<div class="relative group">
+    <button 
+        class="text-white bg-gray-800 hover:bg-gray-700 font-semibold py-1 px-3 rounded flex items-center transition duration-300" 
+        aria-haspopup="true" aria-expanded="false" aria-controls="language-dropdown">
+        <span><FontAwesomeIcon icon={faShapes} class="mr-2" /> {t("Genres")} </span>
+        <svg class="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5.516 7.548L10 12.032l4.484-4.484 1.032 1.032L10 14.096 4.484 8.58l1.032-1.032z"/></svg>
+    </button>
+    <ul 
+        id="language-dropdown" 
+        class="absolute hidden group-hover:block bg-gray-800 text-white pt-1 rounded shadow-lg z-50 max-h-60 overflow-y-auto"
+        role="menu">
+        {AVAILABLE_GENRES.map(genre => (
+            <li role="none">
+                <a 
+                    class="block py-2 px-4 hover:bg-gray-700 transition duration-300" 
+                    href={getRelativeLocaleUrl(lang, `by-genre/${genre}`)}
+                    role="menuitem">
+                    {t(GENRES_TO_NAMES[genre])}
+                </a>
+            </li>
+        ))}
+    </ul>
+</div>
+
+<style>
+    .relative:hover > ul {
+        display: block;
+    }
+</style>

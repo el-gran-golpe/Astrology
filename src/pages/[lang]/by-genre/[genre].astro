@@ -1,33 +1,31 @@
 ---
 // Import Tailwind CSS
-import "../../layouts/global.css";
+import "../../../layouts/global.css";
 
 // Import the components
-import Head from "../../components/Head.astro";
-import Banner from "../../components/react/Banner.jsx";
-import NavBar from "../../components/NavBar.astro";
-import MovieCard from "../../components/MovieCard/MovieCard.astro";
-import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
-import Grid from '../../components/Grid.astro';
+import Head from "../../../components/Head.astro";
+import Banner from "../../../components/react/Banner.jsx";
+import NavBar from "../../../components/NavBar.astro";
+import MovieCard from "../../../components/MovieCard/MovieCard.astro";
+import VisitedFilmsGrid from "../../../components/react/VisitedFilmsGrid.jsx";
+import Grid from '../../../components/Grid.astro';
 
 // Import your getHomePageFilmsByLang function
-import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
-import { getTranslationFunction } from "../../utils/localization.ts";
-import { getBannerFilms } from "../../utils/db.ts";
+import { getHomePageFilmsByLangAndGenres } from "../../../utils/staticPathsGeneration";
+import { getTranslationFunction } from "../../../utils/localization";
 import { getEntry } from "astro:content";
 
 // Fetch the films
 export async function getStaticPaths() {
-    return await getHomePageFilmsByLang(10);
+    return await getHomePageFilmsByLangAndGenres(10);
 }
 
 // Destructure the props
 const { topLocationFilms, topFilms, bannerFilms } = Astro.props;
-const { lang } = Astro.params;
+const { lang, genre } = Astro.params;
 
 // Get the translation function
 const t = getTranslationFunction(lang);
-const LANG_CODES_TO_NAMES = (await getEntry('location', 'languages-to-names')).data;
 const config = (await getEntry("configs", "site-config")).data;
 ---
 
@@ -36,7 +34,7 @@ const config = (await getEntry("configs", "site-config")).data;
         title={config["siteName"]}
         description={t("meta.description")}
         lang={lang}
-        afterLangUrl={""}
+        afterLangUrl={`by-genre/${genre}`}
         OGTitle={config["siteName"]}
         OGType={"website"}
         OGImage={config["OGImage.home"]}
@@ -54,7 +52,7 @@ const config = (await getEntry("configs", "site-config")).data;
                 
                 <!-- Title -->
                 <div class="flex items-center text-3xl font-bold text-white mb-6">
-                    <span>Top All Time Films</span>
+                    <span>Top {genre} films</span>
                 </div>
 
                 <!-- Grid of movie cards -->
@@ -72,7 +70,7 @@ const config = (await getEntry("configs", "site-config")).data;
                 </Grid>
 
                 <div class="flex items-center text-3xl font-bold text-white py-6">
-                    <span>Top Films in {t(LANG_CODES_TO_NAMES[lang])}</span>
+                    <span>Top {genre} films in {lang}</span>
                 </div>
 
                 <!-- Grid of movie cards -->

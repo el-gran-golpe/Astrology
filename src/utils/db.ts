@@ -46,7 +46,7 @@ export async function fetchAllFilms(collectionName: string) {
     return films;
 }
 
-export async function fetchMostVotedFilms(
+export async function fetchBestGeneralFilms(
     collectionName: string,
     amount: number
 ) {
@@ -63,7 +63,7 @@ export async function fetchMostVotedFilms(
     // Build the query for getting N films with the most votes, ordered descending
     const q = query(
         filmsCol,
-        orderBy("film_affinity_info.score.votes", "desc"),
+        orderBy("scores.general_score", "desc"),
         limit(amount)
     );
     // Get the documents from the query
@@ -156,6 +156,57 @@ export async function fetchFilmsByLang(
     return films
         .slice(0, amount)
         .map((film) => apply_film_info_transformations(film));
+}
+
+export async function fetchFilmsByGenre(
+    collectionName: string,
+    amount: number,
+    genre: string,
+    lang: string | null = null,
+) {
+    /**
+     * This function fetches the N most voted films from the specified collection
+     * that belong to the specified genre, and returns them in an array
+     * @param collectionName The name of the collection to fetch the films from
+     * @param amount The amount of films to fetch
+     * @param genre The genre of the films to search for.
+     * @param lang The language to search for. If null, the function will search for films in all languages.
+     */
+
+ 
+    // Get a collection reference
+    const filmsCol = collection(db, collectionName);
+    let films = [];
+    let q = null;
+    //Build the query
+    if (lang === null) {
+        q = query(
+            filmsCol,
+            where(`basic_info.genres`, "array-contains", genre),
+            orderBy(`scores.genre_score_${genre}`, "desc"),
+            limit(amount)
+        );
+    } else {
+        q = query(
+            filmsCol,
+            where(`basic_info.genres`, "array-contains", genre),
+            where(`scores.lang_score_${lang}`, ">", 0), // Only get films that have a score in the specified language (same as array-contains)
+            orderBy(`scores.lang_score_${lang}`, "desc"),
+            limit(amount)
+        );
+    }
+    // Get the docs from the query
+    const filmSnapshot = await getDocs(q);
+
+    filmSnapshot.docs.forEach((doc) => {
+            films.push({
+                filmInfo: { ...doc.data(), slug: doc.id },
+                id: doc.id,
+            });
+    });
+
+
+    return films.map((film) => apply_film_info_transformations(film));
 }
 
 export function apply_film_info_transformations(film: object) {
