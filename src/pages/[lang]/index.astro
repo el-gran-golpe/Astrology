@@ -75,7 +75,7 @@ const config = (await getEntry("configs", "site-config")).data;
                 <!-- Title for top films in specific location -->
                 <section aria-labelledby="top-location-films">
                     <h2 id="top-location-films" class="flex items-center text-3xl font-bold text-white py-6">
-                        Top Films in {t(LANG_CODES_TO_NAMES[lang])}
+                        Produced in Countries that Speak {t(LANG_CODES_TO_NAMES[lang])}
                     </h2>
 
                     <!-- Grid of movie cards -->
@@ -87,7 +87,7 @@ const config = (await getEntry("configs", "site-config")).data;
                                 movieTitle={film.locationInfo.title}
                                 movieSlug={film.slug}
                                 movieDuration={film.basic_info.duration_minutes}
-                                moviePlot={film.locationInfo.synopsis}
+                                moviePlot={film.locationInfo.short_synopsis}
                                 movieScore={film.film_affinity_info?.score?.average ?? 'Not available'} />
                         ))}
                     </Grid>
