@@ -19,9 +19,9 @@ const movie_url =  getRelativeLocaleUrl(Astro.currentLocale, props.movieSlug);
     <a href={movie_url}>
       <img class="absolute inset-0 z-10 object-cover w-full h-full" src={props.posterUrl} alt="" />
       <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-80 z-20 transition duration-500"></div>
-      <div class="absolute top-2 left-2 bg-black bg-opacity-70 text-white rounded-full px-3 py-1 z-40 opacity-100 group-hover:opacity-0 transition duration-500">
+      <figcaption class="absolute top-2 left-2 bg-black bg-opacity-70 text-white rounded-full px-3 py-1 z-40 opacity-100 group-hover:opacity-0 transition duration-500">
         {props.movieYear}
-      </div>
+      </figcaption>
       <div class="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 z-50 transition duration-500">
         <ShadowMovieCard
             movieSlug={props.movieSlug} 

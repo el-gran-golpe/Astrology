@@ -34,30 +34,24 @@ const language = segments[1];
   }
 </style>
 
-<section class="relative cursor-pointer group px-2 pt-2 space-y-4 flex flex-col items-center w-full h-full justify-between">
-  <div class="w-full flex flex-col h-full">
-    <!-- TODO: I'm not sure about this text-shadow class -->
-    <h2 class="text-2xl font-extrabold text-white text-center tracking-wider text-shadow-default">{props.movieTitle}</h2> 
-    <div class="scaling-container transform scale-90 flex-grow overflow-auto scrollbar">
-      <div class="flex items-center justify-between text-gray-300">
-        <span>{formatDuration(props.movieDuration)}</span>
-        <span class="flex items-center min-w-min">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star-fill text-gray-400 w-5 h-5 mr-1" viewBox="0 0 16 16">
-            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-          </svg> 
-          {props.movieScore}
-        </span>
-      </div>
-      <p class="text-sm text-white mt-2 overflow-hidden multi-line-truncate">
-        {props.moviePlot}
-      </p>
+<article class="relative cursor-pointer group px-2 pt-2 space-y-4 flex flex-col items-center w-full h-full justify-between" aria-labelledby={`title-${props.movieSlug}`}>
+  <header class="w-full flex flex-col">
+    <h2 id={`title-${props.movieSlug}`} class="text-2xl font-extrabold text-white text-center tracking-wider text-shadow-default">
+      {props.movieTitle}
+    </h2> 
+  </header>
+  <div class="scaling-container transform scale-90 flex-grow overflow-auto scrollbar">
+    <div class="flex items-center justify-between text-gray-300">
+      <span>{formatDuration(props.movieDuration)}</span>
+      <span class="flex items-center min-w-min">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-star-fill text-gray-400 w-5 h-5 mr-1" viewBox="0 0 16 16" role="img" aria-label={`Rating: ${props.movieScore} stars`}>
+          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+        </svg> 
+        {props.movieScore}
+      </span>
     </div>
-    <!-- It wouldn't work on mobile
-    <div class="flex flex-col justify-end w-full pb-3 mt-auto">
-      <a class="flex items-center py-1 px-2 rounded-full mx-auto text-white bg-red-500 hover:bg-red-700" href={`http://localhost:4321/${language}/${props.movieSlug}`} target="_blank" rel="noopener noreferrer">
-        <svg aria-hidden="true" focusable="false" class="svg-inline--fa fa-eye w-6 h-7" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M572.52 241.4C518.07 135.9 407.1 72 288 72S57.93 135.9 3.48 241.4a35.14 35.14 0 0 0 0 29.2C57.93 376.1 168.9 440 288 440s230.1-63.88 284.5-169.4a35.14 35.14 0 0 0 0-29.2zM288 400a144 144 0 1 1 144-144 144 144 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-32 5.38v179.25A95.77 95.77 0 1 0 288 160z"></path></svg>
-        <div class="text-sm text-white ml-2">Watch now</div>
-      </a>
-    </div>-->
+    <p class="text-sm text-white mt-2 overflow-hidden multi-line-truncate">
+      {props.moviePlot}
+    </p>
   </div>
-</section>
+</article>
