@@ -12,10 +12,12 @@ export default function SearchBar({ lang }) {
         const firstLetter = inputValue.charAt(0).toLowerCase();
         if (inputValue && !suggestions[firstLetter]) {
             const fetchAndSetSuggestions = async () => {
-                const data = await fetchSearchBarSuggestions(firstLetter);
+                let global_data = await fetchSearchBarSuggestions(firstLetter);
+                const local_data = await fetchSearchBarSuggestions(firstLetter, lang);
+                global_data = { ...global_data, ...local_data };
                 setSuggestions(prevSuggestions => ({
                     ...prevSuggestions,
-                    [firstLetter]: data,
+                    [firstLetter]: global_data,
                 }));
             };
             fetchAndSetSuggestions();
