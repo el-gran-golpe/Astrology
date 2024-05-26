@@ -30,12 +30,15 @@ export default function Banner({ films, lang }) {
     return (
         <>
         {/* Enhanced Hero Image */}
-        <div className="mb-6 mx-0 relative w-full rounded" style={{ height: '75vh' }}>
+        <div className="mb-6 mx-0 relative w-full rounded" style={{ height: '75vh' }} role="region" aria-labelledby="banner-heading">
             {/* Use CSS transition for fade effect */}
             {films.map((film, index) => (
                 <div key={index} className="absolute w-full h-full transition-opacity duration-1000 ease-in-out" style={{ opacity: activeDot === index ? 1 : 0 }}>
-                    <img src={film.extended_info.poster_max_quality_url}
-                    alt={film.locationInfo.title} className="w-full h-full object-cover" />
+                    <img 
+                        src={film.extended_info.poster_max_quality_url}
+                        alt={`Poster of ${film.locationInfo.title}`}
+                        className="w-full h-full object-cover"
+                    />
                 </div>
             ))}
 
@@ -46,12 +49,14 @@ export default function Banner({ films, lang }) {
             <div className="absolute inset-0 flex items-center pl-10 lg:pl-24 pr-20">
                 <div className="w-1/4 space-y-4">
                     {/* Main Title */}
-                    <h1 className="text-6xl font-bold mb-4 text-white drop-shadow-xl">{films[activeDot].locationInfo.title}</h1>
-
+                    <h1 id="banner-heading" className="text-6xl font-bold mb-4 text-white drop-shadow-xl">
+                        {films[activeDot].locationInfo.title}
+                    </h1>
+                    
                     {/* Subtitle */}
-                    {/* TODO: Might implement a "Origina title" in the banner */}
+                    {/* TODO: Might implement a "Original title" in the banner */}
                     {/* <h2 className="text-3xl font-light text-gray-300">Original Title: {films[activeDot].basic_info.original_title}</h2> */}
-                                        
+                    
                     {/* Sub | Dub Text */}
                     <div className="text-xl font-medium mb-2 text-red-400">{t("Sub | Dub")}</div>
 
@@ -64,15 +69,21 @@ export default function Banner({ films, lang }) {
                     </button>
 
                     {/* Dots */}
-                    <div className="flex space-x-10 mt-4">
+                    <div className="flex space-x-10 mt-4" role="tablist" aria-label="Banner navigation">
                         {dots.map(dotIndex => (
-                            <div
+                            <button
                                 key={dotIndex}
                                 onClick={() => selectDot(dotIndex)}
                                 className={`w-3 h-3 rounded cursor-pointer transform transition-transform duration-500 ease-in-out ${
                                     activeDot === dotIndex ? 'bg-red-400 scale-150' : 'bg-gray-500 hover:bg-red-500'
                                 }`}
-                            />
+                                role="tab"
+                                aria-selected={activeDot === dotIndex}
+                                aria-controls={`panel-${dotIndex}`}
+                                id={`tab-${dotIndex}`}
+                            >
+                                <span className="sr-only">Go to slide {dotIndex + 1}</span>
+                            </button>
                         ))}
                     </div>
 
@@ -82,13 +93,14 @@ export default function Banner({ films, lang }) {
                             icon={faChevronRight}
                             className="h-10 w-10 text-white cursor-pointer"
                             onClick={nextImage}
+                            aria-label="Next slide"
                         />
                     </div>
                 </div>
             </div>
 
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 z-0" style={{ pointerEvents: 'none' }}> 
+            <div className="absolute inset-0 z-0" style={{ pointerEvents: 'none' }}>
                 <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
             </div>
         </div>
