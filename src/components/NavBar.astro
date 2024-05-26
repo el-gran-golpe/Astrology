@@ -1,47 +1,47 @@
 ---
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faTv, faBolt, faShapes, faPlay } from '@fortawesome/free-solid-svg-icons';
-//import SearchBar from './react/NavBar/SearchBar';
 import SearchBar from './react/NavBar/SearchBar';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import GenreSwitcher from './GenreSwitcher.astro';
 
 const { lang } = Astro.params;
 
+/**
 const menuItems = [
     { path: "https://www.google.com", icon: faFilm, label: "Películas" },
     { path: "https://www.google.com", icon: faTv, label: "Series" },
     { path: "https://www.google.com", icon: faBolt, label: "Novedades" }
-];
-
+];*/
 ---
 
-<nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10">
+<nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10" aria-label="Main navigation">
     <div class="flex justify-between items-center w-full">
         <!-- Render the title of the website -->
         <div class="flex-none pl-6 pr-4">
-            <a href="/" class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center">
+            <a href="/" class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label="Home">
                 <!-- <FontAwesomeIcon icon={faPlay} class="mr-3"/> -->
                 <img src='/Icon_enhanced.png' class="mr-3" alt="Logo" style="height: 1em;" />
-                <img src='/NameGravityFlicks.png' class="mr-3" alt="Logo" style="height: 1em;" />
+                <img src='/NameGravityFlicks.png' class="mr-3" alt="Gravity Flicks" style="height: 1em;" />
                 <!-- <span style="font-family: 'Arial'; font-size: '24px'; font-weight: 'bold'; color: 'white';">Gravity</span><span style="color: 'red'; font-family: 'Arial'; font-size: '24px'; font-weight: 'bold';">Flicks</span> -->
             </a>
         </div>
 
         <!-- Render the menu items and the search bar -->
-        <div class="flex justify-center items-center flex-grow">
+        <ul class="flex justify-center items-center flex-grow" role="menubar">
             <GenreSwitcher />
-            <ul class="flex gap-x-4 ml-10">
+            <!--
+            <ul class="flex gap-x-4 ml-10" role="menubar">
                 {menuItems.map(({ label, path, icon }) => (
-                    <li>
-                        <a href={path} class="flex items-center hover:opacity-75 transition-opacity duration-300">
+                    <li role="none">
+                        <a href={path} class="flex items-center hover:opacity-75 transition-opacity duration-300" role="menuitem" aria-label={label}>
                             <FontAwesomeIcon icon={icon} class="mr-2" />
                             {label}
                         </a>
                     </li>
                 ))}
             </ul>
-            
+        -->
 
             <div class="flex flex-grow items-center justify-end pl-5 pr-2">
                 <SearchBar client:only="react" lang={lang}/>
@@ -49,6 +49,6 @@ const menuItems = [
                     <LanguageSwitcher />
                 </div>
             </div>
-        </div>
+        </ul>
     </div>
 </nav>

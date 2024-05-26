@@ -12,7 +12,7 @@ export default function SearchBar({ lang }) {
         const firstLetter = inputValue.charAt(0).toLowerCase();
         if (inputValue && !suggestions[firstLetter]) {
             const fetchAndSetSuggestions = async () => {
-            const data = await fetchSearchBarSuggestions(firstLetter);
+                const data = await fetchSearchBarSuggestions(firstLetter);
                 setSuggestions(prevSuggestions => ({
                     ...prevSuggestions,
                     [firstLetter]: data,
@@ -29,9 +29,10 @@ export default function SearchBar({ lang }) {
     const handleChange = (event) => {
         setInputValue(event.target.value);
     };
+
     const firstInputLetter = inputValue ? inputValue.charAt(0).toLowerCase() : '';
     let currentOptions = firstInputLetter && suggestions[firstInputLetter] ? suggestions[firstInputLetter] : {};
-    // If inputValue has more than one character, and currentOptions is not empty, filter the options
+
     if (inputValue.length > 1 && Object.keys(currentOptions).length) {
         currentOptions = Object.keys(currentOptions).reduce((acc, key) => {
             if (key.toLowerCase().startsWith(inputValue.toLowerCase())) {
@@ -40,6 +41,7 @@ export default function SearchBar({ lang }) {
             return acc;
         }, {});
     }
+
     const searchBarClass = `transition-all duration-300 ease-in-out absolute right-0 top-0 py-2 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${isExpanded ? 'w-64 opacity-100' : 'w-0 opacity-0'}`;
     const iconClass = "text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 p-2";
     const dropdownClass = "absolute right-0 top-10 w-64 bg-white border border-gray-300 rounded-lg shadow-lg mt-1 z-10 max-h-48 overflow-y-auto";
@@ -53,8 +55,10 @@ export default function SearchBar({ lang }) {
                 placeholder="Search..." 
                 autoComplete="off"
                 aria-expanded={isExpanded}
+                aria-controls="search-dropdown"
                 value={inputValue}
                 onChange={handleChange}
+                aria-label="Search"
             />
             <FontAwesomeIcon 
                 icon={faMagnifyingGlass} 
@@ -64,19 +68,20 @@ export default function SearchBar({ lang }) {
                 aria-label="Toggle search"
             />
             {isExpanded && inputValue && (
-                <div className={dropdownClass}>
+                <div id="search-dropdown" className={dropdownClass} role="listbox">
                     {Object.keys(currentOptions).length ? (
                         Object.keys(currentOptions).map(key => (
                             <a 
                                 key={key} 
                                 href={`/${lang}/${currentOptions[key]}`} 
                                 className="block px-4 py-2 text-black hover:bg-gray-100 cursor-pointer"
+                                role="option"
                             >
                                 {key}
                             </a>
                         ))
                     ) : (
-                        <div className="px-4 py-2 text-gray-500">No suggestions found</div>
+                        <div className="px-4 py-2 text-gray-500" role="option">No suggestions found</div>
                     )}
                 </div>
             )}
