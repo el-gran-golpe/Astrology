@@ -16,6 +16,7 @@ const Row = ({ row, index, expandedRow, toggleRow }) => {
                         onClick={toggle}
                         aria-expanded={isExpanded}
                         aria-controls={`details-${index}`}
+                        aria-label={`Toggle details for ${row.platform}`}
                         className={`cursor-pointer hover:text-gray-300 transition ease-in-out duration-150 ${isExpanded ? 'transform rotate-180' : ''}`}
                         style={{
                             borderRadius: '50%',
@@ -31,7 +32,7 @@ const Row = ({ row, index, expandedRow, toggleRow }) => {
                 <td className="px-4 text-left">{row.platform}</td>
                 <td className="px-4 text-left">{row.platform_monetization}</td>
                 <td className="px-4 text-left text-blue-300 cursor-pointer hover:text-blue-500">
-                    <a href={row.url} target="_blank" rel="noopener noreferrer">Watch here</a>
+                    <a href={row.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch on ${row.platform}`}>Watch here</a>
                 </td>
             </tr>
             {isExpanded && (
@@ -40,7 +41,7 @@ const Row = ({ row, index, expandedRow, toggleRow }) => {
                         <p className="text-gray-300">{row.platform}</p>
                         <p className="text-gray-300">{row.platform_monetization}</p>
                         <p className="text-gray-300">
-                            <a href={row.url} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-500">Watch here</a>
+                            <a href={row.url} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-500" aria-label={`Watch on ${row.platform}`}>Watch here</a>
                         </p>
                     </td>
                 </tr>
@@ -71,12 +72,13 @@ export default function FakeLinkTable({ lang, availableAt }) {
                 <table className="min-w-full divide-y divide-gray-600">
                     <thead>
                         <tr className="text-base font-semibold text-gray-200 py-3 border-b border-gray-600">
-                            <th className="text-center py-3">
+                            <th className="text-center py-3" scope="col">
                                 <FontAwesomeIcon
                                     icon={faCaretDown}
                                     onClick={toggleRowsVisibility}
                                     aria-expanded={rowsVisible}
                                     aria-controls="rows-content"
+                                    aria-label="Toggle rows visibility"
                                     className={`cursor-pointer text-gray-200 hover:text-green-400 transform transition-transform ease-in-out duration-300 ${rowsVisible ? 'rotate-180' : ''}`}
                                     style={{
                                         borderRadius: '100%',
@@ -89,9 +91,9 @@ export default function FakeLinkTable({ lang, availableAt }) {
                                     }}
                                 />
                             </th>
-                            <th className="px-4 text-left">{t("Platform")}</th>
-                            <th className="px-4 text-left">{t("Availability")}</th>
-                            <th className="px-4 text-left">{t("Link")}</th>
+                            <th className="px-4 text-left" scope="col">{t("Platform")}</th>
+                            <th className="px-4 text-left" scope="col">{t("Availability")}</th>
+                            <th className="px-4 text-left" scope="col">{t("Link")}</th>
                         </tr>
                     </thead>
                     <tbody id="rows-content">
