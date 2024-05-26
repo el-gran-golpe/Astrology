@@ -21,18 +21,21 @@ const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
                    t("Overwhelmingly Negative");
 ---
 
-<h3 class="text-2xl text-gray-300 font-bold mb-4">{t("Rating & Reviews")}</h3>
-<div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md">
-  <div class="flex items-center">
-    <RenderStars rating={score} client:only="react" />
-    <div class="ml-4">
-      <p class="text-xl text-white font-semibold">
-        {ratingText}
-      </p>
+<section aria-labelledby="rating-reviews-heading" class="mt-8">
+  <h3 id="rating-reviews-heading" class="text-2xl text-gray-300 font-bold mb-4">{t("Rating & Reviews")}</h3>
+  <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md" role="region" aria-labelledby="user-rating">
+    <div class="flex items-center">
+      <RenderStars rating={score} client:only="react" />
+      <div class="ml-4" id="user-rating">
+        <p class="text-xl text-white font-semibold">
+          {ratingText}
+        </p>
+      </div>
+    </div>
+    <div class="ml-4 text-right">
+      <p class="text-xl text-white font-semibold">{score.toFixed(1)}</p>
+      <p class="text-sm text-gray-400">{t("User Score")}</p>
+      <meter value={score} min="0" max="5" optimum="4.5" class="hidden">{score.toFixed(1)}</meter>
     </div>
   </div>
-  <div class="ml-4">
-    <p class="text-xl text-white font-semibold text-right">{score.toFixed(1)}</p>
-    <p class="text-sm text-gray-400 text-right">{t("User Score")}</p>
-  </div>
-</div>
+</section>

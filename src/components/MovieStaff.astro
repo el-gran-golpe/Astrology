@@ -24,28 +24,28 @@ const subsections = [
 }
 </style>
 
-<div class="mt-10 px-4 lg:px-0">
-    <h2 class="text-2xl text-gray-300 mb-2 font-bold">{t("Movie Staff")}</h2>
+<section class="mt-10 px-4 lg:px-0" aria-labelledby="movie-staff-heading">
+    <h2 id="movie-staff-heading" class="text-2xl text-gray-300 mb-2 font-bold">{t("Movie Staff")}</h2>
 
     <div class="space-y-6">
         {subsections.map((subsection, idx) => subsection.data && subsection.data.length > 0 && (
-            <div key={idx}>  
-                <div class="flex justify-between items-center px-5 py-3 ">
+            <section key={idx} aria-label={subsection.title}>
+                <div class="flex justify-between items-center px-5 py-3">
                     <span class="text-xl font-semibold text-white font-mono title">{subsection.title}</span>
                     <div class="p-2 border-4 border-gray-500 rounded-full bg-gray-700 shadow">
                         <FontAwesomeIcon icon={subsection.icon} class="fa-lg text-white" />
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-800 rounded-lg ">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-800 rounded-lg">
                     {subsection.data.map((person, personIndex) => (
-                        <div key={personIndex} class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200">
+                        <div key={personIndex} class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200" aria-label={`${person.name}, ${person.role}`}>
                             <p class="text-md text-white truncate">{person.name}</p>
                             <p class="text-sm text-gray-400 truncate">{person.role}</p>
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
         ))}
     </div>
-</div>
+</section>
