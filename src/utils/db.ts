@@ -79,7 +79,7 @@ export async function fetchBestGeneralFilms(
     return films;
 }
 
-export async function getBannerFilms(category: string, key: string, amount: number) {
+export async function getBannerFilms(category: string, key: string, amount: number=5) {
     // They are in the collection banner_films, in the document category, in the sub collection key.
     const BannerFilmsCol = collection(db, 'banner_films', category, key);
     const scoreKey = `${category}_score_${key}`;
