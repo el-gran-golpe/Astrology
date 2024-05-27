@@ -41,3 +41,43 @@ export async function getMIMETypeFromURL(url: string): Promise<string | null> {
     const remainingMinutes = minutes % 60;
     return `${hours}h ${remainingMinutes}m`;
 }
+
+export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = null, tags: String[] = []): Record<string, string>[] {
+
+  if (!movieInfo) return [];
+
+  const metaTags = [];
+  // Add actors
+  movieInfo.staff.cast.forEach((actor) => {
+    metaTags.push({ property: "video:actor", content: actor.name });
+    if (actor.role) {
+      metaTags.push({ property: "video:actor:role", content: actor.role });
+    }
+  });
+
+  // Add directors
+  movieInfo.staff.directors.forEach((director) => {
+    metaTags.push({ property: "video:director", content: director.name });
+  });
+
+  // Add writers
+  movieInfo.staff.screenwriters.forEach((writer) => {
+    metaTags.push({ property: "video:writer", content: writer.name });
+  });
+
+  // Add duration
+  if (movieInfo.basic_info.duration_minutes) {
+    const durationInSeconds = movieInfo.basic_info.duration_minutes * 60;
+    metaTags.push({ property: "video:duration", content: durationInSeconds });
+  }
+
+  // Add tags
+  tags.forEach((tag) => {
+    metaTags.push({ property: "video:tag", content: tag });
+  });
+
+  console.log(metaTags);
+
+  return metaTags;
+
+}

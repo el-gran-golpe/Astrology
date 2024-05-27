@@ -13,10 +13,14 @@ interface Props {
   OGType: string;
   OGImage: string;
   OGImageAlt: string;
+  OGTrailer?: string;
+  OGMovieInfo?: Record<string, string>[];
 }
 
-const { title, description, lang, afterLangUrl, OGTitle, OGType, OGImage, OGImageAlt } = Astro.props;
+const { title, description, lang, afterLangUrl, 
+  OGTitle, OGType, OGImage, OGImageAlt, OGTrailer, OGMovieInfo } = Astro.props;
 
+console.log('OGMovieInfo', OGMovieInfo);
 const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
 ---
 
@@ -39,12 +43,17 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
         optional: {
           locale: lang,
           localeAlternate: supportedLocales,
-          siteName: "SiteName"
+          siteName: "SiteName",
+          video: OGTrailer
         },
         image:{
           type: OGImageMIMEType || 'image/jpeg',
           alt: OGImageAlt
         }
-        }}
+      }}
+
+      extend={{
+        meta: OGMovieInfo
+      }}
     />
 </head>

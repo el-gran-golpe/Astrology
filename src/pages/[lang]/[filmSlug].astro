@@ -1,6 +1,7 @@
 ---
 import { getTopPagesByLang } from '../../utils/staticPathsGeneration.ts';
 import Head from '../../components/Head.astro';
+import { getEntry } from 'astro:content';
 import UpdateVisitedFilms from '../../stores/updateVisitedFilms';
 import { getTranslationFunction } from '../../utils/localization.ts';
 
@@ -24,6 +25,15 @@ import MovieStaff from '../../components/MovieStaff.astro';
 import LeftColumnInfoPannel from '../../components/LeftColumnInfoPannel.astro';
 import Synopsis from '../../components/Synopsis.astro';
 import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
+import { movieInfoToOpenGraph } from '../../utils/utils.ts';
+
+const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
+
+const OpenGraphTags = filmInfo.basic_info.genres.map((genre) => t(GENRE_CODES_TO_NAME[genre]));
+// If TV_SE in genres, type is video.tv_show, else video.movie
+const OGType = filmInfo.basic_info.genres.includes('TV_SE') ? 'video.tv_show' : 'video.movie';
+const OpenGraphMovieInfo = movieInfoToOpenGraph(filmInfo, OpenGraphTags);
+
 ---
 
 <html lang={lang}>
@@ -33,9 +43,10 @@ import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
     lang={lang}
     afterLangUrl={filmSlug}
     OGTitle={t("Watch %1 Online").replace("%1", filmInfo.locationInfo.title)}
-    OGType="video.movie"
+    OGType={OGType}
     OGImage={filmInfo.extended_info.poster_url}
     OGImageAlt={`${filmInfo.locationInfo.title} Poster`}
+    OGMovieInfo={OpenGraphMovieInfo}
   />
   
   <body>
