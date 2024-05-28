@@ -42,7 +42,7 @@ productionCountries = productionCountries.map(country => `${country_codes_to_fla
                 <p class="text-xs">
                     {genres.map((genre, index) => (
                     <span key={genre.url}>
-                        <a href={genre.url} class="text-indigo-400 hover:underline" itemprop="genre">{genre.name}</a>
+                        <a href={genre.url} class="text-indigo-400 hover:underline">{genre.name}</a>
                         {index < genres.length - 1 && ', '}
                     </span>
                 ))}

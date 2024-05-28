@@ -8,9 +8,10 @@ const t = getTranslationFunction(lang);
 
 interface RatingAndReviewsProps {
   score: number; 
+  votes: number;
 }
 
-const { score } = Astro.props as RatingAndReviewsProps;
+const { score, votes } = Astro.props as RatingAndReviewsProps;
 
 const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
                    score >= 4.0 ? t("Very Positive") :
@@ -21,7 +22,7 @@ const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
                    t("Overwhelmingly Negative");
 ---
 
-<section aria-labelledby="rating-reviews-heading" class="mt-8" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+<section aria-labelledby="rating-reviews-heading" class="mt-8">
   <h3 id="rating-reviews-heading" class="text-2xl text-gray-300 font-bold mb-4">{t("Rating & Reviews")}</h3>
   <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md" role="region" aria-labelledby="user-rating">
     <div class="flex items-center">

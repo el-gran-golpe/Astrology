@@ -36,7 +36,6 @@ if (filmInfo){
   schemaOrgInfo = movieInfoToSchemaOrg(filmInfo, 'url', genres);
   schemaOrgInfo = JSON.stringify(schemaOrgInfo);
   console.log("Returned schemaOrgInfo", schemaOrgInfo);
-
 }
 
 const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
