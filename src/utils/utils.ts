@@ -89,70 +89,131 @@ export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = nul
 
 }
 
-export function movieInfoToSchemaOrg(movieInfo: Record<string, any>, genres: String[], currentUrl: string ): Record<string, any> {
+export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: String[], currentUrl: string ): Record<string, any> {
 
-  if (!movieInfo) return {};
-  console.log(movieInfo)
+  if (!filmInfo) return {};
+  console.log(filmInfo)
 
   let schemaOrgData: Record<string, any> = {
     "@context": "https://schema.org",
     "@type": "Movie",
-    "name": movieInfo.locationInfo.title,
+    "name": filmInfo.locationInfo.title,
+    "genre": genres,
     "url": currentUrl,
-    "description": movieInfo.locationInfo.synopsis,
+    "description": filmInfo.locationInfo.synopsis,
     "image": {
       "@type": "ImageObject",
-      "url": movieInfo.extended_info.poster_url
+      "url": filmInfo.extended_info.poster_url,
+      "caption": `Poster of ${filmInfo.locationInfo.title}`,
+      "thumbnail": {
+        "@type": "ImageObject",
+        "url": filmInfo.extended_info.poster_thumbnail_url
+      },
+      "description": filmInfo.locationInfo.short_synopsis
     },
-    "duration": convertToISODuration(movieInfo.basic_info.duration_minutes),
+    "duration": convertToISODuration(filmInfo.basic_info.duration_minutes),
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": `${movieInfo.film_affinity_info.score.average}`, 
+      "ratingValue": `${filmInfo.film_affinity_info.score.average}`, 
       "bestRating": "5",
       "worstRating": "0",
-      "ratingCount": `${movieInfo.film_affinity_info.score.votes}`
+      "ratingCount": `${filmInfo.film_affinity_info.score.votes}`
     },
   };
-  
-  if (movieInfo.alternative_multimedia.trailer_url){
+
+  if (filmInfo.alternative_multimedia.trailer_url){
     schemaOrgData["trailer"] = {
       "@type": "VideoObject",
-      "name": `${movieInfo.locationInfo.title} Trailer`,
-      "description": `Trailer for ${movieInfo.locationInfo.title}`,
-      "contentUrl": movieInfo.alternative_multimedia.trailer_url
+      "name": `${filmInfo.locationInfo.title} Trailer`,
+      "description": `Trailer for ${filmInfo.locationInfo.title}`,
+      "contentUrl": filmInfo.alternative_multimedia.trailer_url
     }
   }
 
-  // Add director
-  if (movieInfo.staff.directors.length > 1){
-    schemaOrgData["director"] = movieInfo.staff.directors.map((director) => {
-      return {"@type": "Person", "name": director.name}
-    });
+  if (filmInfo.extended_info.relevant_links.length > 0){
+    schemaOrgData["sameAs"] = filmInfo.extended_info.relevant_links.map((link: Record<string, string>) => link.url);
+
   }
-  else if (movieInfo.staff.directors.length > 0){
-    schemaOrgData["director"] = {"@type": "Person", "name": movieInfo.staff.directors[0].name}
-  }
-  
-  if (movieInfo.staff.cast.length > 0){
-    schemaOrgData["actor"] = movieInfo.staff.cast.map((actor) => {
-      if (actor.role){
-        return {"@type": "Person", "name": actor.name, "characterName": actor.role}
-      } else {
-        return {"@type": "Person", "name": actor.name}
+
+  // Keep only the nominations that have a "to" field that is not null. Parse from list to a map structure {<to>: [<award1>, <award2>...]}
+  let nominations: Record<string, string[]> = {};
+
+  for (const nomination of filmInfo.extended_info.nominations) {
+    if (nomination.to){
+      if (!nominations[nomination.to]){
+        nominations[nomination.to] = [];
       }
+      nominations[nomination.to].push(nomination.award);
+    } else {
+      if (!nominations["Other"]){
+        nominations["Other"] = [];
+      }
+      nominations["Other"].push(nomination.award);
     }
-    )
   }
 
-  if (movieInfo.staff.musicians.length > 1){
-    schemaOrgData["musicBy"] = movieInfo.staff.musicians.map((musician) => {
-      return {"@type": "Person", "name": musician.name}
+
+  if (filmInfo.basic_info.countries.length > 1){
+    schemaOrgData["countryOfOrigin"] = filmInfo.basic_info.countries.map((country: string) => {
+      return {"@type": "Country", "name": country}
     });
+  } else if (filmInfo.basic_info.countries.length > 0){
+    schemaOrgData["countryOfOrigin"] = {"@type": "Country", "name": filmInfo.basic_info.countries[0]}
   }
-  else if (movieInfo.staff.musicians.length > 0){
-    schemaOrgData["musicBy"] = {"@type": "Person", "name": movieInfo.staff.musicians[0].name}
-  } 
 
+// Add director
+if (filmInfo.staff.directors.length > 1) {
+  schemaOrgData["director"] = filmInfo.staff.directors.map((director: Record<string, string>) => {
+
+    let directorEntry: Record<string, any> = { "@type": "Person", "name": director.name };
+    if (nominations[director.name]) {
+      directorEntry["award"] = nominations[director.name];
+    }
+    return directorEntry;
+  });
+} else if (filmInfo.staff.directors.length > 0) {
+  let directorEntry: Record<string, any> = { "@type": "Person", "name": filmInfo.staff.directors[0].name };
+  if (nominations[filmInfo.staff.directors[0].name]) {
+    directorEntry["award"] = nominations[filmInfo.staff.directors[0].name];
+  }
+
+  schemaOrgData["director"] = directorEntry;
+}
+
+// Add cast
+if (filmInfo.staff.cast.length > 0) {
+  schemaOrgData["actor"] = filmInfo.staff.cast.map((actor: Record<string, string>) => {
+    let actorEntry: Record<string, any> = { "@type": "Person", "name": actor.name };
+    if (actor.role) {
+      actorEntry["characterName"] = actor.role;
+    }
+    if (nominations[actor.name]) {
+      actorEntry["award"] = nominations[actor.name];
+    }
+    return actorEntry;
+  });
+}
+
+// Add musicians
+if (filmInfo.staff.musicians.length > 1) {
+  schemaOrgData["musicBy"] = filmInfo.staff.musicians.map((musician: Record<string, string>) => {
+    let musicianEntry: Record<string, any> = { "@type": "Person", "name": musician.name };
+    if (nominations[musician.name]) {
+      musicianEntry["award"] = nominations[musician.name];
+    }
+    return musicianEntry;
+  });
+} else if (filmInfo.staff.musicians.length > 0) {
+  let musicianEntry: Record<string, any> = { "@type": "Person", "name": filmInfo.staff.musicians[0].name };
+  if (nominations[filmInfo.staff.musicians[0].name]) {
+    musicianEntry["award"] = nominations[filmInfo.staff.musicians[0].name];
+  }
+  schemaOrgData["musicBy"] = musicianEntry;
+} 
+
+  if (nominations["Other"]){
+    schemaOrgData["award"] = nominations["Other"];
+  }
 
   console.log(JSON.stringify(schemaOrgData, null, 2));
 
