@@ -21,7 +21,7 @@ const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
                    t("Overwhelmingly Negative");
 ---
 
-<section aria-labelledby="rating-reviews-heading" class="mt-8">
+<section aria-labelledby="rating-reviews-heading" class="mt-8" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
   <h3 id="rating-reviews-heading" class="text-2xl text-gray-300 font-bold mb-4">{t("Rating & Reviews")}</h3>
   <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md" role="region" aria-labelledby="user-rating">
     <div class="flex items-center">
@@ -32,10 +32,10 @@ const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
         </p>
       </div>
     </div>
-    <div class="ml-4 text-right">
-      <p class="text-xl text-white font-semibold">{score.toFixed(1)}</p>
+    <div class="ml-4 text-right" id="rating-container">
+      <p itemprop="ratingValue" class="text-xl text-white font-semibold">{score.toFixed(1)}</p>
       <p class="text-sm text-gray-400">{t("User Score")}</p>
-      <meter value={score} min="0" max="5" optimum="4.5" class="hidden">{score.toFixed(1)}</meter>
+      <meter value={score} min="0" max="5" class="hidden">{score.toFixed(1)}</meter>
     </div>
   </div>
 </section>

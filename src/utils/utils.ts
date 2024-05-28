@@ -1,3 +1,12 @@
+
+
+function convertToISODuration(minutes: number): string {
+  const hours = String(Math.floor(minutes / 60)).padStart(2, '0');
+  const remainingMinutes = String(minutes % 60).padStart(2, '0');
+  const seconds = String(0).padStart(2, '0');
+  return `PT${hours}H${remainingMinutes}M${seconds}S`;
+}
+
 export async function getMIMETypeFromURL(url: string): Promise<string | null> {
     /**
      * This function returns the MIME type of the resource at the specified URL. Ensuring that
@@ -42,7 +51,7 @@ export async function getMIMETypeFromURL(url: string): Promise<string | null> {
     return `${hours}h ${remainingMinutes}m`;
 }
 
-export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = null, tags: String[] = []): Record<string, string>[] {
+export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = null, tags: String[]  = []): Record<string, string>[] {
 
   if (!movieInfo) return [];
 
@@ -76,8 +85,76 @@ export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = nul
     metaTags.push({ property: "video:tag", content: tag });
   });
 
-  console.log(metaTags);
-
   return metaTags;
 
+}
+
+export function movieInfoToSchemaOrg(movieInfo: Record<string, any>, genres: String[], currentUrl: string ): Record<string, any> {
+
+  if (!movieInfo) return {};
+  console.log(movieInfo)
+
+  let schemaOrgData: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@type": "Movie",
+    "name": movieInfo.locationInfo.title,
+    "url": currentUrl,
+    "description": movieInfo.locationInfo.synopsis,
+    "image": {
+      "@type": "ImageObject",
+      "url": movieInfo.extended_info.poster_url
+    },
+    "duration": convertToISODuration(movieInfo.basic_info.duration_minutes),
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": `${movieInfo.film_affinity_info.score.average}`, 
+      "bestRating": "5",
+      "worstRating": "0",
+      "ratingCount": `${movieInfo.film_affinity_info.score.votes}`
+    },
+  };
+  
+  if (movieInfo.alternative_multimedia.trailer_url){
+    schemaOrgData["trailer"] = {
+      "@type": "VideoObject",
+      "name": `${movieInfo.locationInfo.title} Trailer`,
+      "description": `Trailer for ${movieInfo.locationInfo.title}`,
+      "contentUrl": movieInfo.alternative_multimedia.trailer_url
+    }
+  }
+
+  // Add director
+  if (movieInfo.staff.directors.length > 1){
+    schemaOrgData["director"] = movieInfo.staff.directors.map((director) => {
+      return {"@type": "Person", "name": director.name}
+    });
+  }
+  else if (movieInfo.staff.directors.length > 0){
+    schemaOrgData["director"] = {"@type": "Person", "name": movieInfo.staff.directors[0].name}
+  }
+  
+  if (movieInfo.staff.cast.length > 0){
+    schemaOrgData["actor"] = movieInfo.staff.cast.map((actor) => {
+      if (actor.role){
+        return {"@type": "Person", "name": actor.name, "characterName": actor.role}
+      } else {
+        return {"@type": "Person", "name": actor.name}
+      }
+    }
+    )
+  }
+
+  if (movieInfo.staff.musicians.length > 1){
+    schemaOrgData["musicBy"] = movieInfo.staff.musicians.map((musician) => {
+      return {"@type": "Person", "name": musician.name}
+    });
+  }
+  else if (movieInfo.staff.musicians.length > 0){
+    schemaOrgData["musicBy"] = {"@type": "Person", "name": movieInfo.staff.musicians[0].name}
+  } 
+
+
+  console.log(JSON.stringify(schemaOrgData, null, 2));
+
+  return schemaOrgData;
 }

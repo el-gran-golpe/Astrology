@@ -32,8 +32,6 @@ const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
 const OpenGraphTags = filmInfo.basic_info.genres.map((genre) => t(GENRE_CODES_TO_NAME[genre]));
 // If TV_SE in genres, type is video.tv_show, else video.movie
 const OGType = filmInfo.basic_info.genres.includes('TV_SE') ? 'video.tv_show' : 'video.movie';
-const OpenGraphMovieInfo = movieInfoToOpenGraph(filmInfo, OpenGraphTags);
-
 ---
 
 <html lang={lang}>
@@ -46,7 +44,8 @@ const OpenGraphMovieInfo = movieInfoToOpenGraph(filmInfo, OpenGraphTags);
     OGType={OGType}
     OGImage={filmInfo.extended_info.poster_url}
     OGImageAlt={`${filmInfo.locationInfo.title} Poster`}
-    OGMovieInfo={OpenGraphMovieInfo}
+    filmInfo={filmInfo}
+    OGTags={OpenGraphTags}
   />
   
   <body>
@@ -75,7 +74,7 @@ const OpenGraphMovieInfo = movieInfoToOpenGraph(filmInfo, OpenGraphTags);
         </div>
       </header>
 
-      <main class="container mx-auto px-6 py-4" role="main">
+      <main class="container mx-auto px-6 py-4" role="main" itemscope itemtype="http://schema.org/Movie">
         <div class="flex">
           <!-- Left column content -->
           <aside class="w-1/3" aria-labelledby="left-column-info">

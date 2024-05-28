@@ -220,13 +220,13 @@ export function apply_film_info_transformations(film: object) {
     // Multiply the score by a random number between 90% and 110%
     let score =
         film.filmInfo.film_affinity_info.score.average *
-        (Math.random() * (1.1 - 0.9) + 0.9);
+        (Math.random() * (1.2 - 0.8) + 0.8);
     let votes =
         film.filmInfo.film_affinity_info.score.votes *
-        (Math.random() * (1.1 - 0.9) + 0.9);
+        (Math.random() * (1.2 - 0.8) + 0.8);
     let reviews_count =
         film.filmInfo.film_affinity_info.score.reviews_count *
-        (Math.random() * (1.1 - 0.9) + 0.9);
+        (Math.random() * (1.2 - 0.8) + 0.8);
 
     // Round the values for votes and reviews_count to integers
     film.filmInfo.film_affinity_info.score.votes = Math.round(votes);

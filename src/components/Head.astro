@@ -3,6 +3,10 @@ import { SEO } from 'astro-seo';
 import { getAstroSeoAlternateLocales } from '../utils/seoUtils.ts';
 import { supportedLocales } from '../utils/localization.ts';
 import { getMIMETypeFromURL } from '../utils/utils.ts';
+import { movieInfoToOpenGraph, movieInfoToSchemaOrg } from '../utils/utils.ts';
+import { getEntry } from 'astro:content';
+import { getTranslationFunction } from '../utils/localization.ts';
+
 
 interface Props {
   title: string;
@@ -14,13 +18,27 @@ interface Props {
   OGImage: string;
   OGImageAlt: string;
   OGTrailer?: string;
-  OGMovieInfo?: Record<string, string>[];
+  filmInfo?: Record<string, any>;
+  OGTags?: String[];
 }
 
 const { title, description, lang, afterLangUrl, 
-  OGTitle, OGType, OGImage, OGImageAlt, OGTrailer, OGMovieInfo } = Astro.props;
+  OGTitle, OGType, OGImage, OGImageAlt, OGTrailer, filmInfo, OGTags } = Astro.props;
 
-console.log('OGMovieInfo', OGMovieInfo);
+let movieInfoExtends = null;
+let schemaOrgInfo = null;
+if (filmInfo){
+  const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;  
+  const t = getTranslationFunction(lang);
+  const genres = filmInfo?.basic_info.genres.map((genre: string) => t(GENRE_CODES_TO_NAME[genre])) || []
+
+  movieInfoExtends = movieInfoToOpenGraph(filmInfo, OGTags || []);
+  schemaOrgInfo = movieInfoToSchemaOrg(filmInfo, 'url', genres);
+  schemaOrgInfo = JSON.stringify(schemaOrgInfo);
+  console.log("Returned schemaOrgInfo", schemaOrgInfo);
+
+}
+
 const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
 ---
 
@@ -53,7 +71,10 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
       }}
 
       extend={{
-        meta: OGMovieInfo
+        meta: movieInfoExtends
       }}
     />
+    {schemaOrgInfo && (
+      <script type="application/ld+json" set:html={schemaOrgInfo}></script>
+    )}
 </head>
