@@ -99,6 +99,7 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
     "@type": "Movie",
     "name": filmInfo.locationInfo.title,
     "genre": genres,
+    "dateCreated": filmInfo.basic_info.publication_date? filmInfo.basic_info.publication_date : filmInfo.basic_info.year,
     "url": currentUrl,
     "description": filmInfo.locationInfo.synopsis,
     "image": {
