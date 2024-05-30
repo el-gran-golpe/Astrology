@@ -35,6 +35,7 @@ const schemaOrgInfo = movieInfoToSchemaOrg(filmInfo, translatedGenres, Astro.url
 const OGExtends = movieInfoToOpenGraph(filmInfo, translatedGenres || []);
 // If TV_SE in genres, type is video.tv_show, else video.movie
 const OGType = filmInfo.basic_info.genres.includes('TV_SE') ? 'video.tv_show' : 'video.movie';
+const keywords = [...translatedGenres]
 ---
 
 <html lang={lang}>
@@ -42,6 +43,7 @@ const OGType = filmInfo.basic_info.genres.includes('TV_SE') ? 'video.tv_show' : 
     title={filmInfo.locationInfo.title}
     description={filmInfo.locationInfo.synopsis}
     lang={lang}
+    keywords={keywords}
     afterLangUrl={filmSlug}
     OGTitle={t("Watch %1 Online").replace("%1", filmInfo.locationInfo.title)}
     OGType={OGType}

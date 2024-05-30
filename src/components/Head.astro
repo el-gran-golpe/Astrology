@@ -12,18 +12,33 @@ interface Props {
   description: string;
   lang: string;
   afterLangUrl: string;
+  keywords?: string[]
   OGTitle: string;
   OGType: string;
   OGImage: string;
   OGImageAlt: string;
   OGTrailer?: string;
-  OGExtends?: Record<string, any>[];
+  OGExtends?: {name: string, content: string|number}[];
   schemaOrgInfo?: Record<string, any>;
 }
 
-const { title, description, lang, afterLangUrl, 
+const { title, description, lang, afterLangUrl, keywords,
   OGTitle, OGType, OGImage, OGImageAlt, OGTrailer, OGExtends, schemaOrgInfo } = Astro.props;
 
+let extend: {name: string, content: string|number}[] = [
+      {name: 'twitter:image', content: OGImage},
+      {name: 'twitter:image:alt', content: OGImageAlt},
+      {name: 'twitter:title', content: OGTitle},
+      {name: 'twitter:description', content: description},
+      {name: 'twitter:card', content: 'summary_large_image'},
+];
+
+if (keywords) {
+  extend = [{name: 'keywords', content: keywords.join(', ')}, ...extend];
+}
+if (OGExtends) {
+  extend = [...extend, ...OGExtends];
+}
 const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
 ---
 
@@ -34,7 +49,6 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
       description={description}
       charset='utf-8'
       languageAlternates={getAstroSeoAlternateLocales(afterLangUrl)}
-
       openGraph={{
         basic: {
     		  //TODO: https://ogp.me/#types (Add the actors). Also use the duration, release date... And set it if it is an episode or tv show
@@ -56,7 +70,7 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
       }}
 
       extend={{
-        meta: OGExtends
+        meta: extend
       }}
     />
     {schemaOrgInfo && (

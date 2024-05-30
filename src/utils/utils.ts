@@ -51,7 +51,7 @@ export async function getMIMETypeFromURL(url: string): Promise<string | null> {
     return `${hours}h ${remainingMinutes}m`;
 }
 
-export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = null, tags: String[]  = []): Record<string, string>[] {
+export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = null, tags: String[]  = []): Record<string, string|number>[] {
 
   if (!movieInfo) return [];
 
