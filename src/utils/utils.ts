@@ -89,10 +89,9 @@ export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = nul
 
 }
 
-export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: String[], currentUrl: string ): Record<string, any> {
+export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: String[], currentUrl: string, t: Function = (text: string) => text): Record<string, any> {
 
   if (!filmInfo) return {};
-  console.log(filmInfo)
 
   let schemaOrgData: Record<string, any> = {
     "@context": "https://schema.org",
@@ -105,7 +104,7 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
     "image": {
       "@type": "ImageObject",
       "url": filmInfo.extended_info.poster_url,
-      "caption": `Poster of ${filmInfo.locationInfo.title}`,
+      "caption": t("Poster for %1").replace("%1", filmInfo.locationInfo.title),
       "thumbnail": {
         "@type": "ImageObject",
         "url": filmInfo.extended_info.poster_thumbnail_url
@@ -123,10 +122,14 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
   };
 
   if (filmInfo.alternative_multimedia.trailer_url){
+    let description = `${t("Watch the thrilling trailer for %1").replace("%1", filmInfo.locationInfo.title)}.`;
+    if (filmInfo.locationInfo.director.length > 0){
+      description = `${description} ${t("Directed by %1").replace("%1", filmInfo.locationInfo.director)}.`;
+    }
     schemaOrgData["trailer"] = {
       "@type": "VideoObject",
-      "name": `${filmInfo.locationInfo.title} Trailer`,
-      "description": `Trailer for ${filmInfo.locationInfo.title}`,
+      "name": t("%1 Trailer").replace("%1", filmInfo.locationInfo.title),
+      "description": description,
       "contentUrl": filmInfo.alternative_multimedia.trailer_url
     }
   }
@@ -215,8 +218,6 @@ if (filmInfo.staff.musicians.length > 1) {
   if (nominations["Other"]){
     schemaOrgData["award"] = nominations["Other"];
   }
-
-  console.log(JSON.stringify(schemaOrgData, null, 2));
 
   return schemaOrgData;
 }
