@@ -28,45 +28,52 @@ const t = getTranslationFunction(lang);
 const LANG_CODES_TO_NAMES = (await getEntry('location', 'languages-to-names')).data;
 const config = (await getEntry("configs", "site-config")).data;
 
-// Create an array of grid sections
+// Create an array of grid sections with title and subtitle
 const gridSections = [
     {
         id: "top-recent-films",
-        title: t("Top Recent Films"),
+        title: t("Watch Now"),
+        subtitle: t("Must-See Movies from the Last Few Years"),
         films: topRecent,
-        screenReaderText: t("This section contains films that are categorized as top recent films.")
+        screenReaderText: t("This section features a collection of the most popular and talked-about films from the last few years. Top recent films to stream right now")
     },
     {
         id: "top-classics-films",
-        title: t("Top Classics"),
+        title: t("Cinema Classics"),
+        subtitle: t("Essential Timeless Masterpieces"),
         films: topClassics,
-        screenReaderText: t("This section contains films that are categorized as top classics.")
+        screenReaderText: t("In this section you'll find a curated collection of the most important and celebrated films from the 1900s. Each movie is a critical piece of cinematic history, offering timeless entertainment.")
     },
     {
         id: "top-nominations-films",
-        title: t("Top Nominations"),
+        title: t("Awarded Masterpieces"),
+        subtitle: t("Most Critically Acclaimed Films"),
         films: topNominations,
-        screenReaderText: t("This section contains films that are categorized as top nominations.")
+        screenReaderText: t("This section features a curated list of films that have garnered the highest number of awards. Each movie represents the pinnacle of cinematic excellence.")
     },
     {
         id: "top-horror-films",
-        title: t("Top Horror Films"),
+        title: t("Horror Favorites"),
+        subtitle: t("Movies Even Your Closet Monster Fears"),
         films: topHorror,
-        screenReaderText: t("This section contains films that are categorized as top horror films.")
+        screenReaderText: t("This section features a selection of top-rated horror films with terrifying scenes and jump scares. Perfect for horror fans seeking spine-chilling classics and modern hits.")
     },
     {
         id: "top-documentary-films",
-        title: t("Top Documentary Films"),
+        title: t("Essential Documentaries"),
+        subtitle: t("Stories That Tell the Truth"),
         films: topDocumentary,
-        screenReaderText: t("This section contains films that are categorized as top documentary films.")
+        screenReaderText: t("This section explores a selection of powerful and eye-opening documentaries. These works offer deep insights into real-world events and stories.")
     },
     {
         id: "top-location-films",
-        title: `Produced in Countries that Speak ${t(LANG_CODES_TO_NAMES[lang])}`,
+        title: t("%1 Cinema").replaceAll("%1", LANG_CODES_TO_NAMES[lang]),
+        subtitle: t("Best Movies from %1-Speaking Countries").replace("%1", LANG_CODES_TO_NAMES[lang]),
         films: topLocationFilms,
-        screenReaderText: t(`This section contains films that are categorized as produced in countries that speak ${LANG_CODES_TO_NAMES[lang]}.`)
+        screenReaderText: t(`This section explores a selection of top-rated films produced in %1-speaking regions. These films showcase the cultural richness and storytelling traditions of their countries.`).replace("%1", LANG_CODES_TO_NAMES[lang])
     }
 ];
+
 ---
 <html lang={lang}>
     <Head
@@ -91,14 +98,13 @@ const gridSections = [
             <main class="container mx-auto px-6 py-4" role="main">
                 {gridSections.map((section) => (
                     <section aria-labelledby={section.id} aria-describedby={`${section.id}-description`} class="mb-8">
-                        <h2 id={section.id} class="flex items-center text-3xl font-bold text-white mb-6">
-                            {section.title}
+                        <h2 id={section.id} class="flex items-center text-3xl font-bold mb-6">
+                            <span class="text-white">{section.title}</span>
+                            <span class="text-gray-400 font-light ml-2">{section.subtitle}</span>
                         </h2>
-                        
                         <p id={`${section.id}-description`} class="sr-only">
                             {section.screenReaderText}
                         </p>
-                        
                         <!-- Grid of movie cards -->
                         <Grid>
                             {section.films.map((film) => (
