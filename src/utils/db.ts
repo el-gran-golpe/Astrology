@@ -26,7 +26,9 @@ const app = initializeApp(firebaseConfig.data);
 const db = getFirestore(app);
 //const analytics = getAnalytics(app);
 
-export async function fetchAllFilms(collectionName: string) {
+const FILMS_COLLECTION: string = 'relevant_films';
+
+export async function fetchAllFilms(collectionName: string = FILMS_COLLECTION) {
     /**
      * This function fetches all the films from the specified collection
      * and returns them in an array
@@ -47,8 +49,8 @@ export async function fetchAllFilms(collectionName: string) {
 }
 
 export async function fetchBestGeneralFilms(
-    collectionName: string,
-    amount: number
+    collectionName: string = FILMS_COLLECTION,
+    amount: number = 10
 ) {
     /**
      * This function fetches the N most voted films from the specified collection
@@ -64,6 +66,39 @@ export async function fetchBestGeneralFilms(
     const q = query(
         filmsCol,
         orderBy("scores.general_score", "desc"),
+        limit(amount)
+    );
+    // Get the documents from the query
+    const filmSnapshot = await getDocs(q);
+    // Organize the data in an array
+    const films = filmSnapshot.docs
+        .map((doc) => ({
+            filmInfo: { ...doc.data(), slug: doc.id },
+            id: doc.id,
+        }))
+        .map((film) => apply_film_info_transformations(film));
+
+    return films;
+}
+
+export async function fetchFilmsByScore(
+    score_key: string,
+    amount: number = 10
+) {
+    /**
+     * This function fetches the N most voted films from the specified collection
+     * and returns them in an array
+     * @param collectionName The name of the collection to fetch the films from
+     * @param amount The amount of films to fetch
+     * @returns An array of films
+     */
+
+    // Get a collection reference
+    const filmsCol = collection(db, FILMS_COLLECTION);
+    // Build the query for getting N films with the most votes, ordered descending
+    const q = query(
+        filmsCol,
+        orderBy(`scores.${score_key}`, "desc"),
         limit(amount)
     );
     // Get the documents from the query

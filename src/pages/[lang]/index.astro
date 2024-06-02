@@ -10,25 +10,64 @@ import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
 import Grid from '../../components/Grid.astro';
 
 // Import your getHomePageFilmsByLang function
-import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
+import { getHomePageFilms } from "../../utils/staticPathsGeneration.ts";
 import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from "astro:content";
 
 // Fetch the films
 export async function getStaticPaths() {
-    return await getHomePageFilmsByLang(10);
+    return await getHomePageFilms(10);
 }
 
 // Destructure the props
-const { topLocationFilms, topFilms, bannerFilms } = Astro.props;
+const { topLocationFilms, bannerFilms, topClassics, topRecent, topNominations, topHorror, topDocumentary } = Astro.props;
 const { lang } = Astro.params;
 
 // Get the translation function
 const t = getTranslationFunction(lang);
 const LANG_CODES_TO_NAMES = (await getEntry('location', 'languages-to-names')).data;
 const config = (await getEntry("configs", "site-config")).data;
----
 
+// Create an array of grid sections
+const gridSections = [
+    {
+        id: "top-recent-films",
+        title: t("Top Recent Films"),
+        films: topRecent,
+        screenReaderText: t("This section contains films that are categorized as top recent films.")
+    },
+    {
+        id: "top-classics-films",
+        title: t("Top Classics"),
+        films: topClassics,
+        screenReaderText: t("This section contains films that are categorized as top classics.")
+    },
+    {
+        id: "top-nominations-films",
+        title: t("Top Nominations"),
+        films: topNominations,
+        screenReaderText: t("This section contains films that are categorized as top nominations.")
+    },
+    {
+        id: "top-horror-films",
+        title: t("Top Horror Films"),
+        films: topHorror,
+        screenReaderText: t("This section contains films that are categorized as top horror films.")
+    },
+    {
+        id: "top-documentary-films",
+        title: t("Top Documentary Films"),
+        films: topDocumentary,
+        screenReaderText: t("This section contains films that are categorized as top documentary films.")
+    },
+    {
+        id: "top-location-films",
+        title: `Produced in Countries that Speak ${t(LANG_CODES_TO_NAMES[lang])}`,
+        films: topLocationFilms,
+        screenReaderText: t(`This section contains films that are categorized as produced in countries that speak ${LANG_CODES_TO_NAMES[lang]}.`)
+    }
+];
+---
 <html lang={lang}>
     <Head
         title={config["siteName"]}
@@ -49,51 +88,34 @@ const config = (await getEntry("configs", "site-config")).data;
             </header>
             
             <!-- Main content -->
-            <main class="container mx-auto px-6 py-4" role="main"> 
+            <main class="container mx-auto px-6 py-4" role="main">
+                {gridSections.map((section) => (
+                    <section aria-labelledby={section.id} aria-describedby={`${section.id}-description`} class="mb-8">
+                        <h2 id={section.id} class="flex items-center text-3xl font-bold text-white mb-6">
+                            {section.title}
+                        </h2>
+                        
+                        <p id={`${section.id}-description`} class="sr-only">
+                            {section.screenReaderText}
+                        </p>
+                        
+                        <!-- Grid of movie cards -->
+                        <Grid>
+                            {section.films.map((film) => (
+                                <MovieCard
+                                    movieYear={film.basic_info.year}
+                                    posterUrl={film.extended_info.poster_thumbnail_url}
+                                    movieTitle={film.locationInfo.title}
+                                    movieSlug={film.slug}
+                                    movieDuration={film.basic_info.duration_minutes}
+                                    moviePlot={film.locationInfo.short_synopsis}
+                                    movieScore={film.film_affinity_info?.score?.average ?? 'Not available'} />
+                            ))}
+                        </Grid>
+                    </section>
+                ))}
                 
-                <!-- Title for top all-time films -->
-                <section aria-labelledby="top-all-time-films">
-                    <h2 id="top-all-time-films" class="flex items-center text-3xl font-bold text-white mb-6">
-                        {t("Top All Time Films")}
-                    </h2>
-
-                    <!-- Grid of movie cards -->
-                    <Grid>
-                        {topFilms.map((film) => (
-                            <MovieCard
-                                movieYear={film.basic_info.year}
-                                posterUrl={film.extended_info.poster_thumbnail_url}
-                                movieTitle={film.locationInfo.title}
-                                movieSlug={film.slug}
-                                movieDuration={film.basic_info.duration_minutes}
-                                moviePlot={film.locationInfo.short_synopsis}
-                                movieScore={film.film_affinity_info?.score?.average ?? 'Not available'} />
-                        ))}
-                    </Grid>
-                </section>
-
-                <!-- Title for top films in specific location -->
-                <section aria-labelledby="top-location-films">
-                    <h2 id="top-location-films" class="flex items-center text-3xl font-bold text-white py-6">
-                        Produced in Countries that Speak {t(LANG_CODES_TO_NAMES[lang])}
-                    </h2>
-
-                    <!-- Grid of movie cards -->
-                    <Grid>
-                        {topLocationFilms.map((film) => (
-                            <MovieCard
-                                movieYear={film.basic_info.year}
-                                posterUrl={film.extended_info.poster_url}
-                                movieTitle={film.locationInfo.title}
-                                movieSlug={film.slug}
-                                movieDuration={film.basic_info.duration_minutes}
-                                moviePlot={film.locationInfo.short_synopsis}
-                                movieScore={film.film_affinity_info?.score?.average ?? 'Not available'} />
-                        ))}
-                    </Grid>
-                </section>
-
-                <!-- Grid of visited films -->               
+                <!-- Grid of visited films -->
                 <!-- TODO: Implement this after the release -->
                 <!-- <section aria-labelledby="visited-films">
                     <h2 id="visited-films" class="flex items-center text-3xl font-bold text-white py-6">
