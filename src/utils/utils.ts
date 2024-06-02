@@ -123,8 +123,8 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
 
   if (filmInfo.alternative_multimedia.trailer_url){
     let description = `${t("Watch the thrilling trailer for %1").replace("%1", filmInfo.locationInfo.title)}.`;
-    if (filmInfo.locationInfo.director.length > 0){
-      description = `${description} ${t("Directed by %1").replace("%1", filmInfo.locationInfo.director)}.`;
+    if (filmInfo.staff.directors.length > 0){
+      description = `${description} ${t("Directed by %1").replace("%1", filmInfo.staff.directors[0].name)}.`;
     }
     schemaOrgData["trailer"] = {
       "@type": "VideoObject",
