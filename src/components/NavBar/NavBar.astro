@@ -1,7 +1,7 @@
 ---
-import SearchBar from './react/NavBar/SearchBar';
-import LanguageSwitcher from './LanguageSwitcher.astro';
-import GenreSwitcher from './GenreSwitcher.astro';
+import SearchBar from '../react/NavBar/SearchBar';
+import LanguageSwitcher from '../LanguageSwitcher.astro';
+import GenreSwitcher from '../GenreSwitcher.astro';
 
 const { lang } = Astro.params;
 
@@ -13,22 +13,24 @@ const { lang } = Astro.params;
         <div class="flex-none pl-6 pr-4">
             <a href="/" class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label="Home">
 
-                <svg class="mr-3 h-8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title">
-                    <title>Play Button Logo</title>
-                    <circle cx="12" cy="12" r="10" fill="#EF4444" />
-                    <polygon points="10,8 16,12 10,16" fill="#FFFFFF" />
+
+                <!-- Old and good icon -->
+                <svg class="mr-3 h-8" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title">
+                    <title>KinemiFy Logo</title>
                     <defs>
-                        <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                            <stop offset="0%" style="stop-color:rgba(255,255,255,0.5);stop-opacity:0.5" />
-                            <stop offset="100%" style="stop-color:rgba(0,0,0,0.2);stop-opacity:1" />
-                        </radialGradient>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF4444;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#EF4444;stop-opacity:1" />
+                        </linearGradient>
                         <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
                             <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.3)" />
                         </filter>
                     </defs>
-                    <circle cx="12" cy="12" r="10" fill="url(#grad1)" filter="url(#shadow)" />
+                    <!-- Diode-inspired K with integrated play button -->
+                    <path d="M20,20 L40,50 L20,80 M40,50 L70,30 L70,70 L40,50" stroke="#FFFFFF" stroke-width="8" fill="none" filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polygon points="40,50 70,30 70,70" fill="url(#grad1)" filter="url(#shadow)" />
                 </svg>
-
+                
                 <div class="text-3xl font-bold flex items-center logo-text">
                     <span class="text-white" style="font-family: 'Montserrat', sans-serif;">K</span>
                     <span class="text-gray-300" style="font-family: 'Montserrat', sans-serif;">inemi</span>
