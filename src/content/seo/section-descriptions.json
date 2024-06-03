@@ -1,0 +1,524 @@
+{
+    "genres": {
+        "TE": {
+            "id": "top-horror-films",
+            "title": "Horror Favorites",
+            "subtitle": "Movies Even Your Closet Monster Fears",
+            "description": "Discover top-rated horror films with terrifying scenes and jump scares. Perfect for fans seeking spine-chilling classics and modern hits.",
+            "redirect_url": "/by-genre/TE"
+        },
+        "DO": {
+            "id": "top-documentary-films",
+            "title": "Essential Documentaries",
+            "subtitle": "Stories That Tell the Truth",
+            "description": "Explore powerful documentaries offering deep insights into real-world events and stories. Must-watch for fans of true stories and eye-opening films.",
+            "redirect_url": "/by-genre/DO"
+        }
+    },
+    "lang": {
+        "en": {
+            "id": "top-english-films",
+            "title": "English Cinema",
+            "subtitle": "Best Movies from English-Speaking Countries",
+            "description": "Curated top-rated films from English-speaking countries. Discover the best movies showcasing rich cultural heritage and storytelling traditions.",
+            "redirect_url": ""
+        },
+        "bn": {
+            "id": "top-bengali-films",
+            "title": "Bengali Cinema",
+            "subtitle": "Best Movies from Bangladesh and West Bengal",
+            "description": "Discover the best Bengali movies showcasing rich culture and storytelling from Bangladesh and West Bengal. Top-rated films with powerful narratives.",
+            "redirect_url": ""
+        },
+        "da": {
+            "id": "top-danish-films",
+            "title": "Danish Cinema",
+            "subtitle": "Best Movies from Denmark",
+            "description": "Explore top Danish films with unique Scandinavian storytelling and cultural depth. Best movies from Denmark, highlighting Danish heritage and creativity.",
+            "redirect_url": ""
+        },
+        "is": {
+            "id": "top-icelandic-films",
+            "title": "Icelandic Cinema",
+            "subtitle": "Best Movies from Iceland",
+            "description": "Experience the best Icelandic films capturing the essence of Iceland's culture and landscapes. Top-rated movies with unique Icelandic storytelling.",
+            "redirect_url": ""
+        },
+        "de": {
+            "id": "top-german-films",
+            "title": "German Cinema",
+            "subtitle": "Best Movies from Germany",
+            "description": "Discover top German films showcasing rich German culture and history. Best movies from Germany with powerful storytelling and acclaimed performances.",
+            "redirect_url": ""
+        },
+        "he": {
+            "id": "top-hebrew-films",
+            "title": "Hebrew Cinema",
+            "subtitle": "Best Movies from Israel",
+            "description": "Explore top Hebrew films from Israel, showcasing rich Jewish culture, history, and storytelling. Discover critically acclaimed Israeli movies.",
+            "redirect_url": ""
+        },
+        "sq": {
+            "id": "top-albanian-films",
+            "title": "Albanian Cinema",
+            "subtitle": "Best Movies from Albania and Kosovo",
+            "description": "Discover the best Albanian movies from Albania and Kosovo, highlighting vibrant culture and powerful storytelling. Top-rated films with unique narratives.",
+            "redirect_url": ""
+        },
+        "pt": {
+            "id": "top-portuguese-films",
+            "title": "Portuguese Cinema",
+            "subtitle": "Best Movies from Portugal and Brazil",
+            "description": "Experience the best Portuguese films from Portugal and Brazil. Discover top-rated movies showcasing rich Lusophone culture and storytelling.",
+            "redirect_url": ""
+        },
+        "cy": {
+            "id": "top-welsh-films",
+            "title": "Welsh Cinema",
+            "subtitle": "Best Movies from Wales",
+            "description": "Explore top Welsh films capturing the essence of Welsh culture and landscapes. Discover the best movies with unique Welsh storytelling.",
+            "redirect_url": ""
+        },
+        "am": {
+            "id": "top-amharic-films",
+            "title": "Amharic Cinema",
+            "subtitle": "Best Movies from Ethiopia",
+            "description": "Discover top Amharic films from Ethiopia, showcasing rich Ethiopian culture and storytelling. Best movies with powerful narratives and cultural depth.",
+            "redirect_url": ""
+        },
+        "kn": {
+            "id": "top-kannada-films",
+            "title": "Kannada Cinema",
+            "subtitle": "Best Movies from Karnataka",
+            "description": "Explore top Kannada films from Karnataka, India. Discover the best movies with rich cultural heritage and unique Kannada storytelling.",
+            "redirect_url": ""
+        },
+        "te": {
+            "id": "top-telugu-films",
+            "title": "Telugu Cinema",
+            "subtitle": "Best Movies from Andhra Pradesh and Telangana",
+            "description": "Experience the best Telugu films from Andhra Pradesh and Telangana. Discover top-rated movies with vibrant storytelling and cultural richness.",
+            "redirect_url": ""
+        },
+        "eu": {
+            "id": "top-basque-films",
+            "title": "Basque Cinema",
+            "subtitle": "Best Movies from the Basque Country",
+            "description": "Discover the best Basque films from the Basque Country, showcasing rich culture and unique storytelling. Top-rated movies with powerful narratives.",
+            "redirect_url": ""
+        },
+        "hi": {
+            "id": "top-hindi-films",
+            "title": "Hindi Cinema",
+            "subtitle": "Best Movies from Bollywood and Beyond",
+            "description": "Explore top Hindi films from Bollywood and beyond. Discover critically acclaimed movies showcasing India's rich culture, vibrant storytelling, and cinematic excellence.",
+            "redirect_url": ""
+        },
+        "ar": {
+            "id": "top-arabic-films",
+            "title": "Arabic Cinema",
+            "subtitle": "Best Movies from the Arab World",
+            "description": "Discover the best Arabic films from across the Arab world. Experience top-rated movies showcasing rich Arab culture, history, and storytelling traditions.",
+            "redirect_url": ""
+        },
+        "mn": {
+            "id": "top-mongolian-films",
+            "title": "Mongolian Cinema",
+            "subtitle": "Best Movies from Mongolia",
+            "description": "Experience the best Mongolian films capturing the essence of Mongolia's culture and landscapes. Discover top-rated movies with unique Mongolian storytelling.",
+            "redirect_url": ""
+        },
+        "az": {
+            "id": "top-azerbaijani-films",
+            "title": "Azerbaijani Cinema",
+            "subtitle": "Best Movies from Azerbaijan",
+            "description": "Discover top Azerbaijani films showcasing rich Azerbaijani culture and storytelling. Best movies from Azerbaijan with powerful narratives and cultural depth.",
+            "redirect_url": ""
+        },
+        "mk": {
+            "id": "top-macedonian-films",
+            "title": "Macedonian Cinema",
+            "subtitle": "Best Movies from North Macedonia",
+            "description": "Explore the best Macedonian films from North Macedonia. Discover top-rated movies showcasing the rich culture and unique storytelling of Macedonia.",
+            "redirect_url": ""
+        },
+        "lt": {
+            "id": "top-lithuanian-films",
+            "title": "Lithuanian Cinema",
+            "subtitle": "Best Movies from Lithuania",
+            "description": "Discover top Lithuanian films showcasing rich Baltic culture and storytelling. Explore the best movies from Lithuania, known for its unique narratives and cinematic excellence.",
+            "redirect_url": ""
+        },
+        "ja": {
+            "id": "top-japanese-films",
+            "title": "Japanese Cinema",
+            "subtitle": "Best Movies from Japan",
+            "description": "Experience top Japanese films from Japan's renowned cinema. Discover critically acclaimed movies showcasing Japanese culture, anime, samurai epics, and more.",
+            "redirect_url": ""
+        },
+        "ln": {
+            "id": "top-lingala-films",
+            "title": "Lingala Cinema",
+            "subtitle": "Best Movies from Central Africa",
+            "description": "Explore top Lingala films from Central Africa, showcasing rich Congolese culture and storytelling. Discover the best movies with vibrant narratives and cultural depth.",
+            "redirect_url": ""
+        },
+        "ht": {
+            "id": "top-haitian-creole-films",
+            "title": "Haitian Creole Cinema",
+            "subtitle": "Best Movies from Haiti",
+            "description": "Discover top Haitian Creole films capturing the essence of Haitian culture and history. Explore the best movies with powerful narratives and unique storytelling.",
+            "redirect_url": ""
+        },
+        "ml": {
+            "id": "top-malayalam-films",
+            "title": "Malayalam Cinema",
+            "subtitle": "Best Movies from Kerala",
+            "description": "Experience top Malayalam films from Kerala, India. Discover critically acclaimed movies showcasing Kerala's rich culture, vibrant storytelling, and cinematic excellence.",
+            "redirect_url": ""
+        },
+        "el": {
+            "id": "top-greek-films",
+            "title": "Greek Cinema",
+            "subtitle": "Best Movies from Greece",
+            "description": "Explore top Greek films showcasing Greece's rich culture, history, and mythology. Discover critically acclaimed movies with powerful storytelling and artistic depth.",
+            "redirect_url": ""
+        },
+        "ru": {
+            "id": "top-russian-films",
+            "title": "Russian Cinema",
+            "subtitle": "Best Movies from Russia",
+            "description": "Discover top Russian films showcasing rich Russian culture, history, and storytelling. Explore critically acclaimed movies from Russia, including Soviet classics.",
+            "redirect_url": ""
+        },
+        "rw": {
+            "id": "top-kinyarwanda-films",
+            "title": "Kinyarwanda Cinema",
+            "subtitle": "Best Movies from Rwanda",
+            "description": "Explore top Kinyarwanda films from Rwanda, showcasing rich Rwandan culture and storytelling. Discover the best movies with vibrant narratives and cultural depth.",
+            "redirect_url": ""
+        },
+        "ka": {
+            "id": "top-georgian-films",
+            "title": "Georgian Cinema",
+            "subtitle": "Best Movies from Georgia",
+            "description": "Discover top Georgian films showcasing the rich culture and history of Georgia. Explore critically acclaimed movies with unique Georgian storytelling.",
+            "redirect_url": ""
+        },
+        "mt": {
+            "id": "top-maltese-films",
+            "title": "Maltese Cinema",
+            "subtitle": "Best Movies from Malta",
+            "description": "Explore top Maltese films showcasing the rich culture and history of Malta. Discover the best movies with unique Maltese storytelling and vibrant narratives.",
+            "redirect_url": ""
+        },
+        "zu": {
+            "id": "top-zulu-films",
+            "title": "Zulu Cinema",
+            "subtitle": "Best Movies from South Africa",
+            "description": "Discover top Zulu films from South Africa, showcasing rich Zulu culture and storytelling. Explore the best movies with powerful narratives and cultural depth.",
+            "redirect_url": ""
+        },
+        "hr": {
+            "id": "top-croatian-films",
+            "title": "Croatian Cinema",
+            "subtitle": "Best Movies from Croatia",
+            "description": "Explore top Croatian films showcasing the rich culture and history of Croatia. Discover critically acclaimed movies with unique Croatian storytelling.",
+            "redirect_url": ""
+        },
+        "it": {
+            "id": "top-italian-films",
+            "title": "Italian Cinema",
+            "subtitle": "Best Movies from Italy",
+            "description": "Discover top Italian films showcasing Italy's rich culture, history, and art. Explore critically acclaimed movies from Italy, including Italian neorealism and modern hits.",
+            "redirect_url": ""
+        },
+        "uk": {
+            "id": "top-ukrainian-films",
+            "title": "Ukrainian Cinema",
+            "subtitle": "Best Movies from Ukraine",
+            "description": "Explore top Ukrainian films showcasing Ukraine's rich culture and history. Discover critically acclaimed movies with unique Ukrainian storytelling and powerful narratives.",
+            "redirect_url": ""
+        },
+        "mg": {
+            "id": "top-malagasy-films",
+            "title": "Malagasy Cinema",
+            "subtitle": "Best Movies from Madagascar",
+            "description": "Discover top Malagasy films capturing the essence of Madagascar's culture and landscapes. Explore the best movies with unique Malagasy storytelling.",
+            "redirect_url": ""
+        },
+        "sm": {
+            "id": "top-samoan-films",
+            "title": "Samoan Cinema",
+            "subtitle": "Best Movies from Samoa",
+            "description": "Explore top Samoan films showcasing the rich culture and traditions of Samoa. Discover the best movies with vibrant narratives and unique Samoan storytelling.",
+            "redirect_url": ""
+        },
+        "pl": {
+            "id": "top-polish-films",
+            "title": "Polish Cinema",
+            "subtitle": "Best Movies from Poland",
+            "description": "Discover top Polish films showcasing Poland's rich culture and history. Explore critically acclaimed movies from Poland, including Polish cinema classics and modern hits.",
+            "redirect_url": ""
+        },
+        "vi": {
+            "id": "top-vietnamese-films",
+            "title": "Vietnamese Cinema",
+            "subtitle": "Best Movies from Vietnam",
+            "description": "Explore top Vietnamese films showcasing the rich culture and history of Vietnam. Discover critically acclaimed movies with unique Vietnamese storytelling and powerful narratives.",
+            "redirect_url": ""
+        },
+        "et": {
+            "id": "top-estonian-films",
+            "title": "Estonian Cinema",
+            "subtitle": "Best Movies from Estonia",
+            "description": "Discover top Estonian films showcasing the rich culture and storytelling of Estonia. Explore critically acclaimed movies with unique Baltic narratives.",
+            "redirect_url": ""
+        },
+        "gl": {
+            "id": "top-galician-films",
+            "title": "Galician Cinema",
+            "subtitle": "Best Movies from Galicia",
+            "description": "Explore top Galician films from Galicia, Spain. Discover critically acclaimed movies showcasing Galician culture, language, and unique storytelling.",
+            "redirect_url": ""
+        },
+        "jv": {
+            "id": "top-javanese-films",
+            "title": "Javanese Cinema",
+            "subtitle": "Best Movies from Java",
+            "description": "Discover top Javanese films from Java, Indonesia. Explore the best movies showcasing rich Javanese culture, traditions, and storytelling.",
+            "redirect_url": ""
+        },
+        "ig": {
+            "id": "top-igbo-films",
+            "title": "Igbo Cinema",
+            "subtitle": "Best Movies from Igbo-Speaking Regions",
+            "description": "Explore top Igbo films from Nigeria and beyond. Discover critically acclaimed movies showcasing rich Igbo culture, traditions, and storytelling.",
+            "redirect_url": ""
+        },
+        "af": {
+            "id": "top-afrikaans-films",
+            "title": "Afrikaans Cinema",
+            "subtitle": "Best Movies from South Africa",
+            "description": "Discover top Afrikaans films from South Africa. Explore critically acclaimed movies showcasing rich South African culture and unique storytelling.",
+            "redirect_url": ""
+        },
+        "be": {
+            "id": "top-belarusian-films",
+            "title": "Belarusian Cinema",
+            "subtitle": "Best Movies from Belarus",
+            "description": "Discover top Belarusian films showcasing the rich culture and history of Belarus. Explore critically acclaimed movies with unique Belarusian storytelling.",
+            "redirect_url": ""
+        },
+        "sn": {
+            "id": "top-shona-films",
+            "title": "Shona Cinema",
+            "subtitle": "Best Movies from Zimbabwe",
+            "description": "Explore top Shona films from Zimbabwe. Discover the best movies showcasing rich Shona culture, traditions, and vibrant storytelling.",
+            "redirect_url": ""
+        },
+        "hu": {
+            "id": "top-hungarian-films",
+            "title": "Hungarian Cinema",
+            "subtitle": "Best Movies from Hungary",
+            "description": "Discover top Hungarian films showcasing the rich culture and history of Hungary. Explore critically acclaimed movies with unique Hungarian storytelling.",
+            "redirect_url": ""
+        },
+        "fi": {
+            "id": "top-finnish-films",
+            "title": "Finnish Cinema",
+            "subtitle": "Best Movies from Finland",
+            "description": "Explore top Finnish films showcasing the rich culture and history of Finland. Discover critically acclaimed movies with unique Finnish storytelling.",
+            "redirect_url": ""
+        },
+        "yo": {
+            "id": "top-yoruba-films",
+            "title": "Yoruba Cinema",
+            "subtitle": "Best Movies from Yoruba-Speaking Regions",
+            "description": "Discover top Yoruba films from Nigeria and beyond. Explore critically acclaimed movies showcasing rich Yoruba culture, traditions, and storytelling.",
+            "redirect_url": ""
+        },
+        "sl": {
+            "id": "top-slovenian-films",
+            "title": "Slovenian Cinema",
+            "subtitle": "Best Movies from Slovenia",
+            "description": "Discover top Slovenian films showcasing the rich culture and history of Slovenia. Explore critically acclaimed movies with unique Slovenian storytelling.",
+            "redirect_url": ""
+        },
+        "es": {
+            "id": "top-spanish-films",
+            "title": "Spanish Cinema",
+            "subtitle": "Best Movies from Spain and Latin America",
+            "description": "Explore top Spanish films from Spain and Latin America. Discover critically acclaimed movies showcasing rich Spanish culture, history, and vibrant storytelling.",
+            "redirect_url": ""
+        },"bg": {
+            "id": "top-bulgarian-films",
+            "title": "Bulgarian Cinema",
+            "subtitle": "Best Movies from Bulgaria",
+            "description": "Discover top Bulgarian films showcasing the rich culture and history of Bulgaria. Explore critically acclaimed movies with unique Bulgarian storytelling.",
+            "redirect_url": ""
+        },
+        "lg": {
+            "id": "top-luganda-films",
+            "title": "Luganda Cinema",
+            "subtitle": "Best Movies from Uganda",
+            "description": "Explore top Luganda films from Uganda. Discover critically acclaimed movies showcasing rich Ugandan culture, traditions, and vibrant storytelling.",
+            "redirect_url": ""
+        },
+        "mr": {
+            "id": "top-marathi-films",
+            "title": "Marathi Cinema",
+            "subtitle": "Best Movies from Maharashtra",
+            "description": "Discover top Marathi films from Maharashtra, India. Explore critically acclaimed movies showcasing rich Marathi culture, traditions, and storytelling.",
+            "redirect_url": ""
+        },
+        "ca": {
+            "id": "top-catalan-films",
+            "title": "Catalan Cinema",
+            "subtitle": "Best Movies from Catalonia",
+            "description": "Explore top Catalan films from Catalonia, Spain. Discover critically acclaimed movies showcasing rich Catalan culture, language, and unique storytelling.",
+            "redirect_url": ""
+        },
+        "lv": {
+            "id": "top-latvian-films",
+            "title": "Latvian Cinema",
+            "subtitle": "Best Movies from Latvia",
+            "description": "Discover top Latvian films showcasing the rich culture and history of Latvia. Explore critically acclaimed movies with unique Baltic narratives.",
+            "redirect_url": ""
+        },"zh": {
+            "id": "top-chinese-films",
+            "title": "Chinese Cinema",
+            "subtitle": "Best Movies from China",
+            "description": "Discover top Chinese films showcasing rich Chinese culture, history, and storytelling. Explore critically acclaimed movies from China, including wuxia, historical dramas, and modern hits.",
+            "redirect_url": ""
+        },
+        "sw": {
+            "id": "top-swahili-films",
+            "title": "Swahili Cinema",
+            "subtitle": "Best Movies from Swahili-Speaking Regions",
+            "description": "Discover top Swahili films from East Africa, showcasing rich Swahili culture and storytelling. Explore the best movies with vibrant narratives and cultural depth.",
+            "redirect_url": ""
+        },
+        "tl": {
+            "id": "top-tagalog-films",
+            "title": "Tagalog Cinema",
+            "subtitle": "Best Movies from the Philippines",
+            "description": "Explore top Tagalog films from the Philippines, showcasing rich Filipino culture and storytelling. Discover critically acclaimed movies with unique Filipino narratives.",
+            "redirect_url": ""
+        },
+        "tr": {
+            "id": "top-turkish-films",
+            "title": "Turkish Cinema",
+            "subtitle": "Best Movies and Series from Turkey",
+            "description": "Discover top Turkish films showcasing Turkey's rich culture, history, and storytelling. Explore critically acclaimed movies from Turkey, including historical epics, turkish series, and modern hits.",
+            "redirect_url": ""
+        },
+        "sv": {
+            "id": "top-swedish-films",
+            "title": "Swedish Cinema",
+            "subtitle": "Best Movies from Sweden",
+            "description": "Explore top Swedish films showcasing Sweden's rich culture, history, and storytelling. Discover critically acclaimed movies with unique Swedish narratives.",
+            "redirect_url": ""
+        },
+        "ro": {
+            "id": "top-romanian-films",
+            "title": "Romanian Cinema",
+            "subtitle": "Best Movies from Romania",
+            "description": "Discover top Romanian films showcasing the rich culture and history of Romania. Explore critically acclaimed movies with unique Romanian storytelling.",
+            "redirect_url": ""
+        },
+        "sk": {
+            "id": "top-slovak-films",
+            "title": "Slovak Cinema",
+            "subtitle": "Best Movies from Slovakia",
+            "description": "Discover top Slovak films showcasing the rich culture and history of Slovakia. Explore critically acclaimed movies with unique Slovak storytelling.",
+            "redirect_url": ""
+        },
+        "so": {
+            "id": "top-somali-films",
+            "title": "Somali Cinema",
+            "subtitle": "Best Movies from Somalia",
+            "description": "Explore top Somali films from Somalia, showcasing rich Somali culture and storytelling. Discover the best movies with vibrant narratives and cultural depth.",
+            "redirect_url": ""
+        },
+        "ur": {
+            "id": "top-urdu-films",
+            "title": "Urdu Cinema",
+            "subtitle": "Best Movies from Pakistan and India",
+            "description": "Discover top Urdu films from Pakistan and India. Explore critically acclaimed movies showcasing rich Urdu culture, traditions, and storytelling.",
+            "redirect_url": ""
+        },
+        "hy": {
+            "id": "top-armenian-films",
+            "title": "Armenian Cinema",
+            "subtitle": "Best Movies from Armenia",
+            "description": "Explore top Armenian films showcasing the rich culture and history of Armenia. Discover critically acclaimed movies with unique Armenian storytelling.",
+            "redirect_url": ""
+        },
+        "nl": {
+            "id": "top-dutch-films",
+            "title": "Dutch Cinema",
+            "subtitle": "Best Movies from the Netherlands and Belgium",
+            "description": "Discover top Dutch films from the Netherlands and Belgium. Explore critically acclaimed movies showcasing rich Dutch culture and unique storytelling.",
+            "redirect_url": ""
+        },
+        "ta": {
+            "id": "top-tamil-films",
+            "title": "Tamil Cinema",
+            "subtitle": "Best Movies from Tamil Nadu and Sri Lanka",
+            "description": "Discover top Tamil films from Tamil Nadu, India, and Sri Lanka. Explore critically acclaimed movies showcasing rich Tamil culture, traditions, and storytelling.",
+            "redirect_url": ""
+        },
+        "fr": {
+            "id": "top-french-films",
+            "title": "French Cinema",
+            "subtitle": "Best Movies from France and Francophone Countries",
+            "description": "Explore top French films from France and Francophone countries. Discover critically acclaimed movies showcasing rich French culture, history, and vibrant storytelling.",
+            "redirect_url": ""
+        },
+        "id": {
+            "id": "top-indonesian-films",
+            "title": "Indonesian Cinema",
+            "subtitle": "Best Movies from Indonesia",
+            "description": "Discover top Indonesian films showcasing the rich culture and history of Indonesia. Explore critically acclaimed movies with unique Indonesian storytelling.",
+            "redirect_url": ""
+        },
+        "cs": {
+            "id": "top-czech-films",
+            "title": "Czech Cinema",
+            "subtitle": "Best Movies from Czech Republic",
+            "description": "Explore top Czech films showcasing the rich culture and history of the Czech Republic. Discover critically acclaimed movies with unique Czech storytelling.",
+            "redirect_url": ""
+        },
+        "xh": {
+            "id": "top-xhosa-films",
+            "title": "Xhosa Cinema",
+            "subtitle": "Best Movies from South Africa",
+            "description": "Discover top Xhosa films from South Africa, showcasing rich Xhosa culture and storytelling. Explore the best movies with powerful narratives and cultural depth.",
+            "redirect_url": ""
+        }
+    },
+    "other": {
+        "recent": {
+            "id": "top-recent-films",
+            "title": "Watch Now",
+            "subtitle": "Must-See Movies from the Last Few Years",
+            "description": "Collection of the most popular and talked-about films from recent years. Top recent films to stream right now.",
+            "redirect_url": ""
+        },
+        "classics": {
+            "id": "top-classics-films",
+            "title": "Cinema Classics",
+            "subtitle": "Essential Timeless Masterpieces",
+            "description": "Curated collection of the most celebrated films from the 1900s. Each movie offers timeless entertainment and critical cinematic history.",
+            "redirect_url": ""
+        },
+        "awards": {
+            "id": "top-awarded-films",
+            "title": "Awarded Masterpieces",
+            "subtitle": "Most Critically Acclaimed Films",
+            "description": "Curated list of the highest award-winning films. Each movie represents the pinnacle of cinematic excellence.",
+            "redirect_url": ""
+        }
+    }
+}
