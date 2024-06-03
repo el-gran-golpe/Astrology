@@ -42,8 +42,8 @@ const gridSections = [
 
 <html lang={lang}>
     <Head
-        title={config["siteName"]}
-        description={t("meta.description")}
+        title={`${config["siteName"]} | ${t(sectionDescriptions["genre"][genre].title)}}`}
+        description={t(sectionDescriptions["genre"][genre].description)}
         lang={lang}
         afterLangUrl={`by-genre/${genre}`}
         OGTitle={config["siteName"]}
