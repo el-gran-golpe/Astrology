@@ -1,5 +1,5 @@
 {
-    "genres": {
+    "genre": {
         "TE": {
             "id": "top-horror-films",
             "title": "Horror Favorites",
@@ -13,7 +13,119 @@
             "subtitle": "Stories That Tell the Truth",
             "description": "Explore powerful documentaries offering deep insights into real-world events and stories. Must-watch for fans of true stories and eye-opening films.",
             "redirect_url": "/by-genre/DO"
+        },
+        "AC": {
+            "id": "top-action-films",
+            "title": "Action Thrillers",
+            "subtitle": "Heart-Pounding Movies Full of Adrenaline",
+            "description": "Explore top-rated action films with explosive scenes, thrilling chases, and intense fight sequences. Perfect for fans of high-octane adventures and non-stop excitement.",
+            "redirect_url": "/by-genre/AC"
+        },
+        "AV": {
+            "id": "top-adventure-films",
+            "title": "Adventure Epics",
+            "subtitle": "Embark on Unforgettable Journeys",
+            "description": "Discover top adventure films filled with epic quests, exotic locations, and heroic characters. Perfect for fans seeking thrilling journeys and unforgettable experiences.",
+            "redirect_url": "/by-genre/AV"
+        },
+        "AN": {
+            "id": "top-animation-films",
+            "title": "Animated Wonders",
+            "subtitle": "Movies That Bring Fantasies to Life",
+            "description": "Explore top-rated animated films with stunning visuals, imaginative stories, and beloved characters. Perfect for fans of animation, from family-friendly tales to sophisticated adult themes.",
+            "redirect_url": "/by-genre/AN"
+        },
+        "CO": {
+            "id": "top-comedy-films",
+            "title": "Comedy Hits",
+            "subtitle": "Laugh Out Loud with the Funniest Movies",
+            "description": "Discover top-rated comedy films with hilarious scenes, witty dialogue, and unforgettable characters. Perfect for fans seeking laugh-out-loud moments and comedic brilliance.",
+            "redirect_url": "/by-genre/CO"
+        },
+        "DR": {
+            "id": "top-drama-films",
+            "title": "Dramatic Masterpieces",
+            "subtitle": "Emotional and Thought-Provoking Stories",
+            "description": "Explore top-rated drama films with powerful performances, emotional depth, and compelling narratives. Perfect for fans seeking intense, thought-provoking cinema and unforgettable storytelling.",
+            "redirect_url": "/by-genre/DR"
+        },"FAN": {
+            "id": "top-fantasy-films",
+            "title": "Fantasy Worlds",
+            "subtitle": "Magical Adventures and Enchanted Realms",
+            "description": "Discover top-rated fantasy films featuring magical adventures, enchanted realms, and mythical creatures. Perfect for fans of epic fantasies, spellbinding stories, and otherworldly journeys.",
+            "redirect_url": "/by-genre/FAN"
+        },
+        "F-N": {
+            "id": "top-film-noir-films",
+            "title": "Film Noir Classics",
+            "subtitle": "Dark, Stylish, and Suspenseful",
+            "description": "Explore top-rated film noir movies with dark plots, stylish cinematography, and suspenseful narratives. Perfect for fans of classic noir, detective stories, and moody thrillers.",
+            "redirect_url": "/by-genre/F-N"
+        },
+        "INF": {
+            "id": "top-kids-films",
+            "title": "Kids' Favorites",
+            "subtitle": "Fun and Educational Movies for Children",
+            "description": "Discover top-rated kids' films that are fun, educational, and family-friendly. Perfect for young viewers seeking animated adventures, heartwarming tales, and entertaining stories.",
+            "redirect_url": "/by-genre/INF"
+        },
+        "MU": {
+            "id": "top-musical-films",
+            "title": "Musical Extravaganzas",
+            "subtitle": "Sing, Dance, and Celebrate",
+            "description": "Explore top-rated musical films filled with unforgettable songs, dazzling dance numbers, and vibrant performances. Perfect for fans of musicals, Broadway adaptations, and show-stopping spectacles.",
+            "redirect_url": "/by-genre/MU"
+        },
+        "INT": {
+            "id": "top-mystery-films",
+            "title": "Mystery Thrillers",
+            "subtitle": "Intriguing Plots and Unsolved Mysteries",
+            "description": "Discover top-rated mystery films with intriguing plots, unsolved puzzles, and suspenseful twists. Perfect for fans of whodunits, detective stories, and gripping mysteries.",
+            "redirect_url": "/by-genre/INT"
+        },
+        "RO": {
+            "id": "top-romance-films",
+            "title": "Romantic Tales",
+            "subtitle": "Love Stories That Warm the Heart",
+            "description": "Explore top-rated romance films featuring heartfelt love stories, emotional journeys, and unforgettable relationships. Perfect for fans of romantic comedies, dramas, and classic love stories.",
+            "redirect_url": "/by-genre/RO"
+        },
+        "C-F": {
+            "id": "top-sci-fi-films",
+            "title": "Sci-Fi Spectacles",
+            "subtitle": "Futuristic Adventures and Space Epics",
+            "description": "Discover top-rated sci-fi films with futuristic adventures, space exploration, and mind-bending concepts. Perfect for fans of science fiction, space operas, and cutting-edge technology.",
+            "redirect_url": "/by-genre/C-F"
+        },
+        "TH": {
+            "id": "top-thriller-films",
+            "title": "Edge-of-Your-Seat Thrillers",
+            "subtitle": "Intense Suspense and Heart-Pounding Action",
+            "description": "Explore top-rated thriller films with intense suspense, heart-pounding action, and shocking twists. Perfect for fans of psychological thrillers, crime dramas, and high-stakes stories.",
+            "redirect_url": "/by-genre/TH"
+        },
+        "TV_SE": {
+            "id": "top-tv-series",
+            "title": "Binge-Worthy TV Series",
+            "subtitle": "Unmissable Shows You Can't Stop Watching",
+            "description": "Discover top-rated TV series with captivating storylines, unforgettable characters, and addictive plots. Perfect for fans of binge-watching, dramatic series, and hit shows.",
+            "redirect_url": "/by-genre/TV_SE"
+        },
+        "BE": {
+            "id": "top-war-films",
+            "title": "War Epics",
+            "subtitle": "Heroic Battles and Historical Conflicts",
+            "description": "Explore top-rated war films showcasing heroic battles, historical conflicts, and gripping war stories. Perfect for fans of military dramas, historical epics, and battlefield action.",
+            "redirect_url": "/by-genre/BE"
+        },
+        "WE": {
+            "id": "top-western-films",
+            "title": "Western Adventures",
+            "subtitle": "Wild West Tales of Cowboys and Outlaws",
+            "description": "Discover top-rated western films with classic cowboy adventures, frontier justice, and rugged landscapes. Perfect for fans of westerns, outlaw tales, and historical sagas.",
+            "redirect_url": "/by-genre/WE"
         }
+
     },
     "lang": {
         "en": {

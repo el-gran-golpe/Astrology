@@ -17,7 +17,7 @@ import { getEntry } from "astro:content";
 
 // Fetch the films
 export async function getStaticPaths() {
-    return await getHomePageFilmsByLangAndGenres(10);
+    return await getHomePageFilmsByLangAndGenres(50);
 }
 
 // Destructure the props
@@ -30,21 +30,12 @@ const config = (await getEntry("configs", "site-config")).data;
 const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
 const LANGUAGE_CODES_TO_NAME = (await getEntry('location', 'languages-to-names')).data;
 
+const sectionDescriptions = (await getEntry("seo", "section-descriptions")).data;
 // Create an array of grid sections with title and subtitle
 const gridSections = [
     {
-        id: "top-genre-films",
-        title: t("Top"),
-        subtitle: t(GENRE_CODES_TO_NAME[genre]) + " Films",
+        ...sectionDescriptions["genre"][genre],
         films: topFilms,
-        screenReaderText: t("This section features a collection of the best films in the {genre} genre. Enjoy top-rated movies and discover new favorites.").replace("{genre}", t(GENRE_CODES_TO_NAME[genre]))
-    },
-    {
-        id: "top-location-films",
-        title: t("Top"),
-        subtitle: t(GENRE_CODES_TO_NAME[genre]) + " Films in " + t(LANGUAGE_CODES_TO_NAME[lang]),
-        films: topLocationFilms,
-        screenReaderText: t("This section features a collection of the best films in the {genre} genre produced in {language}-speaking countries. Enjoy top-rated movies and discover new favorites.").replace("{genre}", t(GENRE_CODES_TO_NAME[genre])).replace("{language}", t(LANGUAGE_CODES_TO_NAME[lang]))
     }
 ];
 ---
@@ -75,7 +66,7 @@ const gridSections = [
                             <span class="text-gray-400 font-light ml-2">{section.subtitle}</span>
                         </h2>
                         <p id={`${section.id}-description`} class="sr-only">
-                            {section.screenReaderText}
+                            {section.description}
                         </p>
                         <!-- Grid of movie cards -->
                         <Grid>
