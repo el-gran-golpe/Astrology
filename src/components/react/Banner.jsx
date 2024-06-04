@@ -30,7 +30,7 @@ export default function Banner({ films, lang }) {
     return (
         <>
         {/* Enhanced Hero Image */}
-        <div className="mb-6 mx-0 relative w-full rounded" style={{ height: '75vh' }} role="region" aria-labelledby="banner-heading">
+        <div className="mb-6 mx-0 relative w-full rounded" style={{ height: '70vh' }} role="region" aria-labelledby="banner-heading">
             {/* Use CSS transition for fade effect */}
             {films.map((film, index) => (
                 <div key={index} className="absolute w-full h-full transition-opacity duration-1000 ease-in-out" style={{ opacity: activeDot === index ? 1 : 0 }}>
@@ -38,6 +38,7 @@ export default function Banner({ films, lang }) {
                         src={film.extended_info.poster_max_quality_url}
                         alt={`Poster of ${film.locationInfo.title}`}
                         className="w-full h-full object-cover"
+                        loading={index === 0 ? 'eager' : 'lazy'}
                     />
                 </div>
             ))}
@@ -47,7 +48,7 @@ export default function Banner({ films, lang }) {
 
             {/* Text positioned like in the example image, constrained to not exceed 25% of the parent */}
             <div className="absolute inset-0 flex items-center pl-10 lg:pl-24 pr-20">
-                <div className="w-1/4 space-y-4">
+                <div className="w-1/3 space-y-4">
                     {/* Main Title */}
                     <h1 id="banner-heading" className="text-6xl font-bold mb-4 text-white drop-shadow-xl">
                         {films[activeDot].locationInfo.title}
