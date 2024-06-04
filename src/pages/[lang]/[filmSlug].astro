@@ -26,7 +26,6 @@ import LeftColumnInfoPannel from '../../components/LeftColumnInfoPannel.astro';
 import Synopsis from '../../components/Synopsis.astro';
 import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
 import { movieInfoToOpenGraph, movieInfoToSchemaOrg } from '../../utils/utils.ts';
-import { movieInfoToOpenGraph } from '../../utils/utils.ts';
 
 const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
 
