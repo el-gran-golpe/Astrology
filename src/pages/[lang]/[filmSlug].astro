@@ -58,7 +58,8 @@ const keywords = [...translatedGenres]
 
       <!-- Banner -->
       <header class="mb-6 mx-0 w-full h-[33vh] relative overflow-hidden">
-        <img src={filmInfo.extended_info.poster_url} alt={`${filmInfo.locationInfo.title} banner`} class="absolute w-full h-full object-cover" />
+        <img src={filmInfo.extended_info.poster_url} alt={`${filmInfo.locationInfo.title} banner`} class="absolute w-full h-full object-cover" 
+        loading="eager"/>
 
         <!-- YouTube video iframe -->
         <!-- 

@@ -23,7 +23,7 @@ const MovieCardHaru = ({ posterURL, movieTitle, movieSlug, currentLocale }) => {
 
     return (
         <div style={filmCardStyle}>
-            <img src={posterURL} alt={`Poster of ${movieTitle}`} style={imageStyle} />
+            <img src={posterURL} alt={`Poster of ${movieTitle}`} style={imageStyle} loading="lazy"/>
             <h3 style={titleStyle}>
                 <a href={getRelativeLocaleUrl(currentLocale, movieSlug)}>{movieTitle}</a>
             </h3>
