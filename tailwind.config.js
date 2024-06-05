@@ -8,11 +8,11 @@ export default {
         'subtleBounce': 'subtleBounce 1s infinite',
       },
       keyframes: {
-  subtleBounce: {
-    '0%, 100%': { transform: 'translateX(0)' },
-    '50%': { transform: 'translateX(-10px)' },
-  },
-},
+        subtleBounce: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '50%': { transform: 'translateX(-10px)' },
+        },
+      },
       gridTemplateColumns: {
         'auto-fit': 'repeat(auto-fit, minmax(150px, 1fr))',
       },
