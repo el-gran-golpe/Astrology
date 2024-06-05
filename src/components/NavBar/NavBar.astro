@@ -2,27 +2,25 @@
 import SearchBar from '../react/NavBar/SearchBar';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
 import GenreSwitcher from '../GenreSwitcher.astro';
-
 const { lang } = Astro.params;
 ---
-
 <nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10" aria-label="Main navigation">
-    <div class="flex justify-between items-center w-full">
+    <div class="container mx-auto px-6 flex justify-between items-center">
         <!-- Render the title of the website -->
-        <div class="flex-none pl-6 pr-4">
+        <div class="flex-none">
             <a href="/" class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label="Home">  
                 <div class="text-3xl font-bold flex items-center logo-text">
                     <span class="text-red-400" style="font-family: 'Montserrat', sans-serif;">K</span>
-                    <span class="text-white" style="font-family: 'Montserrat', sans-serif;">inemi</span>
-                    <span class="text-white" style="font-family: 'Montserrat', sans-serif;">Fy</span>
+                    <span class="text-white" style="font-family: 'Montserrat', sans-serif;">inemiFy</span>
                 </div>
             </a>
         </div>
-
         <!-- Render the menu items and the search bar -->
         <ul class="flex justify-center items-center flex-grow" role="menubar">
-            <GenreSwitcher />
-            <div class="flex flex-grow items-center justify-end pl-5 pr-2">
+            <div class="ml-6">
+                <GenreSwitcher />
+            </div>
+            <div class="flex flex-grow items-center justify-end pl-5">
                 <SearchBar client:only="react" lang={lang}/>
                 <div class="ml-4">
                     <LanguageSwitcher />
