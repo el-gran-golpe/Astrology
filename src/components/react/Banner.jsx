@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { getTranslationFunction } from '../../utils/localization.ts';
 
 export default function Banner({ films, lang }) {
@@ -22,6 +22,15 @@ export default function Banner({ films, lang }) {
             nextIndex = 0; // Loop back to the first image
         }
         selectDot(nextIndex);
+    };
+
+    // Function to move to the previous image
+    const prevImage = () => {
+        let prevIndex = activeDot - 1;
+        if (prevIndex < 0) {
+            prevIndex = films.length - 1; // Loop back to the last image
+        }
+        selectDot(prevIndex);
     };
 
     // Array to create dots dynamically, starting at index 0 to match the banner images
@@ -47,7 +56,7 @@ export default function Banner({ films, lang }) {
             <div className="absolute w-full h-full bg-gradient-to-r from-black via-gray-800 to-transparent opacity-70"></div>
 
             {/* Text positioned like in the example image, constrained to not exceed 25% of the parent */}
-            <div className="absolute inset-0 flex items-center pl-10 lg:pl-24 pr-20">
+            <div className="absolute inset-0 flex items-center mx-auto px-6 container">               
                 <div className="w-1/3 space-y-4">
                     {/* Main Title */}
                     <h1 id="banner-heading" className="text-6xl font-bold mb-4 text-white drop-shadow-xl">
@@ -87,17 +96,27 @@ export default function Banner({ films, lang }) {
                             </button>
                         ))}
                     </div>
-
-                    {/* Arrow with bouncing animation */}
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-4 animate-subtleBounce">
-                        <FontAwesomeIcon
-                            icon={faChevronRight}
-                            className="h-10 w-10 text-white cursor-pointer"
-                            onClick={nextImage}
-                            aria-label="Next slide"
-                        />
-                    </div>
                 </div>
+            </div>
+
+            {/* Arrow with bouncing animation to the right */}
+            <div className="absolute inset-y-0 right-0 flex items-center pr-4 animate-subtleBounce">
+                <FontAwesomeIcon
+                    icon={faChevronRight}
+                    className="h-10 w-10 text-white cursor-pointer"
+                    onClick={nextImage}
+                    aria-label="Next slide"
+                />
+            </div>
+
+            {/* Arrow with bouncing animation to the left */}
+            <div className="absolute inset-y-0 left-0 flex items-center pl-4 animate-subtleBounce lg:flex hidden">
+                <FontAwesomeIcon
+                    icon={faChevronLeft}
+                    className="h-10 w-10 text-white cursor-pointer"
+                    onClick={prevImage}
+                    aria-label="Previous slide"
+                />
             </div>
 
             {/* Gradient Overlay */}
