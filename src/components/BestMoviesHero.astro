@@ -34,6 +34,10 @@ const t = getTranslationFunction(lang);
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    position: absolute;
+    bottom: 2rem; /* Position the dots container 2rem from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
   }
 </style>
 
@@ -56,15 +60,6 @@ const t = getTranslationFunction(lang);
                     <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
                         {t("ENJOY THIS MOVIE ONLINE")}
                     </button>
-                    <div class="dots-container space-x-10" role="tablist" aria-label="Banner navigation">
-                        {films.map((_, dotIndex) => (
-                            <button
-                                class={`dot w-3 h-3 rounded cursor-pointer transform transition-transform duration-500 ease-in-out ${dotIndex === index ? 'bg-red-400 scale-150' : 'bg-gray-500 hover:bg-red-500'}`}
-                                aria-label={`Go to slide ${dotIndex + 1}`}
-                                data-index={dotIndex}
-                            ></button>
-                        ))}
-                    </div>
                 </div>
             </div>
         </div>
@@ -79,7 +74,7 @@ const t = getTranslationFunction(lang);
     <div class="absolute inset-y-0 right-0 flex items-center pr-4 animate-subtleBounce arrow-right">
         <FontAwesomeIcon
             icon={faChevronRight}
-            class="arrow text-white cursor-pointer"
+            className="arrow text-white cursor-pointer"
             aria-label="Next slide"
         />
     </div>
@@ -87,9 +82,19 @@ const t = getTranslationFunction(lang);
     <div class="absolute inset-y-0 left-0 flex items-center pl-4 animate-subtleBounce lg:flex hidden arrow-left">
         <FontAwesomeIcon
             icon={faChevronLeft}
-            class="arrow text-white cursor-pointer"
+            className="arrow text-white cursor-pointer"
             aria-label="Previous slide"
         />
+    </div>
+
+    <div class="dots-container space-x-10" role="tablist" aria-label="Banner navigation">
+        {films.map((_, dotIndex) => (
+            <button
+                class={`dot w-3 h-3 rounded cursor-pointer transform transition-transform duration-500 ease-in-out ${dotIndex === 0 ? 'bg-red-400 scale-150' : 'bg-gray-500 hover:bg-red-500'}`}
+                aria-label={`Go to slide ${dotIndex + 1}`}
+                data-index={dotIndex}
+            ></button>
+        ))}
     </div>
 </div>
 
@@ -100,7 +105,6 @@ const t = getTranslationFunction(lang);
     const dots = Array.from(document.querySelectorAll('.dot'));
 
     function updateActiveSlide(newIndex) {
-      console.log("From", activeIndex, "to", newIndex)
       films[activeIndex].classList.remove('opacity-100');
       films[activeIndex].classList.add('opacity-0');
       dots[activeIndex].classList.remove('bg-red-400', 'scale-150');
