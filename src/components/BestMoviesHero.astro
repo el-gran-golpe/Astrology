@@ -11,13 +11,15 @@ const t = getTranslationFunction(lang);
 
 <style>
   .arrow {
-    height: 2.5rem; /* Adjust the height as needed */
-    width: 2.5rem; /* Adjust the width as needed */
+    height: 2.25rem; /* Adjust the height as needed */
+    width: 2.25rem; /* Adjust the width as needed */
+    opacity: 0.8; /* Slightly transparent */
   }
 
   .arrow:hover {
     transform: scale(1.2); /* Slightly enlarge on hover */
     transition: transform 0.2s ease-in-out;
+    opacity: 1; /* Fully opaque on hover */
   }
 
   .fade-enter-active,
