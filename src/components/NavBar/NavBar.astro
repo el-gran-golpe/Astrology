@@ -3,6 +3,15 @@ import SearchBar from '../react/NavBar/SearchBar';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
 import GenreSwitcher from '../GenreSwitcher.astro';
 const { lang } = Astro.params;
+
+// Define the props. Only currentGenre is required.
+export interface NavBarProps {
+    currentGenre?: string;
+}
+
+const { currentGenre } = Astro.props;
+
+
 ---
 <nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10" aria-label="Main navigation">
     <div class="container mx-auto px-6 flex justify-between items-center">
@@ -18,7 +27,7 @@ const { lang } = Astro.params;
         <!-- Render the menu items and the search bar -->
         <ul class="flex justify-center items-center flex-grow" role="menubar">
             <div class="ml-6">
-                <GenreSwitcher />
+                <GenreSwitcher currentGenre={currentGenre} />
             </div>
             <div class="flex flex-grow items-center justify-end pl-5">
                 <SearchBar client:only="react" lang={lang}/>
