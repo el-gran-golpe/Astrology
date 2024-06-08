@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
@@ -33,6 +34,13 @@ export default defineConfig({
     react(),
     sitemap({
       filter: (page) => page.pathname !== '/exclude-this-page' // Optionally filter out pages
+    }),
+    icon({
+      include: {
+        'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags'],
+        // Specify the Font Awesome icons you need
+        'fa6-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags'],
+      }
     })
   ],
 });

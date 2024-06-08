@@ -1,6 +1,5 @@
 ---
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faFilm, faPenFancy, faChair, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from 'astro-icon/components';
 import { getTranslationFunction } from '../utils/localization.ts';
 
 // Get the translation function
@@ -9,11 +8,11 @@ const t = getTranslationFunction(lang);
 
 const { cast, producers, screenwriters, directors, musicians } = Astro.props;
 const subsections = [
-    { title: t("Cast"), data: cast, icon: faUser },
-    { title: t("Producers"), data: producers, icon: faFilm },
-    { title: t("Screenwriters"), data: screenwriters, icon: faPenFancy },
-    { title: t("Directors"), data: directors, icon: faChair },
-    { title: t("Musicians"), data: musicians, icon: faMusic }
+    { title: t("Cast"), data: cast, icon: 'fa-solid:user' },
+    { title: t("Producers"), data: producers, icon: 'fa-solid:film' },
+    { title: t("Screenwriters"), data: screenwriters, icon: 'fa-solid:pen-fancy' },
+    { title: t("Directors"), data: directors, icon: 'fa-solid:chair' },
+    { title: t("Musicians"), data: musicians, icon: 'fa-solid:music' }
 ];
 ---
 
@@ -29,17 +28,17 @@ const subsections = [
 
     <div class="space-y-6">
         {subsections.map((subsection, idx) => subsection.data && subsection.data.length > 0 && (
-            <section key={idx} aria-label={subsection.title}>
+            <section aria-label={subsection.title}>
                 <div class="flex justify-between items-center px-5 py-3">
                     <span class="text-xl font-semibold text-white font-mono title">{subsection.title}</span>
                     <div class="p-2 border-4 border-gray-500 rounded-full bg-gray-700 shadow">
-                        <FontAwesomeIcon icon={subsection.icon} class="fa-lg text-white" />
+                        <Icon name={subsection.icon} class="fa-lg text-white" />
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-800 rounded-lg">
                     {subsection.data.map((person, personIndex) => (
-                        <div key={personIndex} class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200" aria-label={`${person.name}, ${person.role}`}>
+                        <div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200" aria-label={`${person.name}, ${person.role}`}>
                             <p class="text-md text-white truncate">{person.name}</p>
                             <p class="text-sm text-gray-400 truncate">{person.role}</p>
                         </div>
