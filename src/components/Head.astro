@@ -43,7 +43,13 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
 ---
 
 <head>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Favicon for light theme -->
+    <link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)">
+    <!-- Favicon for dark theme -->
+    <link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)">
+    <!-- Default fallback favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
     <SEO
       title={title},
       description={description}
