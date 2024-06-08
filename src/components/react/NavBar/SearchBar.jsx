@@ -45,7 +45,7 @@ export default function SearchBar({ lang }) {
     }
 
     const searchBarClass = `transition-all duration-300 ease-in-out absolute right-0 top-0 py-2 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${isExpanded ? 'w-64 opacity-100' : 'w-0 opacity-0'}`;
-    const iconClass = "text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 p-2";
+    const iconClass = "text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 p-2 top-0";
     const dropdownClass = "absolute right-0 top-10 w-64 bg-white border border-gray-300 rounded-lg shadow-lg mt-1 z-10 max-h-48 overflow-y-auto";
 
     return (
@@ -68,6 +68,7 @@ export default function SearchBar({ lang }) {
                 className={iconClass}
                 size="lg" 
                 aria-label="Toggle search"
+                style={{ maxWidth: '1.25rem', maxHeight: '1.25rem' }}
             />
             {isExpanded && inputValue && (
                 <div id="search-dropdown" className={dropdownClass} role="listbox">
