@@ -59,8 +59,8 @@ const gridSections = [
                 {gridSections.map((section) => (
                     <section aria-labelledby={section.id} aria-describedby={`${section.id}-description`} class="mb-8">
                         <h2 id={section.id} class="flex items-center text-3xl font-bold mb-6">
-                            <span class="text-white">{section.title}</span>
-                            <span class="text-gray-400 font-light ml-2">{section.subtitle}</span>
+                            <span class="text-white">{t(section.title)}</span>
+                            <span class="text-gray-400 font-light ml-2">{t(section.subtitle)}</span>
                         </h2>
                         <p id={`${section.id}-description`} class="sr-only">
                             {section.description}

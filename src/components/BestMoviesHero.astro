@@ -1,7 +1,7 @@
 ---
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from 'astro-icon/components';
 import { getTranslationFunction } from '../utils/localization.ts';
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const { lang } = Astro.params;
 const { films } = Astro.props;
@@ -59,9 +59,11 @@ const t = getTranslationFunction(lang);
                     </h1>
                     <div class="text-xl font-medium mb-2 text-red-400">{t("Sub | Dub")}</div>
                     <p class="text-lg leading-relaxed text-gray-300 line-clamp-4">{film.locationInfo.synopsis}</p>
+                    <a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>
                     <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
                         {t("ENJOY THIS MOVIE ONLINE")}
                     </button>
+                  </a>
                 </div>
             </div>
         </div>
@@ -74,19 +76,11 @@ const t = getTranslationFunction(lang);
     </div>
 
     <div class="absolute inset-y-0 right-0 flex items-center pr-4 animate-subtleBounce arrow-right">
-        <FontAwesomeIcon
-            icon={faChevronRight}
-            className="arrow text-white cursor-pointer"
-            aria-label="Next slide"
-        />
+      <Icon name="fa-solid:chevron-right" class="arrow text-white cursor-pointer" aria-label="Next slide"/>
     </div>
 
     <div class="absolute inset-y-0 left-0 flex items-center pl-4 animate-subtleBounce lg:flex hidden arrow-left">
-        <FontAwesomeIcon
-            icon={faChevronLeft}
-            className="arrow text-white cursor-pointer"
-            aria-label="Previous slide"
-        />
+      <Icon name="fa-solid:chevron-left" class="arrow text-white cursor-pointer" aria-label="Previous slide"/>
     </div>
 
     <div class="dots-container space-x-10" role="tablist" aria-label="Banner navigation">
