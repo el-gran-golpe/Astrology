@@ -37,9 +37,7 @@ export default defineConfig({
     }),
     icon({
       include: {
-        'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags'],
-        // Specify the Font Awesome icons you need
-        'fa6-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags'],
+        'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star'],
       }
     })
   ],
