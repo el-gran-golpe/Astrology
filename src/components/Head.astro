@@ -22,6 +22,8 @@ interface Props {
   schemaOrgInfo?: Record<string, any>;
 }
 
+const config = (await getEntry("configs", "site-config")).data;
+
 const { title, description, lang, afterLangUrl, keywords,
   OGTitle, OGType, OGImage, OGImageAlt, OGTrailer, OGExtends, schemaOrgInfo } = Astro.props;
 
@@ -65,7 +67,7 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
         optional: {
           locale: lang,
           localeAlternate: supportedLocales,
-          siteName: "SiteName",
+          siteName: config["siteName"],
           video: OGTrailer
         },
         image:{

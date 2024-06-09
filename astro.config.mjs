@@ -2,10 +2,14 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
+import compress from '@astrojs/compress';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://kinemify.com', // for sitemap
+  build: {
+    minify: true,
+  },
   i18n: {
     defaultLocale: "en",
     locales: [
@@ -30,6 +34,16 @@ export default defineConfig({
   redirects: {
     "/": "/en"
   },
+  image: {
+    domains: ["firebasestorage.googleapis.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        pathname: "/v0/b/filmdatabase-fb159.appspot.com/**"
+      }
+    ],
+  },
   integrations: [
     react(),
     sitemap({
@@ -39,6 +53,10 @@ export default defineConfig({
       include: {
         'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left']
       }
-    })
+    }),
+    compress({
+      gzip: true,
+      brotli: true,
+    }),
   ],
 });
