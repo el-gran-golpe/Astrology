@@ -2,6 +2,8 @@
 import SearchBar from '../react/NavBar/SearchBar';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
 import GenreSwitcher from '../GenreSwitcher.astro';
+import { getRelativeLocaleUrl } from "astro:i18n";
+
 const { lang } = Astro.params;
 
 // Define the props. Only currentGenre is required.
@@ -17,7 +19,7 @@ const { currentGenre } = Astro.props;
     <div class="container mx-auto px-6 flex justify-between items-center">
         <!-- Render the title of the website -->
         <div class="flex-none">
-            <a href="/" class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label="Home">  
+            <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label="Home">  
                 <div class="text-3xl font-bold flex items-center logo-text">
                     <span class="text-red-400" style="font-family: 'Montserrat', sans-serif;">K</span>
                     <span class="text-white" style="font-family: 'Montserrat', sans-serif;">inemify</span>

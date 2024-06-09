@@ -26,8 +26,6 @@ const { lang, genre } = Astro.params;
 // Get the translation function
 const t = getTranslationFunction(lang);
 const config = (await getEntry("configs", "site-config")).data;
-const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
-const LANGUAGE_CODES_TO_NAME = (await getEntry('location', 'languages-to-names')).data;
 
 const sectionDescriptions = (await getEntry("seo", "section-descriptions")).data;
 // Create an array of grid sections with title and subtitle
