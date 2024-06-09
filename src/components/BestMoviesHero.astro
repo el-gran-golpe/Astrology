@@ -60,8 +60,9 @@ const t = getTranslationFunction(lang);
                     <div class="text-xl font-medium mb-2 text-red-400">{t("Sub | Dub")}</div>
                     <p class="text-lg leading-relaxed text-gray-300 line-clamp-4">{film.locationInfo.synopsis}</p>
                     <a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150">
-                        {t("ENJOY THIS MOVIE ONLINE")}
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150" 
+                            aria-label={t("Discover %1").replace("%1", film.locationInfo.title)}>
+                        {t("DISCOVER THIS MOVIE")}
                     </button>
                   </a>
                 </div>
@@ -76,19 +77,22 @@ const t = getTranslationFunction(lang);
     </div>
 
     <div class="absolute inset-y-0 right-0 flex items-center pr-4 animate-subtleBounce arrow-right">
-      <Icon name="fa-solid:chevron-right" class="arrow text-white cursor-pointer" aria-label="Next slide"/>
+      <Icon name="fa-solid:chevron-right" class="arrow text-white cursor-pointer" aria-label={t("Next movie")}/>
     </div>
 
     <div class="absolute inset-y-0 left-0 flex items-center pl-4 animate-subtleBounce lg:flex hidden arrow-left">
-      <Icon name="fa-solid:chevron-left" class="arrow text-white cursor-pointer" aria-label="Previous slide"/>
+      <Icon name="fa-solid:chevron-left" class="arrow text-white cursor-pointer" aria-label={t("Previous movie")}/>
     </div>
 
-    <div class="dots-container space-x-10" role="tablist" aria-label="Banner navigation">
+    <div class="dots-container space-x-10" role="tablist" aria-label={t("Movie banner navigation")}>
         {films.map((_, dotIndex) => (
             <button
                 class={`dot w-3 h-3 rounded cursor-pointer transform transition-transform duration-500 ease-in-out ${dotIndex === 0 ? 'bg-red-400 scale-150' : 'bg-gray-500 hover:bg-red-500'}`}
-                aria-label={`Go to slide ${dotIndex + 1}`}
+                aria-label={t("Go to movie %1").replace("%1", dotIndex + 1)}
                 data-index={dotIndex}
+                aria-controls={`banner-heading-${dotIndex}`}
+                aria-selected={dotIndex === 0 ? 'true' : 'false'}
+                role="tab"
             ></button>
         ))}
     </div>
@@ -104,12 +108,14 @@ const t = getTranslationFunction(lang);
       films[activeIndex].classList.remove('opacity-100');
       films[activeIndex].classList.add('opacity-0');
       dots[activeIndex].classList.remove('bg-red-400', 'scale-150');
+      dots[activeIndex].setAttribute('aria-selected', 'false');
       dots[activeIndex].classList.add('bg-gray-500');
 
       activeIndex = newIndex;
       films[activeIndex].classList.remove('opacity-0');
       films[activeIndex].classList.add('opacity-100');
       dots[activeIndex].classList.remove('bg-gray-500');
+      dots[activeIndex].setAttribute('aria-selected', 'true');
       dots[activeIndex].classList.add('bg-red-400', 'scale-150');
     }
 
