@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
-import compress from '@astrojs/compress';
 
 // https://astro.build/config
 export default defineConfig({
@@ -54,9 +53,9 @@ export default defineConfig({
         'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left']
       }
     }),
-    compress({
+    /*compress({
       gzip: true,
       brotli: true,
-    }),
+    })*/
   ],
 });
