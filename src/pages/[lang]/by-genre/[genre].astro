@@ -3,10 +3,10 @@
 import "../../../layouts/global.css";
 
 // Import the components
-import Head from "../../../components/Head.astro";
+import Head from "../../../components/common/Head.astro";
 import NavBar from "../../../components/NavBar/NavBar.astro";
 import MovieCard from "../../../components/MovieCard/MovieCard.astro";
-import Grid from '../../../components/Grid.astro';
+import Grid from '../../../components/common/Grid.astro';
 import BestMoviesHero from '../../../components/BestMoviesHero.astro';
 
 // Import your getHomePageFilmsByLang function
@@ -39,7 +39,7 @@ const gridSections = [
 
 <html lang={lang}>
     <Head
-        title={`${config["siteName"]} | ${t(sectionDescriptions["genre"][genre].title)}}`}
+        title={`${config["siteName"]} | ${t(sectionDescriptions["genre"][genre].title)}`}
         description={t(sectionDescriptions["genre"][genre].description)}
         lang={lang}
         afterLangUrl={`by-genre/${genre}`}

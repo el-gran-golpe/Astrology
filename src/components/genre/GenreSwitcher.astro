@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { getTranslationFunction } from "../utils/localization.ts";
+import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from 'astro:content';
 
 const GENRES_TO_NAMES: Record<string, string> = (await getEntry('codes', 'genres')).data;

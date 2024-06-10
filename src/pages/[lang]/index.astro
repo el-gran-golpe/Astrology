@@ -2,13 +2,12 @@
 import "../../layouts/global.css";
 
 // Import the components
-import Head from "../../components/Head.astro";
-import Banner from "../../components/react/Banner.jsx";
-import NavBar from "../../components/NavBar/NavBar.astro";
-import MovieCard from "../../components/MovieCard/MovieCard.astro";
+import Head from "../../components/common/Head.astro";
+import NavBar from "../../components/navbar/NavBar.astro";
+import MovieCard from "../../components/common/moviecard/MovieCard.astro";
 import BestMoviesHero from "../../components/BestMoviesHero.astro";
-import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
-import Grid from '../../components/Grid.astro';
+
+import Grid from '../../components/common/Grid.astro';
 
 // Import your getHomePageFilmsByLang function
 import { getHomePageFilms } from "../../utils/staticPathsGeneration.ts";

@@ -1,6 +1,6 @@
 ---
 import { getTopPagesByLang } from '../../utils/staticPathsGeneration.ts';
-import Head from '../../components/Head.astro';
+import Head from '../../components/common/Head.astro';
 import { getEntry } from 'astro:content';
 import { getTranslationFunction } from '../../utils/localization.ts';
 
@@ -18,12 +18,12 @@ import "../../layouts/global.css";
 
 // Import components
 import FakeLinkTable from '../../components/react/FakeLinkTable';
-import NavBar from '../../components/NavBar/NavBar.astro';
-import RatingAndReviews from '../../components/RatingAndReviews.astro';
-import MovieStaff from '../../components/MovieStaff.astro';
-import LeftColumnInfoPannel from '../../components/LeftColumnInfoPannel.astro';
-import Synopsis from '../../components/Synopsis.astro';
-import MovieTitleAndYear from '../../components/MovieTitleAndYear.astro';
+import NavBar from '../../components/navbar/NavBar.astro';
+import RatingAndReviews from '../../components/film/RatingAndReviews.astro';
+import MovieStaff from '../../components/film/MovieStaff.astro';
+import LeftColumnInfoPannel from '../../components/film/LeftColumnInfoPannel.astro';
+import Synopsis from '../../components/film/Synopsis.astro';
+import MovieTitleAndYear from '../../components/film/MovieTitleAndYear.astro';
 import { movieInfoToOpenGraph, movieInfoToSchemaOrg } from '../../utils/utils.ts';
 
 const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;

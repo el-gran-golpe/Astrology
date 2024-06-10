@@ -1,6 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { AVAILABLE_LANGUAGES, getTranslationFunction } from "../utils/localization.ts";
+import { AVAILABLE_LANGUAGES, getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from 'astro:content';
 
 const LANG_CODES_TO_NAMES = (await getEntry('location', 'languages-to-names')).data;

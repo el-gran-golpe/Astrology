@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fetchSearchBarSuggestions } from '../../../utils/file_fetching.ts';
+import { fetchSearchBarSuggestions } from '../../utils/file_fetching.ts';
 
 export default function SearchBar({ lang }) {
     const [isExpanded, setIsExpanded] = useState(false);

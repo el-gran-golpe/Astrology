@@ -1,10 +1,10 @@
 ---
 import { SEO } from 'astro-seo';
-import { getAstroSeoAlternateLocales } from '../utils/seoUtils.ts';
-import { supportedLocales } from '../utils/localization.ts';
-import { getMIMETypeFromURL } from '../utils/utils.ts';
+import { getAstroSeoAlternateLocales } from '../../utils/seoUtils.ts';
+import { supportedLocales } from '../../utils/localization.ts';
+import { getMIMETypeFromURL } from '../../utils/utils.ts';
 import { getEntry } from 'astro:content';
-import { getTranslationFunction } from '../utils/localization.ts';
+import { getTranslationFunction } from '../../utils/localization.ts';
 
 
 interface Props {
@@ -50,7 +50,7 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
     <!-- Favicon for dark theme -->
     <link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)">
     <!-- Default fallback favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg"> -->
     
     <SEO
       title={title},

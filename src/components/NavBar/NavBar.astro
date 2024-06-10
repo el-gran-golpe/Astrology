@@ -1,7 +1,7 @@
 ---
-import SearchBar from '../react/NavBar/SearchBar';
-import LanguageSwitcher from '../LanguageSwitcher.astro';
-import GenreSwitcher from '../GenreSwitcher.astro';
+import SearchBar from '../react/SearchBar.jsx';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import GenreSwitcher from '../genre/GenreSwitcher.astro';
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 const { lang } = Astro.params;
