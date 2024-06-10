@@ -44,7 +44,7 @@ const t = getTranslationFunction(lang);
   }
 </style>
 
-<div class="mb-6 mx-0 relative w-full rounded" style="height: 70vh;" role="region" aria-labelledby="banner-heading">
+<div class="mb-6 mx-0 relative w-full rounded" style="height: 70vh;" role="banner" aria-labelledby="banner-heading">
     {films.map((film, index) => (
         <div class={`absolute w-full h-full transition-opacity duration-300 ease-in-out film-slide ${index === 0 ? 'opacity-100' : 'opacity-0'}`} key={index}>
             <Image 

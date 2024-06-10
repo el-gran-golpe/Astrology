@@ -21,7 +21,7 @@ const halfPosition = Math.floor(rating);
 ---
 
 <div 
-    role="img" 
+    role="meter" 
     aria-label={t("%1 out of %2 stars").replace("%1", rating.toFixed(1)).replace("%2", `${MAX_STARS}`)}
     class="flex"
     aria-valuenow={rating.toFixed(1)}
