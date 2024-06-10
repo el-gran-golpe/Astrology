@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from 'astro:content';
@@ -16,7 +17,6 @@ export interface GenreDropdownProps {
 
 // Define the component
 const currentGenre = Astro.props.currentGenre? GENRES_TO_NAMES[Astro.props.currentGenre] : 'Genres';
-
 ---
 
 <div class="relative group">
@@ -24,7 +24,7 @@ const currentGenre = Astro.props.currentGenre? GENRES_TO_NAMES[Astro.props.curre
         class="text-white bg-gray-800 hover:bg-gray-700 font-semibold py-1 px-3 rounded flex items-center transition duration-300" 
         aria-haspopup="true" aria-controls="genre-dropdown">
         <!-- <span><FontAwesomeIcon icon={faShapes} className="mr-2" /> {t("Genres")} </span> -->
-        <span>{t(currentGenre)}</span>
+        <span><Icon name="fa6-solid:shapes" class="mr-2" /> {t(currentGenre)}</span>
         <svg class="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
             <path d="M5.516 7.548L10 12.032l4.484-4.484 1.032 1.032L10 14.096 4.484 8.58l1.032-1.032z"/>
         </svg>

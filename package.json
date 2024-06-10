@@ -21,7 +21,6 @@
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/react": "^0.7.2",
     "astro": "^4.10.1",
-    "astro-compress": "^2.2.27",
     "astro-icon": "^1.1.0",
     "astro-seo": "^0.8.4",
     "firebase": "^10.12.2",
@@ -33,6 +32,7 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "astro-compress": "2.2.27",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4"
