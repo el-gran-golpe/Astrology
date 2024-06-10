@@ -53,6 +53,7 @@ export default function SearchBar({ lang }) {
             <input 
                 type="search" 
                 name="q" 
+                role="combobox"
                 className={searchBarClass}
                 placeholder="Search..." 
                 autoComplete="off"
