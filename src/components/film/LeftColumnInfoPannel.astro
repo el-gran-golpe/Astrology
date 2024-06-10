@@ -4,6 +4,7 @@ import { formatDuration } from "../../utils/utils.ts";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getEntry } from 'astro:content';
 import { getTranslationFunction } from '../../utils/localization.ts';
+import { Image } from 'astro:assets';
 
 // Get the translation function
 const { lang } = Astro.params;
@@ -14,7 +15,7 @@ const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
 const country_codes_to_name = (await getEntry('codes', 'countries')).data;
 const country_codes_to_flag = (await getEntry('codes', 'country-flags')).data;
 
-const { posterUrl, duration, movieSaga, otherTitles } = Astro.props;
+const { posterUrl, duration, movieSaga, otherTitles, filmTitle } = Astro.props;
 let { genres, productionCountries } = Astro.props;
 
 // Map the genre codes to their names, and translate them
@@ -30,7 +31,7 @@ const iconClass = "text-indigo-300 mr-2";
 ---
 
 <aside aria-labelledby="movie-details-heading">
-    <img src={posterUrl} alt="Movie Poster" class="w-full h-auto object-cover rounded-lg"/>
+    <Image src={posterUrl} alt={t("Movie poster of %1").replace("%1", filmTitle)} class="w-full h-auto object-cover rounded-lg" inferSize={true} loading="eager" />
 
     <div class="pt-2 pb-2">
         <h3 id="movie-details-heading" class="sr-only">{t("Movie Details")}</h3>

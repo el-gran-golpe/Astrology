@@ -26,9 +26,10 @@ const { lang } = Astro.params;
 
 // Get the translation function
 const t = getTranslationFunction(lang);
-const LANG_CODES_TO_NAMES = (await getEntry('location', 'languages-to-names')).data;
 const config = (await getEntry("configs", "site-config")).data;
 const sectionDescriptions = (await getEntry("seo", "section-descriptions")).data;
+
+const IMAGES_TO_EAGERLY_LOAD = 6;
 
 // Create an array of grid sections with title and subtitle
 const gridSections = [
@@ -80,7 +81,7 @@ const gridSections = [
             
             <!-- Main content -->
             <main class="container mx-auto px-6 py-4" role="main">
-                {gridSections.map((section) => (
+                {gridSections.map((section, sectionIdx) => (
                     <section aria-labelledby={section.id} aria-describedby={`${section.id}-description`} class="mb-8">
                         <h2 id={section.id} class="flex items-center text-3xl font-bold mb-6">
                             {section.redirect_url ? (
@@ -97,7 +98,7 @@ const gridSections = [
                         </p>
                         <!-- Grid of movie cards -->
                         <Grid>
-                            {section.films.map((film) => (
+                            {section.films.map((film, filmIdx) => (
                                 <MovieCard
                                     movieYear={film.basic_info.year}
                                     posterUrl={film.extended_info.poster_thumbnail_url}
@@ -105,7 +106,8 @@ const gridSections = [
                                     movieSlug={film.slug}
                                     movieDuration={film.basic_info.duration_minutes}
                                     moviePlot={film.locationInfo.short_synopsis}
-                                    movieScore={film.film_affinity_info?.score?.average ?? 'Not available'} />
+                                    movieScore={film.film_affinity_info?.score?.average ?? 'Not available'}
+                                    loading={(sectionIdx === 0 && filmIdx < IMAGES_TO_EAGERLY_LOAD)? "eager" : "lazy"} />
                             ))}
                         </Grid>
                     </section>

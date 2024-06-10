@@ -3,16 +3,6 @@ import { getTopPagesByLang } from '../../utils/staticPathsGeneration.ts';
 import Head from '../../components/common/Head.astro';
 import { getEntry } from 'astro:content';
 import { getTranslationFunction } from '../../utils/localization.ts';
-
-export async function getStaticPaths() {
-  return await getTopPagesByLang();
-}
-
-const { filmSlug, lang } = Astro.params;
-const filmInfo = Astro.props;
-
-const t = getTranslationFunction(lang);
-
 // Import Tailwind CSS
 import "../../layouts/global.css";
 
@@ -25,6 +15,17 @@ import LeftColumnInfoPannel from '../../components/film/LeftColumnInfoPannel.ast
 import Synopsis from '../../components/film/Synopsis.astro';
 import MovieTitleAndYear from '../../components/film/MovieTitleAndYear.astro';
 import { movieInfoToOpenGraph, movieInfoToSchemaOrg } from '../../utils/utils.ts';
+import { Image } from 'astro:assets';
+
+
+export async function getStaticPaths() {
+  return await getTopPagesByLang();
+}
+
+const { filmSlug, lang } = Astro.params;
+const filmInfo = Astro.props;
+
+const t = getTranslationFunction(lang);
 
 const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
 
@@ -43,7 +44,7 @@ const keywords = [...translatedGenres]
     lang={lang}
     keywords={keywords}
     afterLangUrl={filmSlug}
-    OGTitle={t("Watch %1 Online").replace("%1", filmInfo.locationInfo.title)}
+    OGTitle={filmInfo.locationInfo.title}
     OGType={OGType}
     OGImage={filmInfo.extended_info.poster_url}
     OGImageAlt={`${filmInfo.locationInfo.title} Poster`}
@@ -57,8 +58,7 @@ const keywords = [...translatedGenres]
 
       <!-- Banner -->
       <header class="mb-6 mx-0 w-full h-[33vh] relative overflow-hidden">
-        <img src={filmInfo.extended_info.poster_url} alt={`${filmInfo.locationInfo.title} banner`} class="absolute w-full h-full object-cover" 
-        loading="eager"/>
+        <Image src={filmInfo.extended_info.poster_url} alt={`${filmInfo.locationInfo.title} banner`} class="absolute w-full h-full object-cover" inferSize={true} loading="eager"/>
 
         <!-- YouTube video iframe -->
         <!-- 
@@ -90,6 +90,7 @@ const keywords = [...translatedGenres]
                 productionCountries={filmInfo.basic_info.countries}
                 movieSaga={filmInfo.basic_info.saga}
                 otherTitles={filmInfo.basic_info.other_titles}
+                filmTitle={filmInfo.locationInfo.title}
             />
           </aside>
           
