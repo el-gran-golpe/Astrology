@@ -17,13 +17,12 @@ const { rating } = Astro.props;
 
 const halfStarDecimal = rating % 1;
 const halfPosition = Math.floor(rating);
-
 ---
 
 <div 
     role="meter" 
     aria-label={t("%1 out of %2 stars").replace("%1", rating.toFixed(1)).replace("%2", `${MAX_STARS}`)}
-    class="flex"
+    class="flex justify-between"
     aria-valuenow={rating.toFixed(1)}
     aria-valuemin="0"
     aria-valuemax={`${MAX_STARS}`}
@@ -36,52 +35,56 @@ const halfPosition = Math.floor(rating);
 
             if (isHalf) {
                 return (
-                    <div
-                        style={{
-                            position: 'relative',
-                            display: 'inline-block',
-                            width: '1em',
-                            height: '1em',
-                            fontSize: '24px'
-                        }}
-                    >
-                        <Icon 
-                            name="fa-solid:star"
-                            class="text-yellow-400"
+                    <div class="w-1/5">
+                        <div
                             style={{
-                                stroke: 'black',
-                                strokeWidth: '10px', 
-                                fontSize: '24px',
-                                clipPath: `inset(0 ${100 - halfStarDecimal * 100}% 0 0)`
+                                position: 'relative',
+                                display: 'inline-block',
+                                width: '1em',
+                                height: '1em',
+                                fontSize: '24px'
                             }}
-                        />
-                        <Icon 
-                            name="fa-solid:star"
-                            class="text-gray-400"
-                            style={{
-                                stroke: 'black',
-                                strokeWidth: '10px', 
-                                fontSize: '24px',
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                clipPath: `inset(0 0 0 ${halfStarDecimal * 100}%)`
-                            }}
-                        />
+                        >
+                            <Icon 
+                                name="fa-solid:star"
+                                class="text-yellow-400"
+                                style={{
+                                    stroke: 'black',
+                                    strokeWidth: '10px', 
+                                    fontSize: '24px',
+                                    clipPath: `inset(0 ${100 - halfStarDecimal * 100}% 0 0)`
+                                }}
+                            />
+                            <Icon 
+                                name="fa-solid:star"
+                                class="text-gray-400"
+                                style={{
+                                    stroke: 'black',
+                                    strokeWidth: '10px', 
+                                    fontSize: '24px',
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    clipPath: `inset(0 0 0 ${halfStarDecimal * 100}%)`
+                                }}
+                            />
+                        </div>
                     </div>
                 );
             } else {
                 return (
-                    <Icon 
-                        name="fa-solid:star"
-                        fill={isFilled ? 'currentColor' : 'none'}
-                        class={isFilled ? 'text-yellow-400' : 'text-gray-400'}
-                        style={{
-                            stroke: 'black',
-                            strokeWidth: '10px', 
-                            fontSize: '24px'
-                        }}
-                    />
+                    <div class="w-1/5">
+                        <Icon 
+                            name="fa-solid:star"
+                            fill={isFilled ? 'currentColor' : 'none'}
+                            class={isFilled ? 'text-yellow-400' : 'text-gray-400'}
+                            style={{
+                                stroke: 'black',
+                                strokeWidth: '10px', 
+                                fontSize: '24px'
+                            }}
+                        />
+                    </div>
                 );
             }
         })

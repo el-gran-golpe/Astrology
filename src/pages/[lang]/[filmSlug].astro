@@ -7,6 +7,7 @@ import { getTranslationFunction } from '../../utils/localization.ts';
 import "../../layouts/global.css";
 
 // Import components
+import WhereToWatchTable from '../../components/film/WhereToWatchTable.astro';
 import FakeLinkTable from '../../components/react/FakeLinkTable';
 import NavBar from '../../components/navbar/NavBar.astro';
 import RatingAndReviews from '../../components/film/RatingAndReviews.astro';
@@ -99,7 +100,8 @@ const keywords = [...translatedGenres]
             <MovieTitleAndYear title={filmInfo.locationInfo.title} year={filmInfo.basic_info.year} />
             <RatingAndReviews score={parseFloat(filmInfo.film_affinity_info.score.average)} votes={filmInfo.film_affinity_info.score.votes} />
             <Synopsis synopsis={filmInfo.locationInfo.synopsis} />
-            <FakeLinkTable client:only="react" lang={Astro.params.lang} availableAt={filmInfo.available_at}/>
+            <WhereToWatchTable lang={Astro.params.lang} availableAt={filmInfo.available_at} />
+            <FakeLinkTable client:only="react" lang={Astro.params.lang} availableAt={filmInfo.available_at} />
             <MovieStaff 
               cast={filmInfo.staff.cast} 
               producers={filmInfo.staff.producers} 

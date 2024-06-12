@@ -51,7 +51,7 @@ export default defineConfig({
     icon({
       include: {
         'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
-        'fa6-solid': ['shapes']
+        'fa6-solid': ['shapes', 'caret-down']
       }
     }),
     /*compress({
