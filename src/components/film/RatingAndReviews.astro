@@ -26,11 +26,13 @@ const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
   <h3 id="rating-reviews-heading" class="text-2xl text-gray-300 font-bold mb-4">{t("Rating & Reviews")}</h3>
   <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md" role="region" aria-labelledby="user-rating">
     <div class="flex items-center">
+      <div class="flex items-center">
       <RenderStars rating={score} />
       <div class="ml-4" id="user-rating">
         <p class="text-xl text-white font-semibold">
           {ratingText}
         </p>
+      </div>
       </div>
     </div>
     <div class="ml-4 text-right" id="rating-container">
