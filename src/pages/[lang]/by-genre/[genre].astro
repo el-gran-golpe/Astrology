@@ -46,7 +46,7 @@ const gridSections = [
         OGTitle={config["siteName"]}
         OGType={"website"}
         OGImage={config["OGImage.home"]}
-        OGImageAlt={`${config["siteName"]} Banner`}
+        OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
     />
     <body>
         <NavBar currentGenre = {genre}/>

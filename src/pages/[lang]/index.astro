@@ -62,13 +62,13 @@ const gridSections = [
 <html lang={lang}>
     <Head
         title={config["siteName"]}
-        description={t("meta.description")}
+        description={t(config["meta.description.home"])}
         lang={lang}
         afterLangUrl={""}
         OGTitle={config["siteName"]}
         OGType={"website"}
         OGImage={config["OGImage.home"]}
-        OGImageAlt={`${config["siteName"]} Banner`}
+        OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
     />
     <body>
         <NavBar />
