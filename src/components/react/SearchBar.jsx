@@ -3,7 +3,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchSearchBarSuggestions } from '../../utils/file_fetching.ts';
 
-export default function SearchBar({ lang }) {
+export default function SearchBar({ lang, placeholder, ariaLabel, toggleAriaLabel, noSuggestionsMessage }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [suggestions, setSuggestions] = useState({});
@@ -55,20 +55,20 @@ export default function SearchBar({ lang }) {
                 name="q" 
                 role="combobox"
                 className={searchBarClass}
-                placeholder="Search..." 
+                placeholder={placeholder}
                 autoComplete="off"
                 aria-expanded={isExpanded}
                 aria-controls="search-dropdown"
                 value={inputValue}
                 onChange={handleChange}
-                aria-label="Search"
+                aria-label={ariaLabel}
             />
             <FontAwesomeIcon 
                 icon={faMagnifyingGlass} 
                 onClick={handleToggle}
                 className={iconClass}
                 size="lg" 
-                aria-label="Toggle search"
+                aria-label={toggleAriaLabel}
                 style={{ maxWidth: '1.25rem', maxHeight: '1.25rem' }}
             />
             {isExpanded && inputValue && (
@@ -85,7 +85,7 @@ export default function SearchBar({ lang }) {
                             </a>
                         ))
                     ) : (
-                        <div className="px-4 py-2 text-gray-500" role="option">No suggestions found</div>
+                        <div className="px-4 py-2 text-gray-500" role="option">{noSuggestionsMessage}</div>
                     )}
                 </div>
             )}

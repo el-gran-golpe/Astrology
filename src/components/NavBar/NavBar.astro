@@ -3,6 +3,7 @@ import SearchBar from '../react/SearchBar.jsx';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import GenreSwitcher from '../genre/GenreSwitcher.astro';
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { getTranslationFunction } from '../../utils/localization.ts';
 
 const { lang } = Astro.params;
 
@@ -12,13 +13,15 @@ export interface NavBarProps {
 }
 
 const { currentGenre } = Astro.props;
+// Get the translation function
+const t = getTranslationFunction(lang, false);
 ---
 
-<nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10" aria-label="Main navigation">
+<nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10" aria-label={t("Main navigation")}>
     <div class="container mx-auto px-6 flex justify-between items-center">
         <!-- Render the title of the website -->
         <div class="flex-none">
-            <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label="Home">  
+            <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label={t("Homepage")}>  
                 <div class="text-3xl font-bold flex items-center logo-text">
                     <img src="/k.svg" style="height: 1.05em; margin-right: -0.025em" />
                     <span class="text-white" style="font-family: 'Montserrat', sans-serif;">inemi</span>
@@ -32,7 +35,8 @@ const { currentGenre } = Astro.props;
                 <GenreSwitcher currentGenre={currentGenre} />
             </div>
             <div class="flex flex-grow items-center justify-end pl-5">
-                <SearchBar client:only="react" lang={lang}/>
+                <SearchBar client:only="react" lang={lang} ariaLabel={t("Search for movies")} placeholder={t("Search...")} 
+                                                           toggleAriaLabel={t("Toggle search bar")} noSuggestionsMessage={t("No movies found")}/>
                 <div class="ml-4">
                     <LanguageSwitcher />
                 </div>

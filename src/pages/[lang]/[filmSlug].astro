@@ -48,7 +48,7 @@ const keywords = [...translatedGenres]
     OGTitle={filmInfo.locationInfo.title}
     OGType={OGType}
     OGImage={filmInfo.extended_info.poster_url}
-    OGImageAlt={`${filmInfo.locationInfo.title} Poster`}
+    OGImageAlt={t("Movie poster of %1").replace("%1", filmInfo.locationInfo.title)}
     OGExtends={OGExtends}
     schemaOrgInfo={schemaOrgInfo}
   />
