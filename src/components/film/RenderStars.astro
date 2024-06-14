@@ -29,6 +29,7 @@ const halfPosition = Math.floor(rating);
     title={t("%1 out of %2 stars").replace("%1", rating.toFixed(1)).replace("%2", `${MAX_STARS}`)}
 >
     {
+        
         Array.from({ length: MAX_STARS }).map((_, index) => {
             const isFilled = index < Math.floor(rating);
             const isHalf = index === halfPosition && halfStarDecimal > 0;

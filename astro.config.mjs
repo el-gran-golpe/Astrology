@@ -52,6 +52,7 @@ export default defineConfig({
   },
   integrations: [react(), tailwind(),
     sitemap({
+<<<<<<< HEAD
     filter: page => page.pathname !== '/exclude-this-page' // Optionally filter out pages
   }), icon({
     include: {
@@ -71,6 +72,14 @@ export default defineConfig({
         "position": "right",
         "equalWeightButtons": true,
         "flipButtons": false
+=======
+      filter: (page) => page.pathname !== '/exclude-this-page' // Optionally filter out pages
+    }),
+    icon({
+      include: {
+        'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
+        'fa6-solid': ['shapes', 'caret-down', 'tv', 'circle-info', 'link']
+>>>>>>> 55597c3 (WhereToWatchTable so far)
       }
     },
     "categories": {
