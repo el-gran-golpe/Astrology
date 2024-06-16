@@ -1,9 +1,11 @@
 import { getAbsoluteLocaleUrl } from "astro:i18n";
 import { AVAILABLE_LANGUAGES } from "../utils/localization.ts";
+import { getEntry } from "astro:content";
 
+const config = (await getEntry("configs", "site-config")).data;
+const CANONICAL_LANGUAGE = config["canonicalLanguage"];
 
-
-export function getAstroSeoAlternateLocales(afterLangUrl: string, defaultLang: string = "en"): Array<{ href: string; hrefLang: string }> {
+export function getAstroSeoAlternateLocales(afterLangUrl: string, defaultLang: string = CANONICAL_LANGUAGE): Array<{ href: string; hrefLang: string }> {
     /**
      * This function returns an array of alternate locales for the current page
      * in the format Array<{ href: string; hrefLang: string }>
