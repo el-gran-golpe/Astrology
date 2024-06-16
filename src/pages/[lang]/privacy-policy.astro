@@ -1,0 +1,114 @@
+---
+import "../../layouts/global.css";
+import Head from "../../components/common/Head.astro";
+import { getCookiesConsent } from "../../utils/staticPathsGeneration.ts";
+import { getTranslationFunction } from "../../utils/localization.ts";
+import { getEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+export async function getStaticPaths() {
+    return await getCookiesConsent();
+}
+
+const config = (await getEntry("configs", "site-config")).data;
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
+const description = "Learn how Kinemify manages and protects your data.";
+---
+
+<Head
+    title={"Privacy Policy"}
+    description={description}
+    lang={lang}
+    afterLangUrl="privacy-policy"
+    OGTitle={`${config["siteName"]} Privacy Policy`}
+    OGType="website"
+    OGImage={config["OGImage.home"]}
+    OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
+/>
+
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-6 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <a href={getRelativeLocaleUrl(lang)} class="flex-shrink-0">
+                <img src="/favicon.svg" alt="Kinemify Logo" class="h-12">
+            </a>
+            <h1 class="text-4xl font-bold flex-grow text-center">{t("Privacy Policy")}</h1>
+        </div>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Introduction")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("Welcome to %1! This Privacy Policy explains how we manage and protect your data when you visit our website (%2).").replace("%1", config["siteName"]).replace("%2", config["siteUrl"])}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Data Collection")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("%1 does not collect any personal data from its users directly. Our website is static and does not interact with any database. However, data traffic is managed by third-party services including").replace("%1", config["siteName"])} <strong>{t("Google Analytics")}</strong>, <strong>{t("Google AdSense")}</strong>, {t("and")} <strong>{t("YouTube embeds")}</strong>.</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Data Usage")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("%1 does not use any personal data from its users directly. Any data collected is processed by third-party services for purposes such as analytics, advertising, and providing embedded content. These services include").replace("%1", config["siteName"])} <strong>{t("Google Analytics")}</strong>, <strong>{t("Google AdSense")}</strong>, {t("and")} <strong>{t("YouTube embeds")}</strong>.</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Data Sharing")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("%1 does not share any personal data from its users directly. Any data sharing is conducted by the third-party services we use, in accordance with their respective privacy policies.").replace("%1", config["siteName"])}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Data Storage")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("%1 does not store any personal data from its users. Data storage is managed by third-party services such as").replace("%1", config["siteName"])} <strong>{t("Google Analytics")}</strong>, <strong>{t("Google AdSense")}</strong>, {t("and")} <strong>{t("YouTube")}</strong>.</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("User Rights")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("Since %1 does not collect any personal data directly, there are no user rights related to data collection on our website. For data managed by third-party services, please refer to their respective privacy policies.").replace("%1", config["siteName"])}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Cookies")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("For information about how we use cookies, please refer to our")} <a href={getRelativeLocaleUrl(lang, 'cookie-policy')} class="text-blue-400 underline">{t("Cookie Policy")}</a>.</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Third-Party Services")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("We use the following third-party services that may collect data:")}</p>
+                <ul class="list-disc list-inside">
+                    <li><strong>{t("Google Analytics")}</strong>: {t("for analyzing website traffic and usage patterns. For more information, please visit the")} <a href="https://policies.google.com/privacy" class="text-blue-400 underline">{t("Google Privacy Policy")}</a>.</li>
+                    <li><strong>{t("Google AdSense")}</strong>: {t("for displaying advertisements. For more information, please visit the")} <a href="https://policies.google.com/privacy" class="text-blue-400 underline">{t("Google Privacy Policy")}</a>.</li>
+                    <li><strong>{t("YouTube")}</strong>: {t("for embedding video content. For more information, please visit the")} <a href="https://policies.google.com/privacy" class="text-blue-400 underline">{t("Google Privacy Policy")}</a>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Contact Us")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("If you have any questions or concerns about our privacy practices, please")} <a href="mailto:privacy-policy@kinemify.com" class="text-blue-400 underline">{t("contact us")}</a>.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">{t("Changes to This Privacy Policy")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("We may update this Privacy Policy from time to time. We encourage you to review this document periodically to stay informed about how we manage and protect your data. Any changes will be posted on this page.")}</p>
+            </div>
+        </section>
+    </div>
+</body>

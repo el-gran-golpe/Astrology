@@ -56,109 +56,117 @@ export default defineConfig({
       }
     }),
     cookieconsent({
-      guiOptions: {
-        consentModal: {
-            layout: "bar inline",
-            position: "bottom",
-            equalWeightButtons: true,
-            flipButtons: false
+      "guiOptions": {
+        "consentModal": {
+          "layout": "bar inline",
+          "position": "bottom",
+          "equalWeightButtons": true,
+          "flipButtons": false
         },
-        preferencesModal: {
-            layout: "box",
-            position: "right",
-            equalWeightButtons: true,
-            flipButtons: false
+        "preferencesModal": {
+          "layout": "box",
+          "position": "right",
+          "equalWeightButtons": true,
+          "flipButtons": false
         }
-    },
-    categories: {
-        necessary: {
-            readOnly: true
+      },
+      "categories": {
+        "necessary": {
+          "readOnly": true
         },
-        analytics: {}
-    },
-    language: {
-        default: "en",
-        autoDetect: "browser",
-        translations: {
-            en: {
-                consentModal: {
-                    title: "Hello traveller, it's cookie time!",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
-                    acceptAllBtn: "Accept all",
-                    acceptNecessaryBtn: "Reject all",
-                    showPreferencesBtn: "Manage preferences",
-                    footer: "<a href=\"#link\">Privacy Policy</a>\n<a href=\"#link\">Terms and conditions</a>"
-                },
-                preferencesModal: {
-                    title: "Consent Preferences Center",
-                    acceptAllBtn: "Accept all",
-                    acceptNecessaryBtn: "Reject all",
-                    savePreferencesBtn: "Save preferences",
-                    closeIconLabel: "Close modal",
-                    serviceCounterLabel: "Service|Services",
-                    sections: [
-                        {
-                            title: "Cookie Usage",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        {
-                            title: "Strictly Necessary Cookies <span class=\"pm__badge\">Always Enabled</span>",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                            linkedCategory: "necessary"
-                        },
-                        {
-                            title: "Analytics Cookies",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                            linkedCategory: "analytics"
-                        },
-                        {
-                            title: "More information",
-                            description: "For any query in relation to my policy on cookies and your choices, please <a class=\"cc__link\" href=\"#yourdomain.com\">contact me</a>."
-                        }
-                    ]
-                }
+        "analytics": {
+          "description": "Analytics cookies help us understand how our visitors interact with the website. They provide information on metrics such as number of visitors, bounce rate, traffic source, etc.",
+          "cookies": ["_ga", "_gid", "_gat"]
+        },
+        "youtube": {
+          "description": "YouTube cookies help provide embedded video content on the website. They track views and user interactions with embedded videos.",
+          "cookies": ["YSC", "VISITOR_INFO1_LIVE", "PREF"]
+        }
+      },
+      "language": {
+        "default": "en",
+        "autoDetect": "browser",
+        "translations": {
+          "en": {
+            "consentModal": {
+              "title": "Hello traveller, it's cookie time!",
+              "description": "We use cookies to ensure you get the best experience on our website. By continuing to browse, you consent to our use of cookies. For more details, please visit our <a href=\"/en/cookie-policy\" class=\"cc__link\">Cookie Policy</a>.",
+              "acceptAllBtn": "Accept all",
+              "acceptNecessaryBtn": "Reject all",
+              "showPreferencesBtn": "Manage preferences",
+              "footer": "<a href=\"/en/privacy-policy\" class=\"cc__link\">Privacy Policy</a>\n<a href=\"/en/terms-and-conditions\" class=\"cc__link\">Terms and Conditions</a>"
             },
-            es: {
-                consentModal: {
-                    title: "Hola viajero, es la hora de las galletas!",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
-                    acceptAllBtn: "Aceptar todo",
-                    acceptNecessaryBtn: "Rechazar todo",
-                    showPreferencesBtn: "Gestionar preferencias",
-                    footer: "<a href=\"#link\">Política de privacidad</a>\n<a href=\"#link\">Términos y condiciones</a>"
+            "preferencesModal": {
+              "title": "Consent Preferences Center",
+              "acceptAllBtn": "Accept all",
+              "acceptNecessaryBtn": "Reject all",
+              "savePreferencesBtn": "Save preferences",
+              "closeIconLabel": "Close modal",
+              "serviceCounterLabel": "Service|Services",
+              "sections": [
+                {
+                  "title": "Cookie Usage",
+                  "description": "We use cookies to ensure basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want."
                 },
-                preferencesModal: {
-                    title: "Preferencias de Consentimiento",
-                    acceptAllBtn: "Aceptar todo",
-                    acceptNecessaryBtn: "Rechazar todo",
-                    savePreferencesBtn: "Guardar preferencias",
-                    closeIconLabel: "Cerrar modal",
-                    serviceCounterLabel: "Servicios",
-                    sections: [
-                        {
-                            title: "Uso de Cookies",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                        },
-                        {
-                            title: "Cookies Estrictamente Necesarias <span class=\"pm__badge\">Siempre Habilitado</span>",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                            linkedCategory: "necessary"
-                        },
-                        {
-                            title: "Cookies Analíticas",
-                            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                            linkedCategory: "analytics"
-                        },
-                        {
-                            title: "Más información",
-                            description: "For any query in relation to my policy on cookies and your choices, please <a class=\"cc__link\" href=\"#yourdomain.com\">contact me</a>."
-                        }
-                    ]
+                {
+                  "title": "Strictly Necessary Cookies <span class=\"pm__badge\">Always Enabled</span>",
+                  "description": "These cookies are essential for the website to function properly. They ensure basic functionalities and security features of the website, anonymously.",
+                  "linkedCategory": "necessary"
+                },
+                {
+                  "title": "Analytics Cookies",
+                  "description": "These cookies help us understand how our visitors interact with the website. They provide information on metrics such as number of visitors, bounce rate, traffic source, etc.",
+                  "linkedCategory": "analytics"
+                },
+                {
+                  "title": "More information",
+                  "description": "For any query in relation to our policy on cookies and your choices, please <a class=\"cc__link\" href=\"mailto:hello@kinemify.com\">contact us</a>."
                 }
+              ]
             }
+          },
+          "es": {
+            "consentModal": {
+              "title": "¡Hola viajero, es la hora de las galletas!",
+              "description": "Usamos cookies para asegurarnos de que obtenga la mejor experiencia en nuestro sitio web. Al continuar navegando, usted consiente el uso de cookies. Para más detalles, por favor visite nuestra <a href=\"/es/cookie-policy\" class=\"cc__link\">Política de Cookies</a>.",
+              "acceptAllBtn": "Aceptar todo",
+              "acceptNecessaryBtn": "Rechazar todo",
+              "showPreferencesBtn": "Gestionar preferencias",
+              "footer": "<a href=\"/es/privacy-policy\" class=\"cc__link\">Política de Privacidad</a>\n <a href=\"/en/terms-and-conditions\" class=\"cc__link\">Términos y Condiciones</a>"
+            },
+            "preferencesModal": {
+              "title": "Centro de Preferencias de Consentimiento",
+              "acceptAllBtn": "Aceptar todo",
+              "acceptNecessaryBtn": "Rechazar todo",
+              "savePreferencesBtn": "Guardar preferencias",
+              "closeIconLabel": "Cerrar modal",
+              "serviceCounterLabel": "Servicio|Servicios",
+              "sections": [
+                {
+                  "title": "Uso de Cookies",
+                  "description": "Usamos cookies para asegurar las funcionalidades básicas del sitio web y para mejorar su experiencia en línea. Puede optar por cada categoría para aceptar/rechazar siempre que quiera."
+                },
+                {
+                  "title": "Cookies Estrictamente Necesarias <span class=\"pm__badge\">Siempre Habilitado</span>",
+                  "description": "Estas cookies son esenciales para el funcionamiento adecuado del sitio web. Aseguran funcionalidades básicas y características de seguridad del sitio web, de manera anónima.",
+                  "linkedCategory": "necessary"
+                },
+                {
+                  "title": "Cookies Analíticas",
+                  "description": "Estas cookies nos ayudan a comprender cómo los visitantes interactúan con el sitio web. Proporcionan información sobre métricas como el número de visitantes, la tasa de rebote, la fuente de tráfico, etc.",
+                  "linkedCategory": "analytics"
+                },
+                {
+                  "title": "Más información",
+                  "description": "Para cualquier consulta en relación con nuestra política de cookies y sus opciones, por favor <a class=\"cc__link\" href=\"mailto:hello@kinemify.com\">contáctenos</a>."
+                }
+              ]
+            }
+          }
         }
+      }
     }
-  }),
+    ),
     /*compress({
       gzip: true,
       brotli: true,
