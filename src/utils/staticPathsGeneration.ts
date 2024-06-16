@@ -42,9 +42,9 @@ export async function getTopPagesByLang() {
     return pages;
 }
 
-export async function getCookiesConsent() {
+export async function langStaticPaths() {
     /**
-     * [lang]/cookies-consent static paths generator. This function generates the static paths for the cookies consent page.
+     * [lang] static paths generator. This function generates the static paths for the cookies consent page.
      * It will return a list of Astro prepared paths in the format [{params: {lang: 'lang'}, props: {}}].
      */
     

@@ -1,13 +1,13 @@
 ---
 import "../../layouts/global.css";
 import Head from "../../components/common/Head.astro";
-import { getCookiesConsent } from "../../utils/staticPathsGeneration.ts";
+import { langStaticPaths } from "../../utils/staticPathsGeneration.ts";
 import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 export async function getStaticPaths() {
-    return await getCookiesConsent();
+    return await langStaticPaths();
 }
 
 const config = (await getEntry("configs", "site-config")).data;
