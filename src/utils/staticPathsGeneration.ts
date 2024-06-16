@@ -42,6 +42,26 @@ export async function getTopPagesByLang() {
     return pages;
 }
 
+export async function getCookiesConsent() {
+    /**
+     * [lang]/cookies-consent static paths generator. This function generates the static paths for the cookies consent page.
+     * It will return a list of Astro prepared paths in the format [{params: {lang: 'lang'}, props: {}}].
+     */
+    
+    // For each film in the top_films array
+    return AVAILABLE_LANGUAGES.map(lang => {
+        // Create an entry for that film in that
+        return {
+            params: { lang: lang },
+            props: {
+                lang
+            }
+        };
+    }
+    );
+
+}
+
 
 export async function getHomePageFilms(amount: number) {
     /**
