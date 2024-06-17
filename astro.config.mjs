@@ -52,12 +52,11 @@ export default defineConfig({
   },
   integrations: [react(), tailwind(),
     sitemap({
-<<<<<<< HEAD
     filter: page => page.pathname !== '/exclude-this-page' // Optionally filter out pages
   }), icon({
     include: {
       'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
-      'fa6-solid': ['shapes', 'caret-down']
+      'fa6-solid': ['shapes', 'caret-down', 'link', 'circle-info']
     }
   }), cookieconsent({
     "guiOptions": {
@@ -72,13 +71,6 @@ export default defineConfig({
         "position": "right",
         "equalWeightButtons": true,
         "flipButtons": false
-      }, // <-- This closing brace was missing
-      filter: (page) => page.pathname !== '/exclude-this-page' // Optionally filter out pages
-    }),
-    icon({
-      include: {
-        'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
-        'fa6-solid': ['shapes', 'caret-down', 'tv', 'circle-info', 'link']
       }
     },
     "categories": {
