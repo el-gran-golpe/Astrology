@@ -10,90 +10,52 @@ const rows = availableAt.platforms || [];
 ---
 
 <section class="bg-gray-900 mt-10 rounded-xl shadow-xl" aria-labelledby="where-to-watch-heading">
-    <h2 id="where-to-watch-heading" class="text-gray-300 text-2xl mb-4 font-bold">{t("Where to watch")}</h2>
+    <div class="flex items-center mb-4">
+        <!-- <Icon
+            name="fa6-solid:tv"
+            aria-label="TV Icon"
+            class="text-gray-200 mr-2"
+            style="width: 32px; height: 32px;"
+        /> -->
+        <h2 id="where-to-watch-heading" class="text-gray-300 text-2xl font-bold">{t("Where to watch")}</h2>
+    </div>
     <div class="bg-gray-800 p-4 rounded-lg overflow-hidden shadow-lg">
         <table class="min-w-full divide-y divide-gray-600">
             <thead>
                 <tr class="text-base font-semibold text-gray-200 py-3 border-b border-gray-600">
-                    <th class="text-center py-3" scope="col">
-                        <Icon
-                            name="fa6-solid:caret-down"
-                            onClick="toggleRowsVisibility()"
-                            aria-expanded="false"
-                            aria-controls="rows-content"
-                            aria-label="Toggle rows visibility"
-                            class="cursor-pointer text-gray-200 hover:text-green-400 transform transition-transform ease-in-out duration-300"
-                            id="rows-toggle-icon"
-                            style="border-radius: 100%; border: 2px solid #10B981; padding: 4px; width: 24px; height: 24px; background-color: #111827; box-shadow: 0 2px 4px rgba(31, 41, 55,1);"
-                        />
-                    </th>
-                    <th class="px-4 text-left" scope="col">{t("Platform")}</th>
-                    <th class="px-4 text-left" scope="col">{t("Availability")}</th>
-                    <th class="px-4 text-left" scope="col">{t("Link")}</th>
+                    <th class="px-4 py-2 text-left" scope="col">{t("Platform")}</th>
+                    <th class="px-4 py-2 text-left" scope="col">{t("Availability")}</th>
+                    <th class="px-4 py-2 text-left" scope="col">{t("Link")}</th>
                 </tr>
             </thead>
-            <tbody id="rows-content" style="display: none;">
+            <tbody id="rows-content">
                 {rows.length > 0 ? (
                     rows.map((row, index) => (
-                        <>
-                            <tr key={index} class="text-sm text-gray-200 items-center border-b border-gray-500">
-                                <td class="text-center py-2">
-                                    {/* <Icon
-                                        name="caret-down"
-                                        onClick={`toggleRow(${index})`}
-                                        aria-expanded="false"
-                                        aria-controls={`details-${index}`}
-                                        aria-label={`Toggle details for ${row.platform}`}
-                                        class="cursor-pointer hover:text-gray-300 transition ease-in-out duration-150"
-                                        id={`row-toggle-icon-${index}`}
-                                        style="border-radius: 50%; border: 1px solid #64748B; padding: 2px; width: 16px; height: 16px; background-color: #374151; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);"
-                                    /> */}
-                                </td>
-                                <td class="px-4 text-left">{row.platform}</td>
-                                <td class="px-4 text-left">{row.platform_monetization}</td>
-                                <td class="px-4 text-left text-blue-300 cursor-pointer hover:text-blue-500">
-                                    <a href={row.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch on ${row.platform}`}>Watch here</a>
-                                </td>
-                            </tr>
-                            <tr id={`details-${index}`} class="bg-gray-700 rounded-lg shadow" style="display: none;">
-                                <td colSpan="4" class="px-4 py-2">
-                                    <p class="text-gray-300">{row.platform}</p>
-                                    <p class="text-gray-300">{row.platform_monetization}</p>
-                                    <p class="text-gray-300">
-                                        <a href={row.url} target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-blue-500" aria-label={`Watch on ${row.platform}`}>Watch here</a>
-                                    </p>
-                                </td>
-                            </tr>
-                        </>
+                        <tr key={index} class="hover:bg-gray-700 transition-colors duration-150">
+                            <td class="flex items-center px-4 py-2">
+                                <Icon
+                                    name="fa6-solid:circle-info"
+                                    aria-label={`Info for ${row.platform}`}
+                                    class="text-gray-200 mr-2"
+                                    style="width: 16px; height: 16px;"
+                                />
+                                {row.platform}
+                            </td>
+                            <td class="px-4 py-2 text-left">{row.platform_monetization}</td>
+                            <td class="px-4 py-2 text-left text-blue-300 cursor-pointer hover:text-blue-500">
+                                <a href={row.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch on ${row.platform}`}>
+                                    <Icon name="fa6-solid:link" class="inline mr-2" />
+                                    Watch here
+                                </a>
+                            </td>
+                        </tr>
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="4" class="text-center text-gray-200 py-4">{t("No links available at this moment")}</td>
+                        <td colSpan="3" class="text-center text-gray-200 py-4">{t("No links available at this moment")}</td>
                     </tr>
                 )}
             </tbody>
         </table>
     </div>
 </section>
-
-<script>
-    function toggleRowsVisibility() {
-        const rowsContent = document.getElementById('rows-content');
-        const rowsToggleIcon = document.getElementById('rows-toggle-icon');
-        const isExpanded = rowsContent.style.display === 'table-row-group';
-        
-        rowsContent.style.display = isExpanded ? 'none' : 'table-row-group';
-        rowsToggleIcon.setAttribute('aria-expanded', !isExpanded);
-        rowsToggleIcon.classList.toggle('rotate-180', !isExpanded);
-    }
-
-    function toggleRow(index) {
-        const detailsRow = document.getElementById(`details-${index}`);
-        const rowToggleIcon = document.getElementById(`row-toggle-icon-${index}`);
-        const isExpanded = detailsRow.style.display === 'table-row';
-        
-        detailsRow.style.display = isExpanded ? 'none' : 'table-row';
-        rowToggleIcon.setAttribute('aria-expanded', !isExpanded);
-        rowToggleIcon.classList.toggle('rotate-180', !isExpanded);
-    }
-</script>
