@@ -23,28 +23,30 @@ const rows = availableAt.platforms || [];
         <table class="min-w-full divide-y divide-gray-600">
             <thead>
                 <tr class="text-base font-semibold text-gray-200 py-3 border-b border-gray-600">
-                    <th class="px-4 py-2 text-left" scope="col">{t("Platform")}</th>
-                    <th class="px-4 py-2 text-left" scope="col">{t("Availability")}</th>
-                    <th class="px-4 py-2 text-left" scope="col">{t("Link")}</th>
+                    <th class="px-4 py-2 text-center" scope="col">{t("Platform")}</th>
+                    <th class="px-4 py-2 text-center" scope="col">{t("Availability")}</th>
+                    <th class="px-4 py-2 text-center" scope="col">{t("Link")}</th>
                 </tr>
             </thead>
             <tbody id="rows-content">
                 {rows.length > 0 ? (
                     rows.map((row, index) => (
                         <tr key={index} class="hover:bg-gray-700 transition-colors duration-150">
-                            <td class="flex items-center px-4 py-2">
-                                <Icon
-                                    name="fa6-solid:circle-info"
-                                    aria-label={`Info for ${row.platform}`}
-                                    class="text-gray-200 mr-2"
-                                    style="width: 16px; height: 16px;"
-                                />
-                                {row.platform}
+                            <td class="px-4 py-2">
+                                <div class="flex items-center justify-center">
+                                    <Icon
+                                        name="fa6-solid:circle-info"
+                                        aria-label={`Info for ${row.platform}`}
+                                        class="text-gray-200 mr-2"
+                                        style="width: 16px; height: 16px;"
+                                    />
+                                    <span class="text-center">{row.platform}</span>
+                                </div>
                             </td>
-                            <td class="px-4 py-2 text-left">{row.platform_monetization}</td>
-                            <td class="px-4 py-2 text-left text-blue-300 cursor-pointer hover:text-blue-500">
+                            <td class="px-4 py-2 text-center">{row.platform_monetization}</td>
+                            <td class="px-4 py-2 text-center text-blue-300 cursor-pointer hover:text-blue-500">
                                 <a href={row.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch on ${row.platform}`}>
-                                    <Icon name="fa6-solid:link" class="inline mr-2" />
+                                    <Icon name="fa6-solid:link" class="inline mr-1" />
                                     {t("Watch here")}
                                 </a>
                             </td>
