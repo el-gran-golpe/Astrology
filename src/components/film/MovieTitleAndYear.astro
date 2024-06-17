@@ -22,7 +22,7 @@ const year = Astro.props.year;
         <time id="movie-year" datetime={year.toString()} class="text-4xl text-gray-700 dark:text-gray-300 align-baseline">
             ({year})
         </time>
-        <span class="text-sm font-light text-gray-500 dark:text-gray-400 opacity-75 italic ml-2">
+        <span class="text-sm font-light text-gray-500 dark:text-gray-400 opacity-75 italic ml-2 whitespace-nowrap">
             {t("Sub | Dub")}
         </span>
     </div>
