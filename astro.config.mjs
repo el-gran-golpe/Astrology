@@ -6,102 +6,128 @@ import cookieconsent from "@jop-software/astro-cookieconsent";
 import ALL_LANGUAGES from './src/content/location/available-languages.json';
 import CONFIG from './src/content/configs/site-config.json';
 import COOKIES_LANGUAGES from './src/content/location/cookies-consent-locales.json';
+import tailwind from "@astrojs/tailwind";
 
 const AVAILABLE_LANGUAGES = Object.keys(ALL_LANGUAGES).filter(lang => ALL_LANGUAGES[lang]);
 console.log(AVAILABLE_LANGUAGES);
 const COOKIES_TRANSLATIONS = AVAILABLE_LANGUAGES.reduce((acc, lang) => {
   acc[lang] = COOKIES_LANGUAGES[lang];
   return acc;
-}
-, {});
+}, {});
 
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kinemify.com', // for sitemap
+  site: 'https://kinemify.com',
+  // for sitemap
+  trailingSlash: 'ignore',
+  output: "static",
   build: {
-    minify: true,
+    minify: true
   },
   i18n: {
     defaultLocale: CONFIG["canonicalLanguage"],
     locales: AVAILABLE_LANGUAGES,
-      /*
-      // Can be put within locales
-      {
-        path: "fr", // <-- route prefix
-        codes: ["fr", "fr-BR", "fr-CA"]
-      }],*/
+    /*
+    // Can be put within locales
+    {
+      path: "fr", // <-- route prefix
+      codes: ["fr", "fr-BR", "fr-CA"]
+    }],*/
     routing: {
       prefixDefaultLocale: true
     }
   },
   //TODO: Run code for redirecting all films to /en/films
   redirects: {
-    "/": `/${CONFIG["canonicalLanguage"]}`,
+    "/": `/${CONFIG["canonicalLanguage"]}`
   },
   image: {
     domains: ["firebasestorage.googleapis.com"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "firebasestorage.googleapis.com",
-        pathname: "/v0/b/filmdatabase-fb159.appspot.com/**"
-      }
-    ],
+    remotePatterns: [{
+      protocol: "https",
+      hostname: "firebasestorage.googleapis.com",
+      pathname: "/v0/b/filmdatabase-fb159.appspot.com/**"
+    }]
   },
-  integrations: [
-    react(),
+  integrations: [react(), tailwind(),
     sitemap({
-      filter: (page) => page.pathname !== '/exclude-this-page' // Optionally filter out pages
-    }),
-    icon({
-      include: {
-        'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
-        'fa6-solid': ['shapes', 'caret-down']
+    filter: page => page.pathname !== '/exclude-this-page' // Optionally filter out pages
+  }), icon({
+    include: {
+      'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
+      'fa6-solid': ['shapes', 'caret-down']
+    }
+  }), cookieconsent({
+    "guiOptions": {
+      "consentModal": {
+        "layout": "bar inline",
+        "position": "bottom",
+        "equalWeightButtons": true,
+        "flipButtons": false
+      },
+      "preferencesModal": {
+        "layout": "box",
+        "position": "right",
+        "equalWeightButtons": true,
+        "flipButtons": false
       }
-    }),
-    cookieconsent({
-      "guiOptions": {
-        "consentModal": {
-          "layout": "bar inline",
-          "position": "bottom",
-          "equalWeightButtons": true,
-          "flipButtons": false
-        },
-        "preferencesModal": {
-          "layout": "box",
-          "position": "right",
-          "equalWeightButtons": true,
-          "flipButtons": false
+    },
+    "categories": {
+      "necessary": {
+        "enabled": true,
+        "readOnly": true
+      },
+      "analytics": {
+        "enabled": true,
+        "description": "Analytics cookies help us understand how our visitors interact with the website. They provide information on metrics such as number of visitors, bounce rate, traffic source, etc.",
+        "cookies": ["_ga", "_gid", "_gat"],
+        "autoClear": {
+          "cookies": [{
+            "name": "/^(_ga)/"
+          }, {
+            "name": "_gid"
+          }]
         }
       },
-      "categories": {
-        "necessary": {
-          "readOnly": true
-        },
-        "analytics": {
-          "description": "Analytics cookies help us understand how our visitors interact with the website. They provide information on metrics such as number of visitors, bounce rate, traffic source, etc.",
-          "cookies": ["_ga", "_gid", "_gat"]
-        },
-        "youtube": {
-          "description": "YouTube cookies help provide embedded video content on the website. They track views and user interactions with embedded videos.",
-          "cookies": ["YSC", "VISITOR_INFO1_LIVE", "PREF"]
-        },
-      "adsense": {
-          "description": "AdSense cookies display relevant ads and measure their effectiveness.",
-          "cookies": ["_gads", "IDE", "ANID"]
-      }
+      "youtube": {
+        "enabled": true,
+        "description": "YouTube cookies help provide embedded video content on the website. They track views and user interactions with embedded videos.",
+        "cookies": ["YSC", "VISITOR_INFO1_LIVE", "PREF"],
+        "autoClear": {
+          "cookies": [{
+            "name": "YSC"
+          }, {
+            "name": "VISITOR_INFO1_LIVE"
+          }, {
+            "name": "PREF"
+          }]
+        }
       },
-      "language": {
-        "default": "en",
-        "autoDetect": "browser",
-        "translations": COOKIES_TRANSLATIONS
+      "adsense": {
+        "enabled": true,
+        "description": "AdSense cookies display relevant ads and measure their effectiveness.",
+        "cookies": ["_gads", "IDE", "ANID"],
+        "autoClear": {
+          "cookies": [{
+            "name": "_gads"
+          }, {
+            "name": "IDE"
+          }, {
+            "name": "ANID"
+          }]
+        }
       }
+    },
+    "language": {
+      "default": "en",
+      "rtl": "ar",
+      "autoDetect": "document",
+      "translations": COOKIES_TRANSLATIONS
     }
-    ),
-    /*compress({
-      gzip: true,
-      brotli: true,
-    })*/
-  ],
+  })
+  /*compress({
+    gzip: true,
+    brotli: true,
+  })*/]
 });
