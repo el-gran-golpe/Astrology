@@ -72,7 +72,7 @@ export default defineConfig({
         "position": "right",
         "equalWeightButtons": true,
         "flipButtons": false
-=======
+      }, // <-- This closing brace was missing
       filter: (page) => page.pathname !== '/exclude-this-page' // Optionally filter out pages
     }),
     icon({
