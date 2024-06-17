@@ -79,7 +79,6 @@ export default defineConfig({
       include: {
         'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
         'fa6-solid': ['shapes', 'caret-down', 'tv', 'circle-info', 'link']
->>>>>>> 55597c3 (WhereToWatchTable so far)
       }
     },
     "categories": {
