@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from 'astro:content';
+import '../../layouts/global.css';
 
 const GENRES_TO_NAMES: Record<string, string> = (await getEntry('codes', 'genres')).data;
 const AVAILABLE_GENRES: string[] = Object.keys(GENRES_TO_NAMES);
@@ -31,7 +32,7 @@ const currentGenre = Astro.props.currentGenre? GENRES_TO_NAMES[Astro.props.curre
     </button>
     <ul 
         id="genre-dropdown" 
-        class="absolute hidden group-hover:block bg-gray-800 text-white pt-1 rounded shadow-lg z-50 max-h-60 overflow-y-auto"
+        class="absolute hidden group-hover:block bg-gray-800 text-white pt-1 rounded shadow-lg z-50 max-h-60 overflow-y-auto custom-scrollbar"
         role="menu" aria-labelledby="genre-dropdown-button">
         {AVAILABLE_GENRES.map(genre => (
             <li role="none">
