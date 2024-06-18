@@ -63,7 +63,7 @@ const t = getTranslationFunction(lang);
                     <div class="text-xl font-medium mb-2 text-red-400">{t("Sub | Dub")}</div>
                     <p class="text-lg leading-relaxed text-gray-300 line-clamp-4">{film.locationInfo.synopsis}</p>
                     <a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150" 
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150 mt-4"  
                             aria-label={t("Discover %1").replace("%1", film.locationInfo.title)}>
                         {t("DISCOVER THIS MOVIE")}
                     </button>
