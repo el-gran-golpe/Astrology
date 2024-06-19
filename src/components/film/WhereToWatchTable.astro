@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { getTranslationFunction } from "../../utils/localization.ts";
+import { Image } from 'astro:assets';
+import justWatchLogo from '../../assets/justwatch.svg';
 
 const availableAt = Astro.props.availableAt;
 const lang = Astro.props.lang;
@@ -19,7 +21,7 @@ const rows = availableAt.platforms || [];
         /> -->
         <h2 id="where-to-watch-heading" class="text-gray-300 text-2xl font-bold">{t("Where to watch")}</h2>
     </div>
-    <div class="bg-gray-800 p-4 rounded-lg overflow-hidden shadow-lg">
+    <div class="bg-gray-800 p-4 pb-1 rounded-lg overflow-hidden shadow-lg">
         <table class="min-w-full divide-y divide-gray-600">
             <thead>
                 <tr class="text-base font-semibold text-gray-200 py-3 border-b border-gray-600">
@@ -60,6 +62,13 @@ const rows = availableAt.platforms || [];
                 </tr>
                 )}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="px-4 py-2 text-right" style="padding: 0; padding-top:0.25em;">
+                        <Image src={justWatchLogo} alt="JustWatch logo" class="inline-block h-8 w-auto m-0 p-0"/>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </section>
