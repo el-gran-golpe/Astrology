@@ -32,6 +32,7 @@ const movie_url =  getRelativeLocaleUrl(Astro.currentLocale, movieSlug);
       <Image class="absolute inset-0 z-10 object-cover w-full h-full" src={posterUrl} 
              alt={t("Movie poster of %1").replace("%1", movieTitle)} height={256} width={170} 
              loading={loading} />
+             
       <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-80 z-20 transition duration-500"></div>
       
       <div class="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 z-50 transition duration-500">
