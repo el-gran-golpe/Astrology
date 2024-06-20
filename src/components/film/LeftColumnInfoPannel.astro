@@ -43,11 +43,8 @@ const iconClass = "text-indigo-300 mr-2";
                 </h4>
                 <p class="text-xs">
                     {genres.map((genre, index) => (
-                    <span key={genre.url}>
-                        <a href={genre.url} class="text-indigo-400 hover:underline">{genre.name}</a>
-                        {index < genres.length - 1 && ', '}
-                    </span>
-                ))}
+                        <span key={genre.url}><a href={genre.url} class="text-indigo-400 hover:underline">{genre.name}</a>{index < genres.length - 1 && <span class="text-white">, </span>}</span>
+                    ))}
                 </p>
             </li>
             <li class="relative py-2" aria-labelledby="duration-heading">
