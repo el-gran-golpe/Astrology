@@ -1,9 +1,7 @@
 ---
-import { parse } from 'url';
 import { formatDuration } from "../../../utils/utils.ts";
 import "../../../layouts/global.css";
 import { getTranslationFunction } from '../../../utils/localization.ts';
-
 
 interface Props {
   movieSlug: string;
@@ -18,19 +16,20 @@ const { movieSlug, movieTitle, movieDuration, moviePlot, movieScore } = Astro.pr
 const { lang } = Astro.params;
 const t = getTranslationFunction(lang, false);
 ---
+
 <style>
   /* Custom style for vertical truncation */
   .multi-line-truncate {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    -webkit-line-clamp: 8; /* Number of lines you want to display before truncating */
+    -webkit-line-clamp: 7; /* Number of lines you want to display before truncating */
   }
 </style>
 
 <article class="relative cursor-pointer group px-2 pt-2 space-y-4 flex flex-col items-center w-full h-full justify-between" aria-labelledby={`title-${movieSlug}`}>
   <header class="w-full flex flex-col">
-    <h2 id={`title-${movieSlug}`} class="text-2xl font-extrabold text-white text-center tracking-wider text-shadow-default">
+    <h2 id={`title-${movieSlug}`} class="text-2xl font-extrabold text-white text-center tracking-wider text-shadow-default line-clamp-2">
       {movieTitle}
     </h2> 
   </header>
@@ -44,7 +43,7 @@ const t = getTranslationFunction(lang, false);
         {movieScore}
       </span>
     </div>
-    <p class="text-sm text-white mt-2 overflow-hidden multi-line-truncate">
+    <p class="text-sm text-white mt-2 multi-line-truncate">
       {moviePlot}
     </p>
   </div>
