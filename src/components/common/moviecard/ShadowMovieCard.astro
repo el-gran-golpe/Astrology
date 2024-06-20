@@ -18,7 +18,6 @@ const t = getTranslationFunction(lang, false);
 ---
 
 <style>
-  /* Custom style for vertical truncation */
   .multi-line-truncate {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -33,7 +32,8 @@ const t = getTranslationFunction(lang, false);
       {movieTitle}
     </h2> 
   </header>
-  <div class="scaling-container transform scale-90 flex-grow overflow-auto scrollbar">
+  <!-- The scrollbar is no longer needed since we have set a line clamp of 7 lines to the number of rows being displayed in the moviePlot below -->
+  <div class="scaling-container transform scale-90 flex-grow">
     <div class="flex items-center justify-between text-gray-300">
       <span>{formatDuration(movieDuration)}</span>
       <span class="flex items-center min-w-min">
