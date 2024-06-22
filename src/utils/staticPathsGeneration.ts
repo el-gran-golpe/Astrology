@@ -25,7 +25,7 @@ export async function getTopPagesByLang() {
     // For each film in the top_films array
     top_films.forEach(film => {
         //For each language in the film, create a path
-        Object.keys(film.filmInfo.languages).forEach(lang => {
+        AVAILABLE_LANGUAGES.forEach(lang => {
         // Create an entry for that film in that
         const path = {
             params: { filmSlug: film.id, lang: lang },
@@ -89,11 +89,11 @@ export async function getHomePageFilms(amount: number) {
         console.log("Searching for lang: " + lang)
 
         // Get the top N most voted films that were produced at countries that speak that language
-        let filmsByLang = await fetchFilmsByLang(FILMS_COLLECTION, amount, lang);
+        let filmsByLang: Record<string, any> = await fetchFilmsByLang(FILMS_COLLECTION, amount, lang);
         filmsByLang = castToLangSpecificSet(filmsByLang, lang);
 
         
-        let bannerLangFilms = await getBannerFilms('lang', lang);
+        let bannerLangFilms: Record<string, any> = await getBannerFilms('lang', lang);
         bannerLangFilms = castToLangSpecificSet(bannerLangFilms, lang);
 
         const path = {
