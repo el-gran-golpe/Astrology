@@ -14853,7 +14853,8 @@
     "id": "Kebijakan Privasi",
     "cs": "Zásady Ochrany Osobních Údajů",
     "xh": "Umgaqo-nkqubo Wabucala"
-  },"Welcome to %1! This Privacy Policy explains how we manage and protect your data when you visit our website (%2).": {
+  },
+  "Welcome to %1! This Privacy Policy explains how we manage and protect your data when you visit our website (%2).": {
     "bn": "স্বাগতম %1! এই গোপনীয়তা নীতি ব্যাখ্যা করে যে কিভাবে আমরা আপনার ডেটা পরিচালনা এবং সুরক্ষা করি যখন আপনি আমাদের ওয়েবসাইট (%2) পরিদর্শন করেন।",
     "da": "Velkommen til %1! Denne privatlivspolitik forklarer, hvordan vi håndterer og beskytter dine data, når du besøger vores hjemmeside (%2).",
     "is": "Velkomin/n á %1! Þessi persónuverndarstefna útskýrir hvernig við meðhöndlum og verndum gögnin þín þegar þú heimsækir vefsíðuna okkar (%2).",
@@ -14923,7 +14924,8 @@
     "id": "Selamat datang di %1! Kebijakan Privasi ini menjelaskan bagaimana kami mengelola dan melindungi data Anda ketika Anda mengunjungi situs web kami (%2).",
     "cs": "Vítejte v %1! Tato Zásady Ochrany Osobních Údajů vysvětluje, jak spravujeme a chráníme vaše data, když navštívíte naše webové stránky (%2).",
     "xh": "Wamkelekile kwi %1! Lo mgaqo-nkqubo wabucala uchaza indlela esilawula kwaye sikhusela ngayo idatha yakho xa undwendwela iwebhusayithi yethu (%2)."
-  },"%1 does not collect any personal data from its users directly. Our website is static and does not interact with any database. However, data traffic is managed by third-party services including Google Analytics, Google AdSense and Youtube Embeds.": {
+  },
+  "%1 does not collect any personal data from its users directly. Our website is static and does not interact with any database. However, data traffic is managed by third-party services including Google Analytics, Google AdSense and Youtube Embeds.": {
     "bn": "%1 সরাসরি তার ব্যবহারকারীদের থেকে কোন ব্যক্তিগত তথ্য সংগ্রহ করে না। আমাদের ওয়েবসাইট স্ট্যাটিক এবং কোন ডাটাবেসের সাথে ইন্টারঅ্যাক্ট করে না। তবে, ডেটা ট্র্যাফিক গুগল অ্যানালিটিক্স, গুগল অ্যাডসেন্স এবং ইউটিউব এম্বেড সহ তৃতীয় পক্ষের পরিষেবাগুলির দ্বারা পরিচালিত হয়।",
     "da": "%1 indsamler ikke personlige data fra sine brugere direkte. Vores hjemmeside er statisk og interagerer ikke med nogen database. Dog håndteres datatrafik af tredjepartstjenester, herunder Google Analytics, Google AdSense og Youtube Embeds.",
     "is": "%1 safnar ekki persónuupplýsingum frá notendum sínum beint. Vefsíðan okkar er kyrrstæð og hefur ekki samskipti við neinn gagnagrunn. Hins vegar er umferðargögnum stjórnað af þjónustu þriðja aðila, þar á meðal Google Analytics, Google AdSense og Youtube Embeds.",
@@ -14993,7 +14995,8 @@
     "id": "%1 tidak mengumpulkan data pribadi dari penggunanya secara langsung. Situs web kami bersifat statis dan tidak berinteraksi dengan database apa pun. Namun, lalu lintas data dikelola oleh layanan pihak ketiga termasuk Google Analytics, Google AdSense, dan Penyematan Youtube.",
     "cs": "%1 přímo nesbírá žádné osobní údaje od svých uživatelů. Naše webová stránka je statická a neinteraguje s žádnou databází. Provoz dat však spravují služby třetích stran včetně Google Analytics, Google AdSense a Youtube Embeds.",
     "xh": "%1 ayiqokeleli naluphi na ulwazi lomntu ngokuthe ngqo kubasebenzisi bayo. Iwebhusayithi yethu yimilo kwaye ayisebenzi naluphi na ulwazi lwedatha. Nangona kunjalo, iindlela zedatha zilawulwa ziinkonzo zomntu wesithathu kubandakanya iGoogle Analytics, iGoogle AdSense kunye neYoutube Embeds."
-  },"Google Privacy Policy": {
+  },
+  "Google Privacy Policy": {
     "bn": "গুগল গোপনীয়তা নীতি",
     "da": "Googles privatlivspolitik",
     "is": "Persónuverndarstefna Google",
@@ -15205,7 +15208,8 @@
     "id": "Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Kami mendorong Anda untuk meninjau dokumen ini secara berkala agar tetap mendapat informasi tentang cara kami mengelola dan melindungi data Anda. Setiap perubahan akan diposting di halaman ini.",
     "cs": "Čas od času můžeme tuto Zásady Ochrany Osobních Údajů aktualizovat. Doporučujeme vám pravidelně kontrolovat tento dokument, abyste byli informováni o tom, jak spravujeme a chráníme vaše údaje. Jakékoli změny budou zveřejněny na této stránce.",
     "xh": "Sinokuhlaziya lo mgaqo-nkqubo Wabucala ngamaxesha athile. Sikhuthaza ukuba uphonononge esi sibhalo rhoqo ukuze uhlale ulwazi malunga nendlela esilawula kwaye sikhusela ngayo idatha yakho. Naluphi na utshintsho luya kuthunyelwa kwiphepha leli."
-  },"%1 does not store any personal data from its users. Data storage is managed by third-party services such as Google Analytics, Google AdSense and Youtube.": {
+  },
+  "%1 does not store any personal data from its users. Data storage is managed by third-party services such as Google Analytics, Google AdSense and Youtube.": {
     "bn": "%1 তার ব্যবহারকারীদের কাছ থেকে কোন ব্যক্তিগত তথ্য সংরক্ষণ করে না। ডেটা সঞ্চয় গুগল অ্যানালিটিক্স, গুগল অ্যাডসেন্স এবং ইউটিউব সহ তৃতীয় পক্ষের পরিষেবাগুলির দ্বারা পরিচালিত হয়।",
     "da": "%1 gemmer ikke nogen personlige data fra sine brugere. Datastorage håndteres af tredjepartstjenester som Google Analytics, Google AdSense og Youtube.",
     "is": "%1 geymir ekki neinar persónuupplýsingar frá notendum sínum. Geymsla gagna er stjórnað af þjónustu þriðja aðila eins og Google Analytics, Google AdSense og Youtube.",
@@ -15417,7 +15421,8 @@
     "id": "Perubahan pada Kebijakan Privasi Ini",
     "cs": "Změny těchto Zásad Ochrany Osobních Údajů",
     "xh": "Utshintsho kuMgaqo-nkqubo Wabucala"
-  },"Third-Party Services": {
+  },
+  "Third-Party Services": {
     "bn": "তৃতীয় পক্ষের পরিষেবাগুলি",
     "da": "Tredjepartstjenester",
     "is": "Þjónusta Þriðja Aðila",
@@ -15838,7 +15843,8 @@
     "fr": "Si vous avez des questions ou des préoccupations concernant nos pratiques en matière de confidentialité, veuillez",
     "id": "Jika Anda memiliki pertanyaan atau kekhawatiran tentang praktik privasi kami, silakan",
     "cs": "Máte-li jakékoli otázky nebo obavy týkající se našich postupů ochrany osobních údajů, kontaktujte nás"
-  },"For information about how we use cookies, please refer to our": {
+  },
+  "For information about how we use cookies, please refer to our": {
     "bn": "আমরা কুকি কীভাবে ব্যবহার করি সে সম্পর্কে তথ্যের জন্য, অনুগ্রহ করে আমাদের দেখুন",
     "da": "For information om hvordan vi bruger cookies, se venligst vores",
     "is": "Fyrir upplýsingar um hvernig við notum vafrakökur, vinsamlegast skoðaðu okkar",
@@ -16257,7 +16263,8 @@
     "fr": "%1 ne partage aucune donnée personnelle de ses utilisateurs directement. Tout partage de données est effectué par les services tiers que nous utilisons, conformément à leurs politiques de confidentialité respectives.",
     "id": "%1 tidak membagikan data pribadi apa pun dari penggunanya secara langsung. Setiap berbagi data dilakukan oleh layanan pihak ketiga yang kami gunakan, sesuai dengan kebijakan privasi masing-masing.",
     "cs": "%1 nesdílí žádné osobní údaje od svých uživatelů přímo. Veškeré sdílení údajů provádějí služby třetích stran, které používáme, v souladu s jejich příslušnými zásadami ochrany osobních údajů."
-  },"Data Usage": {
+  },
+  "Data Usage": {
     "bn": "ডেটা ব্যবহার",
     "da": "Dataanvendelse",
     "is": "Gagna Notkun",
@@ -16466,7 +16473,8 @@
     "fr": "Puisque %1 ne collecte pas directement de données personnelles, il n'existe aucun droit des utilisateurs lié à la collecte de données sur notre site. Pour les données gérées par des services tiers, veuillez consulter leurs politiques de confidentialité respectives.",
     "id": "Karena %1 tidak mengumpulkan data pribadi apa pun secara langsung, tidak ada hak pengguna terkait pengumpulan data di situs web kami. Untuk data yang dikelola oleh layanan pihak ketiga, silakan merujuk ke kebijakan privasi masing-masing.",
     "cs": "Vzhledem k tomu, že %1 přímo neshromažďuje žádné osobní údaje, neexistují na našich webových stránkách žádná uživatelská práva týkající se shromažďování údajů. Pro údaje spravované službami třetích stran nahlédněte do jejich příslušných zásad ochrany osobních údajů."
-  },"Terms and Conditions": {
+  },
+  "Terms and Conditions": {
     "bn": "শর্তাবলী এবং নিয়মাবলী",
     "da": "Vilkår og Betingelser",
     "is": "Skilmálar og Skilyrði",
@@ -16745,7 +16753,8 @@
     "fr": "Tout le contenu de ce site Web, y compris les textes, graphiques, logos et images, appartient à leurs propriétaires respectifs et est utilisé ici uniquement à des fins d'information. L'utilisation non autorisée de tout contenu est strictement interdite.",
     "id": "Semua konten di situs web ini, termasuk teks, grafik, logo, dan gambar, adalah milik pemiliknya masing-masing dan digunakan di sini hanya untuk tujuan informasi. Penggunaan konten apa pun tanpa izin dilarang keras.",
     "cs": "Veškerý obsah na této webové stránce, včetně textů, grafiky, log a obrázků, je majetkem jejich příslušných vlastníků a je zde používán pouze pro informační účely. Neoprávněné použití jakéhokoli obsahu je přísně zakázáno."
-  },"User Responsibilities": {
+  },
+  "User Responsibilities": {
     "bn": "ব্যবহারকারীর দায়িত্ব",
     "da": "Brugeransvar",
     "is": "Ábyrgð Notenda",
@@ -17069,7 +17078,8 @@
     "sk": "Obmedzenie Zodpovednosti",
     "so": "Xaddidaada Mas'uuliyadda",
     "ur": "ذمہ داری کی حد بندی"
-  },"%1 provides this website 'as is' without any warranties, express or implied. We do not guarantee that the website will be available at all times or that it will be free from errors or viruses. To the fullest extent permitted by law, %1 will not be liable for any damages arising from the use of this website.": {
+  },
+  "%1 provides this website 'as is' without any warranties, express or implied. We do not guarantee that the website will be available at all times or that it will be free from errors or viruses. To the fullest extent permitted by law, %1 will not be liable for any damages arising from the use of this website.": {
     "bn": "%1 এই ওয়েবসাইটটি 'যেমন আছে' সরবরাহ করে, কোনও স্পষ্ট বা নিহিত ওয়্যারেন্টি ছাড়াই। আমরা গ্যারান্টি দিতে পারি না যে ওয়েবসাইটটি সবসময় উপলব্ধ থাকবে বা এটি ত্রুটি বা ভাইরাস থেকে মুক্ত থাকবে। আইনের দ্বারা সর্বাধিক পরিমাণে অনুমোদিত হিসাবে, এই ওয়েবসাইটের ব্যবহারের ফলে সৃষ্ট কোনও ক্ষতির জন্য %1 দায়বদ্ধ থাকবে না।",
     "da": "%1 leverer denne hjemmeside 'som den er' uden nogen garantier, hverken udtrykkelige eller underforståede. Vi garanterer ikke, at hjemmesiden vil være tilgængelig hele tiden, eller at den vil være fri for fejl eller virus. I det fulde omfang, loven tillader, vil %1 ikke være ansvarlig for nogen skader, der opstår ved brug af denne hjemmeside.",
     "is": "%1 veitir þessa vefsíðu 'eins og hún er' án nokkurra ábyrgða, hvort sem er yfirlýst eða óbein. Við ábyrgjumst ekki að vefsíðan verði aðgengileg á öllum tímum eða að hún verði án galla eða vírusa. Að því marki sem lög leyfa, mun %1 ekki bera ábyrgð á neinum skaða sem stafar af notkun þessarar vefsíðu.",
@@ -17572,6 +17582,74 @@
     "ro": "Putem actualiza acești Termeni și Condiții din când în când. Vă încurajăm să revizuiți periodic acest document pentru a rămâne informat despre termenii noștri. Orice modificări vor fi publicate pe această pagină.",
     "sk": "Tieto podmienky môžeme z času na čas aktualizovať. Odporúčame vám pravidelne si prehliadať tento dokument, aby ste boli informovaní o našich podmienkach. Všetky zmeny budú zverejnené na tejto stránke.",
     "so": "Waxaan cusboonaysiin karnaa Shuruudahan iyo Shuruudahan waqti ka waqti. Waxaan kugu dhiirigelineynaa inaad si joogto ah u eegto dukumeentigan si aad u sii wargeliso shuruudahayada. Isbeddel kasta waxaa lagu dhejin doonaa boggan."
+  },
+  "%1 Logo": {
+    "en": "%1 Logo",
+    "es": "Logo de %1",
+    "fr": "Logo de %1",
+    "bn": "%1 লোগো",
+    "da": "%1-logo",
+    "is": "%1 merki",
+    "de": "%1-Logo",
+    "he": "לוגו %1",
+    "sq": "Logo %1",
+    "pt": "Logotipo %1",
+    "cy": "Logo %1",
+    "am": "%1 አርማ",
+    "kn": "%1 ಲೋಗೋ",
+    "te": "%1 లోగో",
+    "eu": "%1 logotipoa",
+    "hi": "%1 लोगो",
+    "ar": "شعار %1",
+    "mn": "%1 лого",
+    "az": "%1 loqosu",
+    "mk": "%1 лого",
+    "lt": "%1 logotipas",
+    "ja": "%1ロゴ",
+    "ln": "Logo ya %1",
+    "ht": "Logo %1",
+    "ml": "%1 ലോഗോ",
+    "el": "Λογότυπο %1",
+    "ru": "Логотип %1",
+    "rw": "Ikirangantego cya %1",
+    "ka": "%1 ლოგო",
+    "mt": "Logo ta' %1",
+    "zu": "Ilogo ye-%1",
+    "hr": "%1 logo",
+    "it": "Logo di %1",
+    "uk": "Логотип %1",
+    "mg": "Sary famantarana %1",
+    "sm": "Logo o %1",
+    "pl": "Logo %1",
+    "vi": "Logo %1",
+    "et": "%1 logo",
+    "gl": "Logo de %1",
+    "jv": "Logo %1",
+    "ig": "Logo %1",
+    "af": "%1-logo",
+    "be": "Лагатып %1",
+    "sn": "Logo %1",
+    "hu": "%1 logó",
+    "fi": "%1-logo",
+    "yo": "Logo %1",
+    "sl": "Logotip %1",
+    "bg": "Лого на %1",
+    "lv": "%1 logotips",
+    "zh": "%1标志",
+    "sw": "Nembo ya %1",
+    "tl": "Logo ng %1",
+    "tr": "%1 logosu",
+    "sv": "%1-logotyp",
+    "ro": "Logo %1",
+    "sk": "Logo %1",
+    "so": "Logo %1",
+    "ur": "%1 کا لوگو",
+    "hy": "%1 լոգոն",
+    "nl": "%1-logo",
+    "ta": "%1 லோகோ",
+    "id": "Logo %1",
+    "cs": "Logo %1",
+    "xh": "Ilogo ka-%1"
   },
   "%1 Trailer": {
     "en": "%1 Trailer",
