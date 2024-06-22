@@ -234,7 +234,7 @@ export async function fetchFilmsByGenre(
     // Get the docs from the query
     const filmSnapshot = await getDocs(q);
 
-    filmSnapshot.docs.forEach((doc) => {
+    filmSnapshot.docs.forEach((doc: object) => {
             films.push({
                 filmInfo: { ...doc.data(), slug: doc.id },
                 id: doc.id,

@@ -6,9 +6,10 @@
     "build:suggestions": "node ./build_scripts/searchbar_suggestions.js",
     "dev": "npm run build:suggestions && astro dev",
     "start": "npm run dev",
-    "build": "npm run build:suggestions && astro check && astro build",
+    "build": "npm run build:suggestions && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",

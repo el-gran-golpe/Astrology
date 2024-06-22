@@ -1,7 +1,7 @@
 ---
 import { SEO } from 'astro-seo';
 import { getAstroSeoAlternateLocales } from '../../utils/seoUtils.ts';
-import { supportedLocales } from '../../utils/localization.ts';
+import { AVAILABLE_LANGUAGES } from '../../utils/localization.ts';
 import { getMIMETypeFromURL } from '../../utils/utils.ts';
 import { getEntry } from 'astro:content';
 import { getTranslationFunction } from '../../utils/localization.ts';
@@ -64,7 +64,7 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
         },
         optional: {
           locale: lang,
-          localeAlternate: supportedLocales,
+          localeAlternate: AVAILABLE_LANGUAGES,
           siteName: config["siteName"],
           video: OGTrailer
         },
