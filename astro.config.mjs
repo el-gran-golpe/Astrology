@@ -7,7 +7,7 @@ import ALL_LANGUAGES from './src/content/location/available-languages.json';
 import CONFIG from './src/content/configs/site-config.json';
 import COOKIES_LANGUAGES from './src/content/location/cookies-consent-locales.json';
 import tailwind from "@astrojs/tailwind";
-
+import playformCompress from "@playform/compress";
 const AVAILABLE_LANGUAGES = Object.keys(ALL_LANGUAGES).filter(lang => ALL_LANGUAGES[lang]);
 console.log(AVAILABLE_LANGUAGES);
 const COOKIES_TRANSLATIONS = AVAILABLE_LANGUAGES.reduce((acc, lang) => {
@@ -50,8 +50,7 @@ export default defineConfig({
       pathname: "/v0/b/filmdatabase-fb159.appspot.com/**"
     }]
   },
-  integrations: [react(), tailwind(),
-    sitemap({
+  integrations: [react(), tailwind(), sitemap({
     filter: page => page.pathname !== '/exclude-this-page' // Optionally filter out pages
   }), icon({
     include: {
@@ -125,9 +124,6 @@ export default defineConfig({
       "autoDetect": "document",
       "translations": COOKIES_TRANSLATIONS
     }
-  })
-  /*compress({
-    gzip: true,
-    brotli: true,
-  })*/]
+  }),
+   playformCompress()]
 });

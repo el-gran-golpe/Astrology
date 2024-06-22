@@ -23,6 +23,7 @@
     "@jop-software/astro-cookieconsent": "^3.0.0",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/react": "^0.7.2",
+    "@playform/compress": "^0.0.13",
     "astro": "^4.10.1",
     "astro-icon": "^1.1.0",
     "astro-seo": "^0.8.4",
