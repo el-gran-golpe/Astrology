@@ -93,7 +93,7 @@ export async function getHomePageFilms(amount: number) {
         filmsByLang = castToLangSpecificSet(filmsByLang, lang);
 
         
-        let bannerLangFilms: Record<string, any> = await getBannerFilms('lang', lang);
+        let bannerLangFilms: Record<string, any> = await getBannerFilms('lang', lang, 5, lang);
         bannerLangFilms = castToLangSpecificSet(bannerLangFilms, lang);
 
         const path = {
@@ -164,7 +164,7 @@ export async function getHomePageFilmsByLangAndGenres(amount: number) {
 
             genreLocationFilms.forEach(film => delete film.languages);
             
-            const bannerGenreFilms = await getBannerFilms('genre', genre);
+            const bannerGenreFilms = await getBannerFilms('genre', genre, 5, lang);
 
             let bannerFilms = bannerGenreFilms.map(film => ({
                 ...film.filmInfo,

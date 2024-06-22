@@ -115,14 +115,13 @@ export async function fetchFilmsByScore(
     return films;
 }
 
-export async function getBannerFilms(category: string, key: string, amount: number=5) {
+export async function getBannerFilms(category: string, key: string, amount: number=5, lang: string = 'en') {
     // They are in the collection banner_films, in the document category, in the sub collection key.
     const BannerFilmsCol = collection(db, 'banner_films', category, key);
     const scoreKey = `${category}_score_${key}`;
     const q = query(
         BannerFilmsCol,
-        orderBy(`scores.${scoreKey}`, "desc"),
-        limit(amount)
+        orderBy(`scores.${scoreKey}`, "desc")
     );
 
     const filmSnapshot = await getDocs(q);
@@ -132,9 +131,11 @@ export async function getBannerFilms(category: string, key: string, amount: numb
     })).map((film) => apply_film_info_transformations(film));
 
     // From all of them, keep only the "limit" ones with the shortest titles (without varying the order)
-    //films.sort((a, b) => a.filmInfo.basic_info.title.length - b.filmInfo.basic_info.title.length);
-    //return films.slice(0, amount);
-    return films;
+    films.sort((a, b) => a.filmInfo.languages[lang].title.length - b.filmInfo.languages[lang].title.length);
+    const slice = films.slice(0, amount);
+    // Now reorder them by score
+    slice.sort((a, b) => b.filmInfo.scores[scoreKey] - a.filmInfo.scores[scoreKey]);
+    return slice;
 }
 
 export async function fetchFilmsByLang(
