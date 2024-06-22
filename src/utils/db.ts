@@ -1,4 +1,5 @@
 import { getEntry } from "astro:content";
+import seedrandom from "seedrandom";
 
 import {
     collection,
@@ -244,7 +245,7 @@ export async function fetchFilmsByGenre(
     return films.map((film) => apply_film_info_transformations(film));
 }
 
-export function apply_film_info_transformations(film: object) {
+export function apply_film_info_transformations(film) {
     /**
      * This function applies all the transformations needed to the
      * film info object to hinder the discovery of the original info source
@@ -252,22 +253,25 @@ export function apply_film_info_transformations(film: object) {
      * @returns The transformed film info object
      */
 
+    // Initialize the seeded random number generator
+    const rng = seedrandom(film.id);
+
     // Multiply the score by a random number between 90% and 110%
     let score =
         film.filmInfo.film_affinity_info.score.average *
-        (Math.random() * (1.2 - 0.8) + 0.8);
+        (rng() * (1.2 - 0.8) + 0.8);
     let votes =
         film.filmInfo.film_affinity_info.score.votes *
-        (Math.random() * (1.2 - 0.8) + 0.8);
+        (rng() * (1.2 - 0.8) + 0.8);
     let reviews_count =
         film.filmInfo.film_affinity_info.score.reviews_count *
-        (Math.random() * (1.2 - 0.8) + 0.8);
+        (rng() * (1.2 - 0.8) + 0.8);
 
     // Round the values for votes and reviews_count to integers
     film.filmInfo.film_affinity_info.score.votes = Math.round(votes);
-    film.filmInfo.film_affinity_info.score.reviews_count =
-        Math.round(reviews_count);
-    // Cast the score from range 0-10 to 0-5 (rounded to  decimal places)
+    film.filmInfo.film_affinity_info.score.reviews_count = Math.round(reviews_count);
+
+    // Cast the score from range 0-10 to 0-5 (rounded to 1 decimal place)
     film.filmInfo.film_affinity_info.score.average = (score * (5 / 10)).toFixed(1);
 
     return film;
