@@ -131,6 +131,9 @@ export async function getBannerFilms(category: string, key: string, amount: numb
         id: doc.id,
     })).map((film) => apply_film_info_transformations(film));
 
+    // From all of them, keep only the "limit" ones with the shortest titles (without varying the order)
+    //films.sort((a, b) => a.filmInfo.basic_info.title.length - b.filmInfo.basic_info.title.length);
+    //return films.slice(0, amount);
     return films;
 }
 

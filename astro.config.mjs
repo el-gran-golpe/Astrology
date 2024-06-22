@@ -8,6 +8,7 @@ import CONFIG from './src/content/configs/site-config.json';
 import COOKIES_LANGUAGES from './src/content/location/cookies-consent-locales.json';
 import tailwind from "@astrojs/tailwind";
 import playformCompress from "@playform/compress";
+import purgecss from "astro-purgecss";
 const AVAILABLE_LANGUAGES = Object.keys(ALL_LANGUAGES).filter(lang => ALL_LANGUAGES[lang]);
 console.log(AVAILABLE_LANGUAGES);
 const COOKIES_TRANSLATIONS = AVAILABLE_LANGUAGES.reduce((acc, lang) => {
@@ -125,5 +126,22 @@ export default defineConfig({
       "translations": COOKIES_TRANSLATIONS
     }
   }),
-   playformCompress()]
+  purgecss({
+    fontFace: true,
+    keyframes: true,
+    safelist: ['random', 'yep', 'button', /^nav-/],
+    blocklist: ['usedClass', /^nav-/],
+    content: [
+      process.cwd() + '/src/**/*.{astro,vue}' // Watching astro and vue sources (for SSR, read the note below)
+    ],
+    extractors: [
+      {
+        // Example using a taiwindcss compatible class extractor
+        extractor: (content) =>
+          content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+        extensions: ["astro", "html"],
+      },
+    ],
+  }),
+  playformCompress()]
 });

@@ -1,14 +1,12 @@
 ---
+import "../../layouts/global.css";
 import { getTopPagesByLang } from '../../utils/staticPathsGeneration.ts';
 import Head from '../../components/common/Head.astro';
-import { getEntry } from 'astro:content';
 import { getTranslationFunction } from '../../utils/localization.ts';
-// Import Tailwind CSS
-import "../../layouts/global.css";
+import { getEntry } from 'astro:content';
 
 // Import components
 import WhereToWatchTable from '../../components/film/WhereToWatchTable.astro';
-import FakeLinkTable from '../../components/react/FakeLinkTable';
 import NavBar from '../../components/navbar/NavBar.astro';
 import RatingAndReviews from '../../components/film/RatingAndReviews.astro';
 import MovieStaff from '../../components/film/MovieStaff.astro';
