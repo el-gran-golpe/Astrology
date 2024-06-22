@@ -6,7 +6,12 @@ import { getEntry } from 'astro:content';
 const LANG_CODES_TO_NAMES = (await getEntry('location', 'languages-to-names')).data;
 const currentLocale = Astro.currentLocale;
 const t = getTranslationFunction(currentLocale);
-
+// Sort them alphabetically by name, not by code. Putting the current locale first.
+const LANG_CODES = AVAILABLE_LANGUAGES.sort((a, b) => {
+    if (a === currentLocale) return -1;
+    if (b === currentLocale) return 1;
+    return t(LANG_CODES_TO_NAMES[a]).localeCompare(t(LANG_CODES_TO_NAMES[b]));
+});
 // Get the path without the locale (e.g /en/... -> /...)
 const afterLocalePath = Astro.url.pathname === `/${currentLocale}` ? '' : Astro.url.pathname.replace(`/${currentLocale}/`, '');
 
@@ -25,7 +30,7 @@ const afterLocalePath = Astro.url.pathname === `/${currentLocale}` ? '' : Astro.
         id="language-dropdown" 
         class="absolute hidden group-hover:block bg-gray-800 text-white pt-1 rounded shadow-lg z-50 max-h-60 overflow-y-auto"
         role="menu" aria-labelledby="language-dropdown-button">
-        {AVAILABLE_LANGUAGES.map(lang => (
+        {LANG_CODES.map(lang => (
             <li role="none">
                 <a 
                     class="block py-2 px-4 hover:bg-gray-700 transition duration-300" 
