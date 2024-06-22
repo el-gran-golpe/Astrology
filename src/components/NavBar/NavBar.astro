@@ -4,7 +4,8 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 import GenreSwitcher from '../genre/GenreSwitcher.astro';
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getTranslationFunction } from '../../utils/localization.ts';
-
+import K from '../../assets/k.svg';
+import { Image } from 'astro:assets';
 const { lang } = Astro.params;
 
 // Define the props. Only currentGenre is required.
@@ -23,7 +24,7 @@ const t = getTranslationFunction(lang, false);
         <div class="flex-none">
             <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label={t("Homepage")}>  
                 <div class="text-3xl font-bold flex items-center logo-text">
-                    <img src="/k.svg" style="height: 1.05em; margin-right: -0.025em" />
+                    <Image src={K} width={32} height={32} style="height: 1.05em; margin-right: -0.025em" alt={t("Kinemify Logo")}/>
                     <span class="text-white" style="font-family: 'Montserrat', sans-serif;">inemi</span>
                     <span class="text-red-400" style="font-family: 'Montserrat', sans-serif;">Fy</span>
                 </div>
