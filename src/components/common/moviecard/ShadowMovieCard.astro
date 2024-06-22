@@ -10,7 +10,12 @@ interface Props {
   moviePlot: string;
   movieScore: number;
 }
-const { movieSlug, movieTitle, movieDuration, moviePlot, movieScore } = Astro.props;
+const { movieSlug, movieTitle, movieDuration, movieScore } = Astro.props;
+
+let { moviePlot } = Astro.props;
+if (moviePlot[moviePlot.length - 1] !== ".") {
+  moviePlot += ".";
+}
 
 // Get the translation function
 const { lang } = Astro.params;
