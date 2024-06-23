@@ -4,7 +4,6 @@ import { getAstroSeoAlternateLocales } from "../../utils/seoUtils.ts";
 import { AVAILABLE_LANGUAGES } from "../../utils/localization.ts";
 import { getMIMETypeFromURL } from "../../utils/utils.ts";
 import { getEntry } from "astro:content";
-import { getTranslationFunction } from "../../utils/localization.ts";
 import { GoogleAnalytics } from "@astrolib/analytics";
 
 interface Props {
@@ -58,7 +57,7 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
 
 <head>
   <GoogleAnalytics
-    id={config["googleAnalyticsId"]}
+    id={config["GoogleAnalyticsID"]}
     partytown={true}
   />
 
@@ -66,8 +65,7 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <SEO
-    title={title}
-    ,
+    title={title},
     description={description}
     charset="utf-8"
     languageAlternates={getAstroSeoAlternateLocales(afterLangUrl)}

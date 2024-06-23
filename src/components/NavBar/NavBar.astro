@@ -4,7 +4,7 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 import GenreSwitcher from '../genre/GenreSwitcher.astro';
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getTranslationFunction } from '../../utils/localization.ts';
-import K from '../../assets/k.svg';
+import KinemifyNameLogo from '../../assets/KinemiFyNameLogo.svg';
 import { Image } from 'astro:assets';
 const { lang } = Astro.params;
 
@@ -23,10 +23,8 @@ const t = getTranslationFunction(lang, false);
         <!-- Render the title of the website -->
         <div class="flex-none">
             <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label={t("Homepage")}>  
-                <div class="text-3xl font-bold flex items-center logo-text">
-                    <Image src={K} width={32} height={32} style="height: 1.05em; margin-right: -0.025em" alt={t("%1 Logo").replace("%1", "Kinemify")} />
-                    <span class="text-white" style="font-family: 'Montserrat', sans-serif;">inemi</span>
-                    <span class="text-red-400" style="font-family: 'Montserrat', sans-serif;">Fy</span>
+                <div class="flex items-center">
+                    <Image src={KinemifyNameLogo} height={32} width={32*5} style="height: 1.05em; margin-right: -0.025em" alt={t("%1 Logo").replace("%1", "Kinemify")} />
                 </div>
             </a>
         </div>
@@ -45,10 +43,3 @@ const t = getTranslationFunction(lang, false);
         </ul>
     </div>
 </nav>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-<style>
-    .logo-text {
-        font-family: 'Montserrat', sans-serif;
-    }
-</style>
