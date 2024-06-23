@@ -11,8 +11,8 @@ interface Synopsis {
 
 let synopsis = Astro.props.synopsis;
 // It can be deleted in the future
-// If the synopsis does not ends with a period, add one
-if (synopsis && synopsis[synopsis.length - 1] !== '.') {
+const lastLetter = synopsis && synopsis[synopsis.length - 1];
+if (synopsis && !['.', '?', '!'].includes(lastLetter)) {
   synopsis = `${synopsis}.`;
 }
 ---
