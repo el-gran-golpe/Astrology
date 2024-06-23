@@ -1,42 +1,54 @@
 ---
-import { SEO } from 'astro-seo';
-import { getAstroSeoAlternateLocales } from '../../utils/seoUtils.ts';
-import { AVAILABLE_LANGUAGES } from '../../utils/localization.ts';
-import { getMIMETypeFromURL } from '../../utils/utils.ts';
-import { getEntry } from 'astro:content';
-import { getTranslationFunction } from '../../utils/localization.ts';
-
+import { SEO } from "astro-seo";
+import { getAstroSeoAlternateLocales } from "../../utils/seoUtils.ts";
+import { AVAILABLE_LANGUAGES } from "../../utils/localization.ts";
+import { getMIMETypeFromURL } from "../../utils/utils.ts";
+import { getEntry } from "astro:content";
+import { getTranslationFunction } from "../../utils/localization.ts";
+import { GoogleAnalytics } from "@astrolib/analytics";
 
 interface Props {
   title: string;
   description: string;
   lang: string;
   afterLangUrl: string;
-  keywords?: string[]
+  keywords?: string[];
   OGTitle: string;
   OGType: string;
   OGImage: string;
   OGImageAlt: string;
   OGTrailer?: string;
-  OGExtends?: {name: string, content: string|number}[];
+  OGExtends?: { name: string; content: string | number }[];
   schemaOrgInfo?: Record<string, any>;
 }
 
 const config = (await getEntry("configs", "site-config")).data;
 
-const { title, description, lang, afterLangUrl, keywords,
-  OGTitle, OGType, OGImage, OGImageAlt, OGTrailer, OGExtends, schemaOrgInfo } = Astro.props;
+const {
+  title,
+  description,
+  lang,
+  afterLangUrl,
+  keywords,
+  OGTitle,
+  OGType,
+  OGImage,
+  OGImageAlt,
+  OGTrailer,
+  OGExtends,
+  schemaOrgInfo,
+} = Astro.props;
 
-let extend: {name: string, content: string|number}[] = [
-      {name: 'twitter:image', content: OGImage},
-      {name: 'twitter:image:alt', content: OGImageAlt},
-      {name: 'twitter:title', content: OGTitle},
-      {name: 'twitter:description', content: description},
-      {name: 'twitter:card', content: 'summary_large_image'},
+let extend: { name: string; content: string | number }[] = [
+  { name: "twitter:image", content: OGImage },
+  { name: "twitter:image:alt", content: OGImageAlt },
+  { name: "twitter:title", content: OGTitle },
+  { name: "twitter:description", content: description },
+  { name: "twitter:card", content: "summary_large_image" },
 ];
 
 if (keywords) {
-  extend = [{name: 'keywords', content: keywords.join(', ')}, ...extend];
+  extend = [{ name: "keywords", content: keywords.join(", ") }, ...extend];
 }
 if (OGExtends) {
   extend = [...extend, ...OGExtends];
@@ -45,40 +57,50 @@ const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
 ---
 
 <head>
+  <GoogleAnalytics
+    id="G-47DLCN6Q5R"
+    partytown={true}
+  />
   
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <SEO
+    title={title}
+    ,
+    description={description}
+    charset="utf-8"
+    languageAlternates={getAstroSeoAlternateLocales(afterLangUrl)}
+    openGraph={{
+      basic: {
+        title: OGTitle,
+        type: OGType,
+        image: OGImage,
+        //Study about url (https://github.com/jonasmerlin/astro-seo?tab=readme-ov-file)
+      },
+      optional: {
+        locale: lang,
+        localeAlternate: AVAILABLE_LANGUAGES,
+        siteName: config["siteName"],
+        video: OGTrailer,
+      },
+      image: {
+        type: OGImageMIMEType || "image/jpeg",
+        alt: OGImageAlt,
+      },
+    }}
+    extend={{
+      meta: extend,
+    }}
+  />
+  {
+    schemaOrgInfo && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(schemaOrgInfo)}
+      />
+    )
+  }
 
-    <SEO
-      title={title},
-      description={description}
-      charset='utf-8'
-      languageAlternates={getAstroSeoAlternateLocales(afterLangUrl)}
-      openGraph={{
-        basic: {
-          title: OGTitle,
-          type: OGType,
-          image: OGImage,
-          //Study about url (https://github.com/jonasmerlin/astro-seo?tab=readme-ov-file)
-        },
-        optional: {
-          locale: lang,
-          localeAlternate: AVAILABLE_LANGUAGES,
-          siteName: config["siteName"],
-          video: OGTrailer
-        },
-        image:{
-          type: OGImageMIMEType || 'image/jpeg',
-          alt: OGImageAlt
-        }
-      }}
-
-      extend={{
-        meta: extend
-      }}
-    />
-    {schemaOrgInfo && (
-      <script type="application/ld+json" set:html={JSON.stringify(schemaOrgInfo)}></script>
-    )}
+  
 </head>

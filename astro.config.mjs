@@ -9,6 +9,7 @@ import COOKIES_LANGUAGES from './src/content/location/cookies-consent-locales.js
 import tailwind from "@astrojs/tailwind";
 import playformCompress from "@playform/compress";
 import purgecss from "astro-purgecss";
+import partytown from "@astrojs/partytown";
 const AVAILABLE_LANGUAGES = Object.keys(ALL_LANGUAGES).filter(lang => ALL_LANGUAGES[lang]);
 console.log(AVAILABLE_LANGUAGES);
 const COOKIES_TRANSLATIONS = AVAILABLE_LANGUAGES.reduce((acc, lang) => {
@@ -51,7 +52,7 @@ export default defineConfig({
       pathname: "/v0/b/filmdatabase-fb159.appspot.com/**"
     }]
   },
-  integrations: [react(), tailwind(), sitemap({
+  integrations: [react(), partytown(), tailwind(), sitemap({
     filter: page => page.pathname !== '/exclude-this-page' // Optionally filter out pages
   }), icon({
     include: {
@@ -125,23 +126,17 @@ export default defineConfig({
       "autoDetect": "document",
       "translations": COOKIES_TRANSLATIONS
     }
-  }),
-  purgecss({
+  }), purgecss({
     fontFace: true,
     keyframes: true,
     safelist: ['random', 'yep', 'button', /^nav-/],
     blocklist: ['usedClass', /^nav-/],
-    content: [
-      process.cwd() + '/src/**/*.{astro,vue}' // Watching astro and vue sources (for SSR, read the note below)
+    content: [process.cwd() + '/src/**/*.{astro,vue}' // Watching astro and vue sources (for SSR, read the note below)
     ],
-    extractors: [
-      {
-        // Example using a taiwindcss compatible class extractor
-        extractor: (content) =>
-          content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-        extensions: ["astro", "html"],
-      },
-    ],
-  }),
-  playformCompress()]
+    extractors: [{
+      // Example using a taiwindcss compatible class extractor
+      extractor: content => content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
+      extensions: ["astro", "html"]
+    }]
+  }), playformCompress()]
 });
