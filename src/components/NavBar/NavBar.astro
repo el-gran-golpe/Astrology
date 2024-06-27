@@ -4,7 +4,7 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 import GenreSwitcher from '../genre/GenreSwitcher.astro';
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { getTranslationFunction } from '../../utils/localization.ts';
-import KinemifyNameLogo from '../../assets/KinemiFyNameLogo.svg';
+import KinemifyNameLogo from '../../assets/kinemify-name-logo.svg';
 import { Image } from 'astro:assets';
 const { lang } = Astro.params;
 
@@ -24,7 +24,7 @@ const t = getTranslationFunction(lang, false);
         <div class="flex-none">
             <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label={t("Homepage")}>  
                 <div class="flex items-center">
-                    <Image src={KinemifyNameLogo} height={32} width={32*5} style="height: 1.05em; margin-right: -0.025em" alt={t("%1 Logo").replace("%1", "Kinemify")} />
+                    <Image src={KinemifyNameLogo} height={32} width={32*5.5} style="height: 1.05em; margin-right: -0.025em" alt={t("%1 Logo").replace("%1", "Kinemify")} />
                 </div>
             </a>
         </div>

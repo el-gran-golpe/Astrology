@@ -10,6 +10,9 @@ import tailwind from "@astrojs/tailwind";
 import playformCompress from "@playform/compress";
 import purgecss from "astro-purgecss";
 import partytown from "@astrojs/partytown";
+import robotsTxt from "astro-robots-txt";
+//import min from "astro-min";
+import compressor from "astro-compressor";
 const AVAILABLE_LANGUAGES = Object.keys(ALL_LANGUAGES).filter(lang => ALL_LANGUAGES[lang]);
 console.log(AVAILABLE_LANGUAGES);
 const COOKIES_TRANSLATIONS = AVAILABLE_LANGUAGES.reduce((acc, lang) => {
@@ -54,7 +57,7 @@ export default defineConfig({
   },
   integrations: [react(), partytown(), tailwind(), sitemap({
     filter: page => page.pathname !== '/exclude-this-page' // Optionally filter out pages
-  }), icon({
+  }), robotsTxt(), icon({
     include: {
       'fa-solid': ['user', 'film', 'pen-fancy', 'chair', 'music', 'globe', 'clock', 'book-open', 'bookmark', 'tags', 'star', 'chevron-right', 'chevron-left'],
       'fa6-solid': ['shapes', 'caret-down', 'link', 'circle-info']
@@ -126,17 +129,7 @@ export default defineConfig({
       "autoDetect": "document",
       "translations": COOKIES_TRANSLATIONS
     }
-  }), purgecss({
-    fontFace: true,
-    keyframes: true,
-    safelist: ['random', 'yep', 'button', /^nav-/],
-    blocklist: ['usedClass', /^nav-/],
-    content: [process.cwd() + '/src/**/*.{astro,vue}' // Watching astro and vue sources (for SSR, read the note below)
-    ],
-    extractors: [{
-      // Example using a taiwindcss compatible class extractor
-      extractor: content => content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [],
-      extensions: ["astro", "html"]
-    }]
-  }), playformCompress()]
+  }), /*min(),*/
+  purgecss(),
+  playformCompress(), compressor()]
 });
