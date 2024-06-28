@@ -13,15 +13,14 @@ export async function getStaticPaths() {
 const config = (await getEntry("configs", "site-config")).data;
 const { lang } = Astro.params;
 const t = getTranslationFunction(lang);
-const description = "Learn how Kinemify uses cookies for analytics, YouTube embeds, and advertising.";
 ---
 
 <Head
-    title={"Cookies Consent"}
-    description={description}
+    title={t("Cookies Consent")}
+    description={t("Learn how Kinemify uses cookies for analytics, YouTube embeds, and advertising.")}
     lang={lang}
     afterLangUrl="cookies-consent"
-    OGTitle={`${config["siteName"]} Cookies Consent`}
+    OGTitle={t("%1 Cookies Consent").replace("%1", config["siteName"])}
     OGType="website"
     OGImage={config["OGImage.home"]}
     OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}

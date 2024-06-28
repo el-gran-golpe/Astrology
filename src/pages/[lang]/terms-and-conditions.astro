@@ -13,15 +13,14 @@ export async function getStaticPaths() {
 const config = (await getEntry("configs", "site-config")).data;
 const { lang } = Astro.params;
 const t = getTranslationFunction(lang);
-const description = "Read the terms and conditions for using Kinemify.";
 ---
 
 <Head
-    title={"Terms and Conditions"}
-    description={description}
+    title={t("Terms and Conditions")}
+    description={t("Read the terms and conditions for using Kinemify.")}
     lang={lang}
-    afterLangUrl="terms"
-    OGTitle={`${config["siteName"]} Terms and Conditions`}
+    afterLangUrl="terms-and-conditions"
+    OGTitle={"%1 Terms and Conditions".replace("%1", config["siteName"])}
     OGType="website"
     OGImage={config["OGImage.home"]}
     OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
@@ -81,15 +80,6 @@ const description = "Read the terms and conditions for using Kinemify.";
                 <p>{t("We reserve the right to terminate or suspend access to our website at any time, without prior notice, for conduct that we believe violates these Terms and Conditions or is harmful to other users of the website, us, or third parties, or for any other reason.")}</p>
             </div>
         </section>
-
-        <!--
-        <section class="mb-6">
-            <h2 class="text-2xl font-semibold mb-4">{t("Governing Law")}</h2>
-            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                <p>{t("These Terms and Conditions are governed by and construed in accordance with the laws of [Your Country/State]. Any disputes arising out of or related to the use of our website shall be resolved in the courts of [Your Country/State].")}</p>
-            </div>
-        </section>
-    -->
 
         <section class="mb-6">
             <h2 class="text-2xl font-semibold mb-4">{t("Contact Us")}</h2>

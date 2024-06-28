@@ -4,8 +4,7 @@ import { getTranslationFunction } from "../../utils/localization.ts";
 import { Image } from 'astro:assets';
 import justWatchLogo from '../../assets/justwatch.svg';
 
-const availableAt = Astro.props.availableAt;
-const lang = Astro.props.lang;
+const { availableAt, lang } = Astro.props;
 const t = getTranslationFunction(lang);
 
 const rows = availableAt.platforms || [];
@@ -13,12 +12,6 @@ const rows = availableAt.platforms || [];
 
 <section class="bg-gray-900 mt-10 rounded-xl shadow-xl" aria-labelledby="where-to-watch-heading">
     <div class="flex items-center mb-4">
-        <!-- <Icon
-            name="fa6-solid:tv"
-            aria-label="TV Icon"
-            class="text-gray-200 mr-2"
-            style="width: 32px; height: 32px;"
-        /> -->
         <h2 id="where-to-watch-heading" class="text-gray-300 text-2xl font-bold">{t("Where to watch")}</h2>
     </div>
     <div class="bg-gray-800 p-4 pb-1 rounded-lg overflow-hidden shadow-lg">
@@ -33,7 +26,7 @@ const rows = availableAt.platforms || [];
             <tbody id="rows-content">
                 {rows.length > 0 ? (
                     rows.map((row, index) => (
-                        <tr key={index} class="hover:bg-gray-700 transition-colors duration-150">
+                        <tr class="hover:bg-gray-700 transition-colors duration-150">
                             <td class="px-4 py-2">
                                 <div class="flex items-center justify-center">
                                     <Icon
@@ -65,7 +58,9 @@ const rows = availableAt.platforms || [];
             <tfoot>
                 <tr>
                     <td colspan="3" class="px-4 py-2 text-right" style="padding: 0; padding-top:0.25em;">
-                        <Image src={justWatchLogo} alt="JustWatch logo" class="inline-block h-8 w-auto m-0 p-0"/>
+                        <a href={availableAt.just_watch} target="_blank" rel="noopener noreferrer" aria-label={t("Find more movies on JustWatch")}>
+                             <Image src={justWatchLogo} alt="JustWatch logo" class="inline-block h-8 w-auto m-0 p-0"/>
+                        </a>
                     </td>
                 </tr>
             </tfoot>

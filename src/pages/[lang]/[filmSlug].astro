@@ -59,19 +59,6 @@ const keywords = [...translatedGenres]
       <header class="mb-6 mx-0 w-full h-[33vh] relative overflow-hidden">
         <Image src={filmInfo.extended_info.poster_url} alt="" class="absolute w-full h-full object-cover" inferSize={true} loading="eager"/>
 
-        <!-- YouTube video iframe -->
-        <!-- 
-        <div class="absolute top-0 left-1/4 w-1/2 h-3/4 z-10">
-          <iframe
-            src="https://www.youtube.com/embed/JpUd4BS7yI0?rel=0"
-            title={`${filmInfo.locationInfo.title} trailer`}
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            class="w-full h-full"
-          ></iframe>
-        </div>
-        -->
         <!-- Gradient overlay -->
         <div class="absolute inset-0 z-0">
           <div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
@@ -99,7 +86,6 @@ const keywords = [...translatedGenres]
             <RatingAndReviews score={parseFloat(filmInfo.film_affinity_info.score.average)} votes={filmInfo.film_affinity_info.score.votes} />
             <Synopsis synopsis={filmInfo.locationInfo.synopsis} />
             <WhereToWatchTable lang={Astro.params.lang} availableAt={filmInfo.available_at} />
-            <!-- <FakeLinkTable client:only="react" lang={Astro.params.lang} availableAt={filmInfo.available_at} /> -->
             <MovieStaff 
               cast={filmInfo.staff.cast} 
               producers={filmInfo.staff.producers} 
@@ -111,8 +97,6 @@ const keywords = [...translatedGenres]
         </div>  
       </main>
       
-      <!-- Save the visited film in the local-storage to have it accessible for visited films recommendations (crossTab update)-->
-      <!-- <UpdateVisitedFilms slug={filmSlug} title={filmInfo.locationInfo.title} posterURL={filmInfo.extended_info.poster_url} client:idle/> -->
     </div>
   </body>
 </html>

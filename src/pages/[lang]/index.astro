@@ -95,7 +95,7 @@ const gridSections = [
                         <p id={`${section.id}-description`} class="sr-only">
                             {t(section.description)}
                         </p>
-                        <!-- Grid of movie cards -->
+
                         <Grid>
                             {section.films.map((film, filmIdx) => (
                                 <MovieCard
@@ -112,16 +112,6 @@ const gridSections = [
                     </section>
                 ))}
                 
-                <!-- Grid of visited films -->
-                <!-- TODO: Implement this after the release -->
-                <!-- <section aria-labelledby="visited-films">
-                    <h2 id="visited-films" class="flex items-center text-3xl font-bold text-white py-6">
-                        {t("Visited films")}
-                    </h2>
-                    <div class='container'>
-                        {<VisitedFilmsGrid currentLocale={Astro.currentLocale} client:only="react"/>}
-                    </div>
-                </section> -->
             </main>
         </div>
     </body>
