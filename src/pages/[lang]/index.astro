@@ -1,100 +1,118 @@
 ---
-// Import your getHomePageFilmsByLang function
-import { getHomePageFilmsByLang } from "../../utils/staticPathsGeneration.ts";
+import "../../layouts/global.css";
 
+// Import the components
+import Head from "../../components/common/Head.astro";
+import NavBar from "../../components/navbar/NavBar.astro";
+import MovieCard from "../../components/common/moviecard/MovieCard.astro";
+import BestMoviesHero from "../../components/BestMoviesHero.astro";
+import Grid from '../../components/common/Grid.astro';
+
+// Import your getHomePageFilmsByLang function
+import { getHomePageFilms } from "../../utils/staticPathsGeneration.ts";
 import { getTranslationFunction } from "../../utils/localization.ts";
 import { getEntry } from "astro:content";
-
-import Head from "../../components/Head.astro";
-import MovieCard from "../../components/react/MovieCard.jsx";
-import VisitedFilmsGrid from "../../components/react/VisitedFilmsGrid.jsx";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 // Fetch the films
 export async function getStaticPaths() {
-    return await getHomePageFilmsByLang(10);
+    return await getHomePageFilms(15);
 }
 
 // Destructure the props
-const { topLocationFilms, topFilms } = Astro.props;
+const { topLocationFilms, bannerFilms, topClassics, topRecent, topNominations, topHorror, topDocumentary } = Astro.props;
 const { lang } = Astro.params;
 
 // Get the translation function
 const t = getTranslationFunction(lang);
 const config = (await getEntry("configs", "site-config")).data;
----
+const sectionDescriptions = (await getEntry("seo", "section-descriptions")).data;
 
+const IMAGES_TO_EAGERLY_LOAD = 6;
+
+// Create an array of grid sections with title and subtitle
+const gridSections = [
+    {   
+        ...sectionDescriptions["other"]["recent"],
+        films: topRecent
+    },
+    {
+        ...sectionDescriptions["other"]["classics"],
+        films: topClassics
+    },
+    {
+        ...sectionDescriptions["other"]["awards"],
+        films: topNominations
+    },
+    {
+        ...sectionDescriptions["genre"]["TE"],
+        films: topHorror
+    },
+    {
+        ...sectionDescriptions["genre"]["DO"],
+        films: topDocumentary
+    },
+    {
+        ...sectionDescriptions["lang"][lang],
+        films: topLocationFilms
+    }
+];
+
+---
 <html lang={lang}>
     <Head
         title={config["siteName"]}
-        description={t("meta.description")}
+        description={t(config["meta.description.home"])}
         lang={lang}
         afterLangUrl={""}
         OGTitle={config["siteName"]}
         OGType={"website"}
         OGImage={config["OGImage.home"]}
-        ,
-        OGImageAlt={`${config["siteName"]} Banner`}
+        OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
     />
     <body>
-        <!-- Your HTML starts here -->
-        <div class='container'>
-            <section>
-                <h2>Top Location Films</h2>
-                <div class='film-grid'>
-                    {
-                        topLocationFilms.map((film) => (
-                            <MovieCard
-                                posterURL={film.extended_info.poster_url}
-                                movieTitle={film.locationInfo.title}
-                                movieSlug={film.slug}
-                                currentLocale={Astro.currentLocale}
-                            />
-                        ))
-                    }
-                </div>
-            </section>
+        <NavBar />
+        <div class="bg-gray-900 text-white">
+            <!-- Banner component with film data -->
+            <header>
+                <BestMoviesHero films={bannerFilms}/>
+            </header>
+            
+            <!-- Main content -->
+            <main class="container mx-auto px-6 py-4" role="main">
+                {gridSections.map((section, sectionIdx) => (
+                    <section aria-labelledby={section.id} aria-describedby={`${section.id}-description`} class="mb-8">
+                        <h2 id={section.id} class="flex items-center text-3xl font-bold mb-6">
+                            {section.redirect_url ? (
+                <a href={getRelativeLocaleUrl(Astro.currentLocale, section.redirect_url)}>
+                    <span class="text-white">{t(section.title)}</span>
+                </a>
+            ) : (
+                <span class="text-white">{t(section.title)}</span>
+            )}
+                            <span class="text-gray-400 font-light ml-2">{t(section.subtitle)}</span>
+                        </h2>
+                        <p id={`${section.id}-description`} class="sr-only">
+                            {t(section.description)}
+                        </p>
 
-            <section>
-                <h2>Top Films</h2>
-                <div class='film-grid'>
-                    {
-                        topFilms.map((film) => (
-                            <MovieCard
-                                key={film.slug}
-                                posterURL={film.extended_info.poster_url}
-                                movieTitle={film.locationInfo.title}
-                                movieSlug={film.slug}
-                                currentLocale={Astro.currentLocale}
-                            />
-                        ))
-                    }
-                </div>
-            </section>
-            <div class='container'>
-                <p> Probably won't need that part on the home page so we can avoid client hydrated components</p>
-                {<VisitedFilmsGrid currentLocale={Astro.currentLocale} client:only="react"/>}
-            </div>
+                        <Grid>
+                            {section.films.map((film, filmIdx) => (
+                                <MovieCard
+                                    movieYear={film.basic_info.year}
+                                    posterUrl={film.extended_info.poster_thumbnail_url}
+                                    movieTitle={film.locationInfo.title}
+                                    movieSlug={film.slug}
+                                    movieDuration={film.basic_info.duration_minutes}
+                                    moviePlot={film.locationInfo.short_synopsis}
+                                    movieScore={film.film_affinity_info?.score?.average ?? 'Not available'}
+                                    loading={(sectionIdx === 0 && filmIdx < IMAGES_TO_EAGERLY_LOAD)? "eager" : "lazy"} />
+                            ))}
+                        </Grid>
+                    </section>
+                ))}
+                
+            </main>
         </div>
     </body>
-    
 </html>
-
-<style>
-  .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-  }
-
-  .film-grid {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 20px;
-  }
-
-  @media screen and (max-width: 768px) {
-      .film-grid {
-          grid-template-columns: repeat(2, 1fr);
-      }
-  }
-</style>

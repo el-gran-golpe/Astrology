@@ -1,0 +1,54 @@
+---
+import { Icon } from 'astro-icon/components';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getTranslationFunction } from "../../utils/localization.ts";
+import { getEntry } from 'astro:content';
+import '../../layouts/global.css';
+
+const GENRES_TO_NAMES: Record<string, string> = (await getEntry('codes', 'genres')).data;
+const AVAILABLE_GENRES: string[] = Object.keys(GENRES_TO_NAMES);
+
+const lang = Astro.currentLocale;
+const t = getTranslationFunction(lang);
+
+// Define the props. Only currentGenre is required.
+export interface GenreDropdownProps {
+    currentGenre?: string;
+}
+
+// Define the component
+const currentGenre = Astro.props.currentGenre? GENRES_TO_NAMES[Astro.props.currentGenre] : 'Genres';
+---
+
+<div class="relative group">
+    <button 
+        class="text-white bg-gray-800 hover:bg-gray-700 font-semibold py-1 px-3 rounded flex items-center transition duration-300" 
+        aria-haspopup="true" aria-controls="genre-dropdown">
+        <Icon name="fa6-solid:shapes" class="mr-2" /> 
+        <span>{t(currentGenre)}</span>
+        <svg class="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M5.516 7.548L10 12.032l4.484-4.484 1.032 1.032L10 14.096 4.484 8.58l1.032-1.032z"/>
+        </svg>
+    </button>
+    <ul 
+        id="genre-dropdown" 
+        class="absolute hidden group-hover:block bg-gray-800 text-white pt-1 rounded shadow-lg z-50 max-h-60 overflow-y-auto custom-scrollbar"
+        role="menu" aria-labelledby="genre-dropdown-button">
+        {AVAILABLE_GENRES.map(genre => (
+            <li role="none">
+                <a 
+                    class="block py-2 px-4 hover:bg-gray-700 transition duration-300" 
+                    href={getRelativeLocaleUrl(lang, `by-genre/${genre}`)}
+                    role="menuitem">
+                    {t(GENRES_TO_NAMES[genre])}
+                </a>
+            </li>
+        ))}
+    </ul>
+</div>
+
+<style>
+    .relative:hover > ul {
+        display: block;
+    }
+</style>

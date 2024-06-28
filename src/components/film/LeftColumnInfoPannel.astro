@@ -1,0 +1,81 @@
+---
+import { Icon } from 'astro-icon/components';
+import { formatDuration } from "../../utils/utils.ts";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getEntry } from 'astro:content';
+import { getTranslationFunction } from '../../utils/localization.ts';
+import { Image } from 'astro:assets';
+
+// Get the translation function
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
+
+// Load the dictionaries that map codes to names (i.e ES -> Spain)
+const GENRE_CODES_TO_NAME = (await getEntry('codes', 'genres')).data;
+const country_codes_to_name = (await getEntry('codes', 'countries')).data;
+const country_codes_to_flag = (await getEntry('codes', 'country-flags')).data;
+
+const { posterUrl, duration, movieSaga, otherTitles, filmTitle } = Astro.props;
+let { genres, productionCountries } = Astro.props;
+
+// Map the genre codes to their names, and translate them
+genres = genres.map(genre => ({
+    name: t(GENRE_CODES_TO_NAME[genre]),
+    url: getRelativeLocaleUrl(lang, `by-genre/${genre}`)
+}));
+
+// Append the flag emoji to the production countries
+productionCountries = productionCountries.map(country => `${country_codes_to_flag[country]} ${country_codes_to_name[country]}`);
+
+const iconClass = "text-indigo-300 mr-2";
+---
+
+<aside aria-labelledby="movie-details-heading">
+    <Image src={posterUrl} alt={t("Movie poster of %1").replace("%1", filmTitle)} class="w-full h-auto object-cover rounded-lg" inferSize={true} loading="eager" />
+
+    <div class="pt-2 pb-2">
+        <h3 id="movie-details-heading" class="sr-only">{t("Movie Details")}</h3>
+        <ul class="space-y-2">
+            <li class="relative py-2" aria-labelledby="genres-heading">
+                <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+                <h4 id="genres-heading" class="text-lg font-semibold text-indigo-300 flex items-center">
+                    <Icon name="fa-solid:book-open" class={iconClass} />{t("Genres")}
+                </h4>
+                <p class="text-xs">
+                    {genres.map((genre, index) => (
+                        <span key={genre.url}><a href={genre.url} class="text-indigo-400 hover:underline">{genre.name}</a>{index < genres.length - 1 && <span class="text-white">, </span>}</span>
+                    ))}
+                </p>
+            </li>
+            <li class="relative py-2" aria-labelledby="duration-heading">
+                <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+                <h4 id="duration-heading" class="text-lg font-semibold text-indigo-300 flex items-center">
+                    <Icon name="fa-solid:clock" class={iconClass} />{t("Duration")}
+                </h4>
+                <p class="text-xs">{formatDuration(duration)}</p>
+            </li>
+            <li class="relative py-2" aria-labelledby="production-countries-heading">
+                <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+                <h4 id="production-countries-heading" class="text-lg font-semibold text-indigo-300 flex items-center">
+                    <Icon name="fa-solid:globe" class={iconClass} />{t("Production Countries")}
+                </h4>
+                <p class="text-xs">{productionCountries.join(', ')}</p>
+            </li>
+            <li class="relative py-2" aria-labelledby="saga-heading">
+                <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+                <h4 id="saga-heading" class="text-lg font-semibold text-indigo-300 flex items-center">
+                    
+                    <Icon name="fa-solid:bookmark" class={iconClass}/>{t("Saga")}
+                </h4>
+                <p class="text-xs">{movieSaga}</p>
+            </li>
+            <li class="relative py-2" aria-labelledby="other-titles-heading">
+                <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+                <h4 id="other-titles-heading" class="text-lg font-semibold text-indigo-300 flex items-center">
+                    <Icon name="fa-solid:tags" class={iconClass}/>{t("Other Titles")}
+                </h4>
+                <p class="text-xs">{otherTitles}</p>
+            </li>
+        </ul>
+    </div>
+</aside>

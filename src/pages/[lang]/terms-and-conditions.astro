@@ -1,0 +1,98 @@
+---
+import "../../layouts/global.css";
+import Head from "../../components/common/Head.astro";
+import { langStaticPaths } from "../../utils/staticPathsGeneration.ts";
+import { getTranslationFunction } from "../../utils/localization.ts";
+import { getEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+export async function getStaticPaths() {
+    return await langStaticPaths();
+}
+
+const config = (await getEntry("configs", "site-config")).data;
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
+---
+
+<Head
+    title={t("Terms and Conditions")}
+    description={t("Read the terms and conditions for using Kinemify.")}
+    lang={lang}
+    afterLangUrl="terms-and-conditions"
+    OGTitle={"%1 Terms and Conditions".replace("%1", config["siteName"])}
+    OGType="website"
+    OGImage={config["OGImage.home"]}
+    OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
+/>
+
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-6 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <a href={getRelativeLocaleUrl(lang)} class="flex-shrink-0">
+                <img src="/favicon.svg" alt="Kinemify Logo" class="h-12">
+            </a>
+            <h1 class="text-4xl font-bold flex-grow text-center">{t("Terms and Conditions")}</h1>
+        </div>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Introduction")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("Welcome to %1. These Terms and Conditions govern your use of our website (%2). By accessing or using our website, you agree to be bound by these terms.").replace("%1", config["siteName"]).replace("%2", config["siteUrl"])}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Intellectual Property")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("All content on this website, including text, graphics, logos, and images, is the property of their respective owners and is used here for informational purposes only. Unauthorized use of any content is strictly prohibited.")}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("User Responsibilities")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("By using our website, you agree to use it only for lawful purposes. You must not use our website to engage in any activity that is unlawful, harmful, or disruptive to us or other users. This includes but is not limited to:")}</p>
+                <ul class="list-disc list-inside">
+                    <li>{t("Spamming or sending unsolicited messages")}</li>
+                    <li>{t("Hacking or attempting to gain unauthorized access to any part of the website")}</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Limitation of Liability")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("%1 provides this website 'as is' without any warranties, express or implied. We do not guarantee that the website will be available at all times or that it will be free from errors or viruses. To the fullest extent permitted by law, %1 will not be liable for any damages arising from the use of this website.").replaceAll("%1", config["siteName"])}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Third-Party Links")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("Our website may contain links to third-party websites, including streaming platforms, that are not controlled by us. We are not responsible for the content or availability of these websites, which may not be accessible in all countries. We encourage you to review the terms and privacy policies of any third-party sites you visit.")}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Termination")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("We reserve the right to terminate or suspend access to our website at any time, without prior notice, for conduct that we believe violates these Terms and Conditions or is harmful to other users of the website, us, or third parties, or for any other reason.")}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Contact Us")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("If you have any questions or concerns about these Terms and Conditions, please")} <a href="mailto:hello@kinemify.com" class="text-blue-400 underline">{t("contact us")}</a>.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">{t("Changes to These Terms and Conditions")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("We may update these Terms and Conditions from time to time. We encourage you to review this document periodically to stay informed about our terms. Any changes will be posted on this page.")}</p>
+            </div>
+        </section>
+    </div>
+</body>

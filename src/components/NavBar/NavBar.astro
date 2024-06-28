@@ -1,0 +1,45 @@
+---
+import SearchBar from '../react/SearchBar.jsx';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import GenreSwitcher from '../genre/GenreSwitcher.astro';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getTranslationFunction } from '../../utils/localization.ts';
+import KinemifyNameLogo from '../../assets/kinemify-name-logo.svg';
+import { Image } from 'astro:assets';
+const { lang } = Astro.params;
+
+// Define the props. Only currentGenre is required.
+export interface NavBarProps {
+    currentGenre?: string;
+}
+
+const { currentGenre } = Astro.props;
+// Get the translation function
+const t = getTranslationFunction(lang, false);
+---
+
+<nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10" aria-label={t("Main navigation")}>
+    <div class="container mx-auto px-6 flex justify-between items-center">
+        <!-- Render the title of the website -->
+        <div class="flex-none">
+            <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label={t("Homepage")}>  
+                <div class="flex items-center">
+                    <Image src={KinemifyNameLogo} height={32} width={32*5.5} style="height: 1.05em; margin-right: -0.025em" alt={t("%1 Logo").replace("%1", "Kinemify")} />
+                </div>
+            </a>
+        </div>
+        <!-- Render the menu items and the search bar -->
+        <ul class="flex justify-center items-center flex-grow" role="menubar">
+            <div class="ml-6">
+                <GenreSwitcher currentGenre={currentGenre} />
+            </div>
+            <div class="flex flex-grow items-center justify-end pl-5">
+                <SearchBar client:only="react" lang={lang} ariaLabel={t("Search for movies")} placeholder={t("Search...")} 
+                                                           toggleAriaLabel={t("Toggle search bar")} noSuggestionsMessage={t("No movies found")}/>
+                <div class="ml-4">
+                    <LanguageSwitcher />
+                </div>
+            </div>
+        </ul>
+    </div>
+</nav>

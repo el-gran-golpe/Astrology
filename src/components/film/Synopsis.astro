@@ -1,0 +1,27 @@
+---
+import { getTranslationFunction } from '../../utils/localization.ts';
+
+// Get the translation function
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
+
+interface Synopsis {
+  synopsis: string; 
+}
+
+let synopsis = Astro.props.synopsis;
+// It can be deleted in the future
+const lastLetter = synopsis && synopsis[synopsis.length - 1];
+if (synopsis && !['.', '?', '!'].includes(lastLetter)) {
+  synopsis = `${synopsis}.`;
+}
+---
+
+<section aria-labelledby="synopsis-heading" class="mt-10">
+  <h2 id="synopsis-heading" class="text-2xl text-gray-300 mb-4 font-bold">{t("Synopsis")}</h2>
+  <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+    <p class="text-lg leading-relaxed text-white" itemprop="description">
+      {synopsis}
+    </p>
+  </div>
+</section>

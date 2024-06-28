@@ -1,4 +1,8 @@
 {
-    "siteName": "Site Name",
-    "OGImage.home": "https://imagenes.lainformacion.com/files/image_656_370/uploads/imagenes/2011/04/07/gilito.jpg"
+    "siteName": "Kinemify",
+    "OGImage.home": "https://kinemify.com/kinemify-banner.png",
+    "meta.description.home": "Explore the movies you love on Kinemify. Access ratings, synopses, cast and more. Begin now and enjoy a vast selection of films.",
+    "canonicalLanguage": "en",
+    "siteUrl": "www.kinemify.com",
+    "GoogleAnalyticsID": "G-47DLCN6Q5R"
 }

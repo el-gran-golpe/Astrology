@@ -1,9 +1,14 @@
-import { fetchAllFilms, fetchMostVotedFilms, fetchFilmsByCountries } from './db.ts';
-import { CountriesByLangFiltered } from '../utils/localization.ts';
+import { fetchAllFilms, fetchBestGeneralFilms, fetchFilmsByLang, getBannerFilms, fetchFilmsByGenre, fetchFilmsByScore } from './db.ts';
+import { getEntry } from 'astro:content';
 
+// Keep only the languages where value is true
+const __availableLanguages: Record<string, boolean> = (await getEntry('location', 'available-languages')).data;
+export const AVAILABLE_LANGUAGES: string[] = Object.keys(__availableLanguages).filter(lang => __availableLanguages[lang]);
 
-const TOP_PAGES: string = 'top_pages';
-const ALL_FILMS: string = 'pages';
+export const AVAILABLE_GENRES: string[] = Object.keys((await getEntry('codes', 'genres')).data);
+
+const FILMS_COLLECTION: string = 'relevant_films';
+const BANNERS_COLLECTION: string = 'banner_films';
 
 export async function getTopPagesByLang() {
     /**
@@ -14,13 +19,13 @@ export async function getTopPagesByLang() {
      * 
      * @returns An array of pages paths
      */
-    const top_films = await fetchAllFilms(TOP_PAGES);
+    const top_films = await fetchAllFilms(FILMS_COLLECTION);
     let pages = [];
 
     // For each film in the top_films array
     top_films.forEach(film => {
         //For each language in the film, create a path
-        Object.keys(film.filmInfo.languages).forEach(lang => {
+        AVAILABLE_LANGUAGES.forEach(lang => {
         // Create an entry for that film in that
         const path = {
             params: { filmSlug: film.id, lang: lang },
@@ -37,8 +42,28 @@ export async function getTopPagesByLang() {
     return pages;
 }
 
+export async function langStaticPaths() {
+    /**
+     * [lang] static paths generator. This function generates the static paths for the cookies consent page.
+     * It will return a list of Astro prepared paths in the format [{params: {lang: 'lang'}, props: {}}].
+     */
+    
+    // For each film in the top_films array
+    return AVAILABLE_LANGUAGES.map(lang => {
+        // Create an entry for that film in that
+        return {
+            params: { lang: lang },
+            props: {
+                lang
+            }
+        };
+    }
+    );
 
-export async function getHomePageFilmsByLang(amount: number) {
+}
+
+
+export async function getHomePageFilms(amount: number) {
     /**
      * [lang]-home static paths generator. This function generates the static paths for the home pages in each language.
      * It will return a list of Astro prepared paths in the format [{params: {lang: 'lang'}, props: {topLocationFilms: [...], topFilms: [...]}}].
@@ -49,53 +74,39 @@ export async function getHomePageFilmsByLang(amount: number) {
      * @returns An array of paths
      */
 
+    const topClassics = await fetchFilmsByScore('other_score_classics', amount);
+    const topRecent = await fetchFilmsByScore('other_score_recent', amount);
+    const topNominations = await fetchFilmsByScore('other_score_nominations', amount);
+    const topHorror = await fetchFilmsByScore('genre_score_TE', amount);
+    const topDocumentary = await fetchFilmsByScore('genre_score_DO', amount);
     // Get the top N most voted films
-    const topFilmsRaw = await fetchMostVotedFilms(TOP_PAGES, amount);
+    const topFilmsRaw = await fetchBestGeneralFilms(FILMS_COLLECTION, amount);
     
     let paths = [];
-    for (const lang in CountriesByLangFiltered) {
+    
+    for (const lang of AVAILABLE_LANGUAGES) {
         // For each language that the website supports
         console.log("Searching for lang: " + lang)
-        // Get the codes of the countries that speak that language
-        const countries = CountriesByLangFiltered[lang];
-        // Get the top N most voted films that were produced at the specified countries
-        const filmsByCountries = await fetchFilmsByCountries(ALL_FILMS, amount, countries);
 
-        // Substitute the languages list with the locationInfo
-        let topLocationFilms = filmsByCountries.map(film => ({
-            ...film.filmInfo,
-            locationInfo: film.filmInfo.languages[lang]
-        }));
+        // Get the top N most voted films that were produced at countries that speak that language
+        let filmsByLang: Record<string, any> = await fetchFilmsByLang(FILMS_COLLECTION, amount, lang);
+        filmsByLang = castToLangSpecificSet(filmsByLang, lang);
 
-        // Remove the languages field from each film in topLocationFilms
-        topLocationFilms.forEach(film => delete film.languages);
         
-        // Cast the topFilmsRaw array to the same format as topLocationFilms
-        const topFilms = topFilmsRaw.map(film => ({
-            ...film.filmInfo,
-            locationInfo: film.filmInfo.languages[lang]
-        }));
-
-        // Remove the languages field from each film in topFilms
-        topFilms.forEach(film => delete film.languages);
-
-        // Fill topLocationFilms with topFilms if needed
-        if (topLocationFilms.length < amount) {
-
-            const additionalFilms = topFilms
-                // Remove the films that are already in topLocationFilms
-                .filter(film => !topLocationFilms.some(locFilm => locFilm.id === film.id))
-                // Get the top N - topLocationFilms.length films
-                .slice(0, amount - topLocationFilms.length)
-            // Concat at the end (take into account that locationInfo is already set)
-            topLocationFilms = topLocationFilms.concat(additionalFilms);
-        }
+        let bannerLangFilms: Record<string, any> = await getBannerFilms('lang', lang, 5, lang);
+        bannerLangFilms = castToLangSpecificSet(bannerLangFilms, lang);
 
         const path = {
             params: { lang: lang },
             props: { 
-                topLocationFilms: topLocationFilms,
-                topFilms: topFilms
+                topLocationFilms: filmsByLang,
+                topFilms: castToLangSpecificSet(topFilmsRaw, lang),
+                bannerFilms: bannerLangFilms,
+                topClassics: castToLangSpecificSet(topClassics, lang),
+                topRecent: castToLangSpecificSet(topRecent, lang),
+                topNominations: castToLangSpecificSet(topNominations, lang),
+                topHorror: castToLangSpecificSet(topHorror, lang),
+                topDocumentary: castToLangSpecificSet(topDocumentary, lang)
             }
         };
         paths.push(path);
@@ -105,3 +116,72 @@ export async function getHomePageFilmsByLang(amount: number) {
 }
 
 
+
+function castToLangSpecificSet(filmSet: Record<string, any> ,lang: string): Record<string, any> {
+    const langSet = filmSet.map(film => ({
+        ...film.filmInfo,
+        locationInfo: film.filmInfo.languages[lang]
+    }));
+
+    // Remove the languages field from each film in topFilms
+    langSet.forEach(film => delete film.languages);
+    return langSet;
+}
+
+export async function getHomePageFilmsByLangAndGenres(amount: number) {
+    /**
+     * [lang]/by-gender/[gender] static paths generator. This function generates the static paths for the home pages in each language.
+     * It will return a list of Astro prepared paths in the format [{params: {lang: 'lang', 
+     * 
+     */
+
+    // Get the top N most voted films
+    const topFilmsRaw = await fetchBestGeneralFilms(FILMS_COLLECTION, amount);
+
+    let paths = [];
+    for (const genre of AVAILABLE_GENRES) {
+        const topGenreFilmsGeneral = await fetchFilmsByGenre(FILMS_COLLECTION, amount, genre);
+        for (const lang of AVAILABLE_LANGUAGES) {
+            // For each language that the website supports
+            console.log(`Searching for lang: ${lang} and genre: ${genre}`);
+
+            let topGenreFilms = topGenreFilmsGeneral.map(film => ({
+                ...film.filmInfo,
+                locationInfo: film.filmInfo.languages[lang]
+            }));
+
+            topGenreFilms.forEach(film => delete film.languages);
+
+
+            // Get the top N most voted films that were produced at countries that speak that language
+            const topGenreFilmsByLocation = await fetchFilmsByGenre(FILMS_COLLECTION, amount, genre, lang);
+
+            // Substitute the languages list with the locationInfo
+            let genreLocationFilms = topGenreFilmsByLocation.map(film => ({
+                ...film.filmInfo,
+                locationInfo: film.filmInfo.languages[lang]
+            }));
+
+            genreLocationFilms.forEach(film => delete film.languages);
+            
+            const bannerGenreFilms = await getBannerFilms('genre', genre, 5, lang);
+
+            let bannerFilms = bannerGenreFilms.map(film => ({
+                ...film.filmInfo,
+                locationInfo: film.filmInfo.languages[lang]
+            }));
+
+            const path = {
+                params: { lang: lang, genre: genre },
+                props: { 
+                    topLocationFilms: genreLocationFilms,
+                    topFilms: topGenreFilms,
+                    bannerFilms: bannerFilms
+                }
+            };
+            paths.push(path);
+        }
+    }
+
+    return paths;
+}

@@ -1,0 +1,96 @@
+---
+import "../../layouts/global.css";
+import Head from "../../components/common/Head.astro";
+import { langStaticPaths } from "../../utils/staticPathsGeneration.ts";
+import { getTranslationFunction } from "../../utils/localization.ts";
+import { getEntry } from "astro:content";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+export async function getStaticPaths() {
+    return await langStaticPaths();
+}
+
+const config = (await getEntry("configs", "site-config")).data;
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
+---
+
+<Head
+    title={t("Cookies Consent")}
+    description={t("Learn how Kinemify uses cookies for analytics, YouTube embeds, and advertising.")}
+    lang={lang}
+    afterLangUrl="cookies-consent"
+    OGTitle={t("%1 Cookies Consent").replace("%1", config["siteName"])}
+    OGType="website"
+    OGImage={config["OGImage.home"]}
+    OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
+/>
+
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-6 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <a href={getRelativeLocaleUrl(lang)} class="flex-shrink-0">
+                <img src="/favicon.svg" alt="Kinemify Logo" class="h-12">
+            </a>
+            <h1 class="text-4xl font-bold flex-grow text-center">{t("Cookies Consent Document")}</h1>
+        </div>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Introduction")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("Welcome to %1! This document explains how we use cookies and similar technologies on our website (%2). By using our website, you consent to the use of cookies in accordance with this Cookies Consent Document.").replace("%1", config["siteName"]).replace("%2", config["siteUrl"])}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("What are Cookies?")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("Cookies are small text files that are placed on your device when you visit a website. They are widely used to make websites work more efficiently, as well as to provide information to the website owners.")}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("How We Use Cookies")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("%1 uses cookies for the following purposes:").replace("%1", config["siteName"])}</p>
+                <ul class="list-disc list-inside">
+                    <li><strong>{t("Analytics")}</strong>: {t("We use Google Analytics to understand how visitors interact with our website. These cookies collect information anonymously and report website trends without identifying individual visitors.")}</li>
+                    <li><strong>{t("Embedded Content")}</strong>: {t("Our website includes embedded content from YouTube. These third-party sites may set cookies on your device when you interact with the embedded content.")}</li>
+                    <!-- <li><strong>{t("Advertising")}</strong>: {t("We use Google AdSense to display advertisements on our website. AdSense may use cookies to personalize the ads you see and to measure the effectiveness of those ads.")}</li> -->
+                </ul>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Types of Cookies We Use")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <ul class="list-disc list-inside">
+                    <li><strong>{t("Analytics Cookies")}</strong>: {t("These cookies help us understand how visitors engage with our website. For example, we can see which pages are visited most often and if users are experiencing any errors.")}</li>
+                    <li><strong>{t("YouTube Cookies")}</strong>: {t("These cookies are set by YouTube when you play a video embedded on our site. They help YouTube deliver its services and track the usage of their services.")}</li>
+                    <!--<li><strong>{t("Advertising Cookies")}</strong>: {t("These cookies are used by Google AdSense to provide you with personalized advertisements based on your browsing behavior and interactions with our site.")}</li>-->
+                </ul>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Managing Cookies")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("You have the right to accept or reject cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings to decline cookies if you prefer. Please be aware that disabling cookies may affect the functionality of our website.")}</p>
+            </div>
+        </section>
+
+        <section class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">{t("Contact Us")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("If you have any questions or concerns about our use of cookies, please")} <a href="mailto:hello@kinemify.com" class="text-blue-400 underline">{t("contact us")}</a></p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">{t("Updates to This Document")}</h2>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p>{t("We may update this Cookies Consent Document from time to time. We encourage you to review this document periodically to stay informed about how we use cookies.")}</p>
+            </div>
+        </section>
+    </div>
+</body>
