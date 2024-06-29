@@ -30,7 +30,8 @@ if (!firebaseConfig.apiKey ||
     !firebaseConfig.messagingSenderId ||
     !firebaseConfig.appId ||
     !firebaseConfig.measurementId) {
-    throw new Error("Missing Firebase configuration in environment variables.");
+    const undefinedKeys = Object.keys(firebaseConfig).filter(key => !firebaseConfig[key]);
+    throw new Error(`The following environment variables are missing: ${undefinedKeys.join(', ')}`);
 }
 
 const __filename = fileURLToPath(import.meta.url);
