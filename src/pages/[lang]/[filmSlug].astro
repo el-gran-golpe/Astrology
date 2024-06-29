@@ -38,7 +38,7 @@ const keywords = [...translatedGenres]
 
 <html lang={lang}>
   <Head
-    title={`${t("Watch %1% Online").replace('%1%', filmInfo.locationInfo.title)}`}
+    title={filmInfo.locationInfo.title}
     description={filmInfo.locationInfo.synopsis}
     lang={lang}
     keywords={keywords}
