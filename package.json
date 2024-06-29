@@ -33,6 +33,7 @@
     "astro-purgecss": "^4.1.1",
     "astro-robots-txt": "^1.0.0",
     "astro-seo": "^0.8.4",
+    "dotenv": "^16.4.5",
     "firebase": "^10.12.2",
     "font-awesome": "^4.7.0",
     "nanostores": "^0.10.3",

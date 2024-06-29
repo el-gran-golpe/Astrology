@@ -11,19 +11,35 @@ import {
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { config } from "dotenv";
 //import { getAnalytics } from "firebase/analytics";
 
-const firebaseConfig = await getEntry("secrets", "firebase");
+// Load environment variables from .env file
+config();
 
-// If firebaseConfig is not imported, you'll have to ask someone for the credentials
-if (!firebaseConfig) {
-    throw new Error(
-        "Firebase config not found at content/secret/firebase.json. Please ask someone for the credentials."
-    );
+// Retrieve Firebase configuration from environment variables
+const firebaseConfig = {
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID
+};
+
+// Check if all required environment variables are present
+if (!firebaseConfig.apiKey ||
+    !firebaseConfig.authDomain ||
+    !firebaseConfig.projectId ||
+    !firebaseConfig.storageBucket ||
+    !firebaseConfig.messagingSenderId ||
+    !firebaseConfig.appId ||
+    !firebaseConfig.measurementId) {
+    throw new Error("Missing Firebase configuration in environment variables.");
 }
-
 // Initialize Firebase
-const app = initializeApp(firebaseConfig.data);
+const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 //const analytics = getAnalytics(app);
 
