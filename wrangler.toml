@@ -1,0 +1,5 @@
+name = "kinemify-local"
+pages_build_output_dir = "./dist"
+
+[vars]
+TEST_ENVIRONMENT_VAR = "production"

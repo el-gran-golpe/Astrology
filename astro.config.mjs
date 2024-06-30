@@ -131,5 +131,5 @@ export default defineConfig({
     }
   }), /*min(),*/
   purgecss(),
-  playformCompress(), compressor()]
+  playformCompress()/*, compressor()*/]
 });
