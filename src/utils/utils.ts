@@ -8,50 +8,50 @@ function convertToISODuration(minutes: number): string {
 }
 
 export async function getMIMETypeFromURL(url: string): Promise<string | null> {
-    /**
-     * This function returns the MIME type of the resource at the specified URL. Ensuring that
-     * the resource is a valid image.
-     * 
-     * @param url The URL of the resource
-     * 
-     * @returns The MIME type of the resource
-     */
-    try {
-      // Fetch the resource from the URL
-      const response = await fetch(url);
-  
-      // Ensure that the fetch was successful
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status} for Image URL: ${url}`);
-      }
-  
-      // Retrieve a Blob object of the body
-      const blob = await response.blob();
-  
-      // The MIME type will be a string like 'image/jpeg' if the Blob represents an image,
-      // otherwise, it could be a different MIME type or empty.
-      const mimeType = blob.type;
-  
-      // Check if the MIME type starts with 'image/'
-      if (mimeType.startsWith('image/')) {
-        return mimeType;
-      } else {
-        console.error(`The URL: ${url} does not point to a valid image.`);
-        return null; // Not a valid image MIME type
-      }
-    } catch (error) {
-      console.error('Error in getMIMETypeFromURL:', error);
-      return null; // Error case or not a valid image
-    }
-  }
+  /**
+   * This function returns the MIME type of the resource at the specified URL. Ensuring that
+   * the resource is a valid image.
+   * 
+   * @param url The URL of the resource
+   * 
+   * @returns The MIME type of the resource
+   */
+  try {
+    // Fetch the resource from the URL
+    const response = await fetch(url);
 
-  export function formatDuration(minutes: number): string {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
+    // Ensure that the fetch was successful
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status} for Image URL: ${url}`);
+    }
+
+    // Retrieve a Blob object of the body
+    const blob = await response.blob();
+
+    // The MIME type will be a string like 'image/jpeg' if the Blob represents an image,
+    // otherwise, it could be a different MIME type or empty.
+    const mimeType = blob.type;
+
+    // Check if the MIME type starts with 'image/'
+    if (mimeType.startsWith('image/')) {
+      return mimeType;
+    } else {
+      console.error(`The URL: ${url} does not point to a valid image.`);
+      return null; // Not a valid image MIME type
+    }
+  } catch (error) {
+    console.error('Error in getMIMETypeFromURL:', error);
+    return null; // Error case or not a valid image
+  }
 }
 
-export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = null, tags: String[]  = []): Record<string, string|number>[] {
+export function formatDuration(minutes: number): string {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return `${hours}h ${remainingMinutes}m`;
+}
+
+export function movieInfoToOpenGraph(movieInfo: Record<string, any> | null = null, tags: String[] = []): Record<string, string | number>[] {
 
   if (!movieInfo) return [];
 
@@ -98,7 +98,7 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
     "@type": "Movie",
     "name": filmInfo.locationInfo.title,
     "genre": genres,
-    "dateCreated": filmInfo.basic_info.publication_date? filmInfo.basic_info.publication_date : filmInfo.basic_info.year,
+    "dateCreated": filmInfo.basic_info.publication_date ? filmInfo.basic_info.publication_date : filmInfo.basic_info.year,
     "url": currentUrl,
     "description": filmInfo.locationInfo.synopsis,
     "image": {
@@ -111,20 +111,24 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
       },
       "description": filmInfo.locationInfo.short_synopsis
     },
-    "duration": convertToISODuration(filmInfo.basic_info.duration_minutes),
-    "aggregateRating": {
+    "duration": convertToISODuration(filmInfo.basic_info.duration_minutes)
+  };
+
+  if (filmInfo.film_affinity_info.score.votes > 0) {
+    schemaOrgData["aggregateRating"] =
+    {
       "@type": "AggregateRating",
-      "ratingValue": `${filmInfo.film_affinity_info.score.average}`, 
+      "ratingValue": `${filmInfo.film_affinity_info.score.average}`,
       "bestRating": "5",
       "worstRating": "0",
       "ratingCount": `${filmInfo.film_affinity_info.score.votes}`
-    },
+    }
     // Add a new field for "offers" with the information from justwatch
-  };
+  }
 
-  if (filmInfo.alternative_multimedia.trailer_url){
+  if (filmInfo.alternative_multimedia.trailer_url) {
     let description = `${t("Watch the thrilling trailer for %1").replace("%1", filmInfo.locationInfo.title)}.`;
-    if (filmInfo.staff.directors.length > 0){
+    if (filmInfo.staff.directors.length > 0) {
       description = `${description} ${t("Directed by %1").replace("%1", filmInfo.staff.directors[0].name)}.`;
     }
     schemaOrgData["trailer"] = {
@@ -135,11 +139,11 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
       "thumbnailUrl": getYouTubeThumbnailUrl(filmInfo.alternative_multimedia.trailer_url),
       "embedUrl": getYouTubeEmbedUrl(filmInfo.alternative_multimedia.trailer_url),
       // TODO: Get the duration of the trailer and the upload date by scraping youtube
-      "uploadDate": filmInfo.basic_info.publication_date? filmInfo.basic_info.publication_date : filmInfo.basic_info.year,
+      "uploadDate": filmInfo.basic_info.publication_date ? filmInfo.basic_info.publication_date : filmInfo.basic_info.year,
     }
   }
 
-  if (filmInfo.extended_info.relevant_links.length > 0){
+  if (filmInfo.extended_info.relevant_links.length > 0) {
     schemaOrgData["sameAs"] = filmInfo.extended_info.relevant_links.map((link: Record<string, string>) => link.url);
 
   }
@@ -148,13 +152,13 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
   let nominations: Record<string, string[]> = {};
 
   for (const nomination of filmInfo.extended_info.nominations) {
-    if (nomination.to){
-      if (!nominations[nomination.to]){
+    if (nomination.to) {
+      if (!nominations[nomination.to]) {
         nominations[nomination.to] = [];
       }
       nominations[nomination.to].push(nomination.award);
     } else {
-      if (!nominations["Other"]){
+      if (!nominations["Other"]) {
         nominations["Other"] = [];
       }
       nominations["Other"].push(nomination.award);
@@ -162,65 +166,65 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
   }
 
 
-  if (filmInfo.basic_info.countries.length > 1){
+  if (filmInfo.basic_info.countries.length > 1) {
     schemaOrgData["countryOfOrigin"] = filmInfo.basic_info.countries.map((country: string) => {
-      return {"@type": "Country", "name": country}
+      return { "@type": "Country", "name": country }
     });
-  } else if (filmInfo.basic_info.countries.length > 0){
-    schemaOrgData["countryOfOrigin"] = {"@type": "Country", "name": filmInfo.basic_info.countries[0]}
+  } else if (filmInfo.basic_info.countries.length > 0) {
+    schemaOrgData["countryOfOrigin"] = { "@type": "Country", "name": filmInfo.basic_info.countries[0] }
   }
 
-// Add director
-if (filmInfo.staff.directors.length > 1) {
-  schemaOrgData["director"] = filmInfo.staff.directors.map((director: Record<string, string>) => {
+  // Add director
+  if (filmInfo.staff.directors.length > 1) {
+    schemaOrgData["director"] = filmInfo.staff.directors.map((director: Record<string, string>) => {
 
-    let directorEntry: Record<string, any> = { "@type": "Person", "name": director.name };
-    if (nominations[director.name]) {
-      directorEntry["award"] = nominations[director.name];
+      let directorEntry: Record<string, any> = { "@type": "Person", "name": director.name };
+      if (nominations[director.name]) {
+        directorEntry["award"] = nominations[director.name];
+      }
+      return directorEntry;
+    });
+  } else if (filmInfo.staff.directors.length > 0) {
+    let directorEntry: Record<string, any> = { "@type": "Person", "name": filmInfo.staff.directors[0].name };
+    if (nominations[filmInfo.staff.directors[0].name]) {
+      directorEntry["award"] = nominations[filmInfo.staff.directors[0].name];
     }
-    return directorEntry;
-  });
-} else if (filmInfo.staff.directors.length > 0) {
-  let directorEntry: Record<string, any> = { "@type": "Person", "name": filmInfo.staff.directors[0].name };
-  if (nominations[filmInfo.staff.directors[0].name]) {
-    directorEntry["award"] = nominations[filmInfo.staff.directors[0].name];
+
+    schemaOrgData["director"] = directorEntry;
   }
 
-  schemaOrgData["director"] = directorEntry;
-}
-
-// Add cast
-if (filmInfo.staff.cast.length > 0) {
-  schemaOrgData["actor"] = filmInfo.staff.cast.map((actor: Record<string, string>) => {
-    let actorEntry: Record<string, any> = { "@type": "Person", "name": actor.name };
-    if (actor.role) {
-      actorEntry["characterName"] = actor.role;
-    }
-    if (nominations[actor.name]) {
-      actorEntry["award"] = nominations[actor.name];
-    }
-    return actorEntry;
-  });
-}
-
-// Add musicians
-if (filmInfo.staff.musicians.length > 1) {
-  schemaOrgData["musicBy"] = filmInfo.staff.musicians.map((musician: Record<string, string>) => {
-    let musicianEntry: Record<string, any> = { "@type": "Person", "name": musician.name };
-    if (nominations[musician.name]) {
-      musicianEntry["award"] = nominations[musician.name];
-    }
-    return musicianEntry;
-  });
-} else if (filmInfo.staff.musicians.length > 0) {
-  let musicianEntry: Record<string, any> = { "@type": "Person", "name": filmInfo.staff.musicians[0].name };
-  if (nominations[filmInfo.staff.musicians[0].name]) {
-    musicianEntry["award"] = nominations[filmInfo.staff.musicians[0].name];
+  // Add cast
+  if (filmInfo.staff.cast.length > 0) {
+    schemaOrgData["actor"] = filmInfo.staff.cast.map((actor: Record<string, string>) => {
+      let actorEntry: Record<string, any> = { "@type": "Person", "name": actor.name };
+      if (actor.role) {
+        actorEntry["characterName"] = actor.role;
+      }
+      if (nominations[actor.name]) {
+        actorEntry["award"] = nominations[actor.name];
+      }
+      return actorEntry;
+    });
   }
-  schemaOrgData["musicBy"] = musicianEntry;
-} 
 
-  if (nominations["Other"]){
+  // Add musicians
+  if (filmInfo.staff.musicians.length > 1) {
+    schemaOrgData["musicBy"] = filmInfo.staff.musicians.map((musician: Record<string, string>) => {
+      let musicianEntry: Record<string, any> = { "@type": "Person", "name": musician.name };
+      if (nominations[musician.name]) {
+        musicianEntry["award"] = nominations[musician.name];
+      }
+      return musicianEntry;
+    });
+  } else if (filmInfo.staff.musicians.length > 0) {
+    let musicianEntry: Record<string, any> = { "@type": "Person", "name": filmInfo.staff.musicians[0].name };
+    if (nominations[filmInfo.staff.musicians[0].name]) {
+      musicianEntry["award"] = nominations[filmInfo.staff.musicians[0].name];
+    }
+    schemaOrgData["musicBy"] = musicianEntry;
+  }
+
+  if (nominations["Other"]) {
     schemaOrgData["award"] = nominations["Other"];
   }
 
@@ -242,7 +246,7 @@ function getYouTubeThumbnailUrl(videoUrl: string): string | null {
 function getYouTubeEmbedUrl(videoUrl: string): string | null {
   // Extract the video ID from the YouTube URL
   const videoIdMatch = videoUrl.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  
+
   // If the video ID is found, construct the embed URL
   if (videoIdMatch && videoIdMatch[1]) {
     const videoId = videoIdMatch[1];
