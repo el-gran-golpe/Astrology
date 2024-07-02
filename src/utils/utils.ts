@@ -119,6 +119,7 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
       "worstRating": "0",
       "ratingCount": `${filmInfo.film_affinity_info.score.votes}`
     },
+    // Add a new field for "offers" with the information from justwatch
   };
 
   if (filmInfo.alternative_multimedia.trailer_url){
@@ -130,7 +131,11 @@ export function movieInfoToSchemaOrg(filmInfo: Record<string, any>, genres: Stri
       "@type": "VideoObject",
       "name": t("%1 Trailer").replace("%1", filmInfo.locationInfo.title),
       "description": description,
-      "contentUrl": filmInfo.alternative_multimedia.trailer_url
+      "contentUrl": filmInfo.alternative_multimedia.trailer_url,
+      "thumbnailUrl": getYouTubeThumbnailUrl(filmInfo.alternative_multimedia.trailer_url),
+      "embedUrl": getYouTubeEmbedUrl(filmInfo.alternative_multimedia.trailer_url),
+      // TODO: Get the duration of the trailer and the upload date by scraping youtube
+      "uploadDate": filmInfo.basic_info.publication_date? filmInfo.basic_info.publication_date : filmInfo.basic_info.year,
     }
   }
 
@@ -220,4 +225,29 @@ if (filmInfo.staff.musicians.length > 1) {
   }
 
   return schemaOrgData;
+}
+
+function getYouTubeThumbnailUrl(videoUrl: string): string | null {
+  // Extract the video ID from the URL
+  const videoIdMatch = videoUrl.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+
+  if (videoIdMatch && videoIdMatch[1]) {
+    const videoId = videoIdMatch[1];
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  }
+
+  throw new Error(`Invalid YouTube video URL: ${videoUrl}`);
+}
+
+function getYouTubeEmbedUrl(videoUrl: string): string | null {
+  // Extract the video ID from the YouTube URL
+  const videoIdMatch = videoUrl.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  
+  // If the video ID is found, construct the embed URL
+  if (videoIdMatch && videoIdMatch[1]) {
+    const videoId = videoIdMatch[1];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  throw new Error(`Invalid YouTube video URL: ${videoUrl}`);
 }

@@ -63,6 +63,7 @@ export default defineConfig({
       'fa6-solid': ['shapes', 'caret-down', 'link', 'circle-info']
     }
   }), cookieconsent({
+    
     "guiOptions": {
       "consentModal": {
         "layout": "bar inline",
@@ -75,8 +76,11 @@ export default defineConfig({
         "position": "right",
         "equalWeightButtons": true,
         "flipButtons": false
-      }
+      },
+    
     },
+    "theme_css": "https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css",    
+    "page_scripts": true,
     "categories": {
       "necessary": {
         "enabled": true,
@@ -129,7 +133,8 @@ export default defineConfig({
       "autoDetect": "document",
       "translations": COOKIES_TRANSLATIONS
     }
-  }), /*min(),*/
+  }  
+), /*min(),*/
   purgecss(),
   playformCompress()/*, compressor()*/]
 });
