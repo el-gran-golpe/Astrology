@@ -133,6 +133,8 @@ export default defineConfig({
     }
   }  
 ), /*min(),*/
-  purgecss(),
+  /*purgecss({
+    content: ["*cookies*"],
+  })*/,
   playformCompress()/*, compressor()*/]
 });
