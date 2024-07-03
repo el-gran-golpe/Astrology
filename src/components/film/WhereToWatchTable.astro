@@ -31,16 +31,16 @@ const rows = availableAt.platforms || [];
                                 <div class="flex items-center justify-center">
                                     <Icon
                                         name="fa6-solid:circle-info"
-                                        aria-label={`Info for ${row.platform}`}
+                                        aria-label={t("About %1").replace("%1", row.platform)}
                                         class="text-gray-200 mr-2"
                                         style="width: 16px; height: 16px;"
                                     />
                                     <span class="text-center">{row.platform}</span>
                                 </div>
                             </td>
-                            <td class="px-4 py-2 text-center">{row.platform_monetization}</td>
+                            <td class="px-4 py-2 text-center">{t(row.platform_monetization)}</td>
                             <td class="px-4 py-2 text-center text-blue-300 cursor-pointer hover:text-blue-500">
-                                <a href={row.url} target="_blank" rel="noopener noreferrer" aria-label={`Watch on ${row.platform}`}>
+                                <a href={row.url} target="_blank" rel="noopener noreferrer" aria-label={t("Watch this film on %1").replace("%1", row.platform)}>
                                     <Icon name="fa6-solid:link" class="inline mr-1" />
                                     {t("Watch here")}
                                 </a>
@@ -59,7 +59,7 @@ const rows = availableAt.platforms || [];
                 <tr>
                     <td colspan="3" class="px-4 py-2 text-right" style="padding: 0; padding-top:0.25em;">
                         <a href={availableAt.just_watch} target="_blank" rel="noopener noreferrer" aria-label={t("Find more movies on JustWatch")}>
-                             <Image src={justWatchLogo} alt="JustWatch logo" class="inline-block h-8 w-auto m-0 p-0"/>
+                             <Image src={justWatchLogo} alt={t("JustWatch Logo")} class="inline-block h-8 w-auto m-0 p-0"/>
                         </a>
                     </td>
                 </tr>
