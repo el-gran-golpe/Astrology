@@ -5,6 +5,7 @@ import { AVAILABLE_LANGUAGES } from "../../utils/localization.ts";
 import { getMIMETypeFromURL } from "../../utils/utils.ts";
 import { getEntry } from "astro:content";
 import { GoogleAnalytics } from "@astrolib/analytics";
+import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
 interface Props {
   title: string;
@@ -53,13 +54,22 @@ if (OGExtends) {
   extend = [...extend, ...OGExtends];
 }
 const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
+const GoogleAnalyticsID = config["GoogleAnalyticsID"];
 ---
 
 <head>
-  <GoogleAnalytics
-    id={config["GoogleAnalyticsID"]}
-    partytown={true}
-  />
+
+  <script is:inline async type="text" src={`https://www.googletagmanager.com/gtag/js?id=${GoogleAnalyticsID}`} ></script>
+
+  <script is:inline define:vars={{ GoogleAnalyticsID }} type="text/partytown" data-cookiecategory="analytics">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", GoogleAnalyticsID);
+  </script>
+  
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

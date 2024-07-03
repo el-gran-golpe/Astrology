@@ -79,8 +79,6 @@ export default defineConfig({
       },
     
     },
-    "theme_css": "https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css",    
-    "page_scripts": true,
     "categories": {
       "necessary": {
         "enabled": true,
