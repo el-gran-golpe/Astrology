@@ -59,7 +59,7 @@ const GoogleAnalyticsID = config["GoogleAnalyticsID"];
 
 <head>
 
-  <script is:inline async type="text" src={`https://www.googletagmanager.com/gtag/js?id=${GoogleAnalyticsID}`} ></script>
+  <script is:inline async type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${GoogleAnalyticsID}`}></script>
 
   <script is:inline define:vars={{ GoogleAnalyticsID }} type="text/partytown" data-cookiecategory="analytics">
     window.dataLayer = window.dataLayer || [];
