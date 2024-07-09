@@ -15,14 +15,14 @@ const year = Astro.props.year;
 ---
 
 <header class="mb-8 flex items-end">
-    <h1 id="movie-title" class="text-6xl font-bold text-gray-900 dark:text-white leading-none">
+    <h1 id="movie-title" class="text-6xl font-bold leading-none">
         {title}
     </h1>
     <div class="ml-2 flex items-end" aria-labelledby="movie-title" aria-describedby="movie-year">
-        <time id="movie-year" datetime={year.toString()} class="text-4xl text-gray-700 dark:text-gray-300 align-baseline">
+        <time id="movie-year" datetime={year.toString()} class="text-4xl text-gray-300 align-baseline">
             ({year})
         </time>
-        <span class="text-sm font-light text-gray-500 dark:text-gray-400 opacity-75 italic ml-2 whitespace-nowrap">
+        <span class="text-sm opacity-75 italic ml-2 whitespace-nowrap">
             {t("Sub | Dub")}
         </span>
     </div>
