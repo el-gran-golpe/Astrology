@@ -43,6 +43,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 //const analytics = getAnalytics(app);
 
+// TODO: Change it with gran-golpe tag if we can manage to create it (valid bank account, amazon account, direction, etc)
+const AMAZON_AFFILIATES_TAG = "harukaeru-21";
 const FILMS_COLLECTION: string = 'relevant_films';
 
 export async function fetchAllFilms(collectionName: string = FILMS_COLLECTION) {
@@ -293,6 +295,29 @@ export function apply_film_info_transformations(film) {
 
     // Cast the score from range 0-10 to 0-5 (rounded to 1 decimal place)
     film.filmInfo.film_affinity_info.score.average = (score * (5 / 10)).toFixed(1);
+
+    film = apply_affiliate_tags(film);
+
+    return film;
+}
+
+function apply_affiliate_tags(film) {
+    /**
+     * This function applies affiliate tags to the film info object
+     * @param film The film info object
+     * @returns The film info object with affiliate tags
+     */
+
+
+    for (const idx in film.filmInfo.available_at.platforms) {
+        const platform = film.filmInfo.available_at.platforms[idx].platform;
+        
+        if (["Max Amazon Channel", "Amazon Prime Video",  "Epix Amazon Channel", 
+             "Amazon Prime Video with Ads"].includes(platform)) {
+                const url = film.filmInfo.available_at.platforms[idx].url;
+                film.filmInfo.available_at.platforms[idx].url += (url.includes('?') ? '&' : '?') + `tag=${AMAZON_AFFILIATES_TAG}`;
+        }
+    }
 
     return film;
 }
