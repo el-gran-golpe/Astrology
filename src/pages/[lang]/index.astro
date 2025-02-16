@@ -69,12 +69,16 @@ const gridSections = [
         OGType={"website"}
         OGImage={config["OGImage.home"]}
         OGImageAlt={t("Discover New Movies on %1").replace("%1", config["siteName"])}
-    />
+    >
+        <!-- Ensure proper scaling on mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </Head>
     <body>
         <NavBar />
         <div class="bg-gray-900 text-white">
+            
             <!-- Banner component with film data -->
-            <header>
+            <header class="w-full">
                 <BestMoviesHero films={bannerFilms}/>
             </header>
             
@@ -90,7 +94,7 @@ const gridSections = [
             ) : (
                 <span class="text-white">{t(section.title)}</span>
             )}
-                            <span class="text-gray-400 font-light ml-2">{t(section.subtitle)}</span>
+                        <span class="text-gray-400 font-light ml-2">{t(section.subtitle)}</span>
                         </h2>
                         <p id={`${section.id}-description`} class="sr-only">
                             {t(section.description)}

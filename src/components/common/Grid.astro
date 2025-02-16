@@ -1,14 +1,9 @@
 ---
-const gridStyle = {
-    gridTemplateColumns: 'repeat(auto-fit, minmax(11rem, 1fr))',
-    gridAutoRows: '17rem',
-    gridColumnGap: '0.5rem',
-    gridRowGap: '0.5rem'
-};
+/* No frontmatter needed for this simple component */
 ---
 
 <div class="grid-container" role="grid">
-    <slot></slot>
+  <slot></slot>
 </div>
 
 <style>
@@ -17,5 +12,25 @@ const gridStyle = {
     grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
     grid-auto-rows: 17rem;
     gap: 0.5rem;
+  }
+
+  /* On mobile, enforce a single column layout with proper height */
+  @media (max-width: 640px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+      
+      /* Option 1: Let rows adjust to content height */
+      grid-auto-rows: auto;
+      
+      /* Option 2: Or enforce a fixed height for consistency */
+      /* grid-auto-rows: 17rem; */
+      
+      gap: 1rem;
+    }
+
+    .grid-container > * {
+      width: 100%;
+      height: 100%; /* Ensure the card fills its container */
+    }
   }
 </style>

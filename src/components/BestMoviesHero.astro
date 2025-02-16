@@ -42,9 +42,41 @@ const t = getTranslationFunction(lang);
     left: 50%;
     transform: translateX(-50%);
   }
+
+  /* Custom classes for responsive adjustments */
+  .banner-container {
+    /* Default height via inline style (70vh) will be overridden on mobile */
+  }
+  .banner-title {}
+  .banner-subtitle {}
+  .banner-synopsis {}
+  .banner-button {}
+
+  /* Mobile adjustments */
+  @media (max-width: 640px) {
+    .banner-container {
+      height: 50vh !important; /* Reduce banner height on mobile */
+    }
+    .banner-title {
+      font-size: 1.75rem !important; /* Smaller title on mobile */
+    }
+    .banner-subtitle {
+      font-size: 1rem !important; /* Adjust subtitle size */
+    }
+    .banner-synopsis {
+      font-size: 0.875rem !important; /* Smaller synopsis text */
+    }
+    .banner-button {
+      padding: 0.75rem 1rem !important; /* Smaller button padding */
+      font-size: 0.875rem !important;
+    }
+    .dots-container {
+      bottom: 1rem; /* Adjust dots container position */
+    }
+  }
 </style>
 
-<div class="mb-6 mx-0 relative w-full rounded" style="height: 70vh;" role="banner" aria-labelledby="banner-heading">
+<div class="banner-container mb-6 mx-0 relative w-full rounded" style="height: 70vh;" role="banner" aria-labelledby="banner-heading">
     {films.map((film, index) => (
         <div class={`absolute w-full h-full transition-opacity duration-300 ease-in-out film-slide ${index === 0 ? 'opacity-100' : 'opacity-0'}`}>
             <Image 
@@ -57,17 +89,21 @@ const t = getTranslationFunction(lang);
             />
             <div class="absolute inset-0 flex items-center mx-auto px-6 container">
                 <div class="sm:w-1/2 lg:w-1/3 space-y-4" style="z-index: 1;">
-                    <h1 id={`banner-heading-${index}`} class="text-5xl font-bold mb-4 text-white drop-shadow-xl">
+                    <h1 id={`banner-heading-${index}`} class="banner-title text-3xl sm:text-5xl font-bold mb-4 text-white drop-shadow-xl">
                         {film.locationInfo.title}
                     </h1>
-                    <div class="text-xl font-medium mb-2 text-red-400">{t("Sub | Dub")}</div>
-                    <p class="text-lg leading-relaxed text-gray-300 line-clamp-4">{film.locationInfo.synopsis}</p>
+                    <div class="banner-subtitle text-xl sm:text-2xl font-medium mb-2 text-red-400">
+                      {t("Sub | Dub")}
+                    </div>
+                    <p class="banner-synopsis text-lg sm:text-xl leading-relaxed text-gray-300 line-clamp-4">
+                      {film.locationInfo.synopsis}
+                    </p>
                     <a href={getRelativeLocaleUrl(Astro.currentLocale, film.slug)}>
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded shadow transition ease-in-out duration-150 mt-4"  
-                            aria-label={t("Discover %1").replace("%1", film.locationInfo.title)}>
-                        {t("DISCOVER THIS MOVIE")}
-                    </button>
-                  </a>
+                      <button class="banner-button bg-red-500 hover:bg-red-700 text-white font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded shadow transition ease-in-out duration-150 mt-4"  
+                              aria-label={t("Discover %1").replace("%1", film.locationInfo.title)}>
+                          {t("DISCOVER THIS MOVIE")}
+                      </button>
+                    </a>
                 </div>
             </div>
         </div>
