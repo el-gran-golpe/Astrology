@@ -63,23 +63,32 @@ export default function SearchBar({
             ? `w-full py-2 pl-4 pr-10 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${
                 isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
               }`
-            : `absolute right-0 top-0 py-2 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${
-                isExpanded ? 'w-64 opacity-100' : 'w-0 opacity-0'
+            : `py-2 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${
+                isExpanded ? 'w-64' : 'w-10'
               }`
     }`;
 
-    const iconClass = `text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 ${
-        mobile ? 'absolute right-3 top-2' : 'absolute right-0 top-0 p-2'
+    const containerClass = `${
+        mobile 
+            ? 'w-full relative' 
+            : 'inline-flex items-center relative min-w-[2.5rem]'
     }`;
 
-    const dropdownClass = `${
+    
+    const iconClass = `text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 ${
         mobile 
-            ? 'absolute left-0 right-0 mt-2'
-            : 'absolute right-0 top-10 w-64'
-    } bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto`;
+            ? 'absolute right-3 top-2' 
+            : 'absolute left-3 top-1/2 -translate-y-1/2'
+    }`;
+
+    const dropdownClass = `absolute ${
+        mobile 
+            ? 'left-0 right-0 mt-2'
+            : 'right-0 top-full mt-1 w-64'
+    } bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto`;
 
     return (
-        <div className={`relative ${mobile ? 'w-full' : 'flex items-center justify-end w-full'}`}>
+        <div className={containerClass}>
             <FontAwesomeIcon 
                 icon={faMagnifyingGlass} 
                 onClick={!autoExpand ? handleToggle : undefined}
@@ -93,7 +102,7 @@ export default function SearchBar({
                 name="q" 
                 role="combobox"
                 className={searchBarClass}
-                placeholder={placeholder}
+                placeholder={isExpanded ? placeholder : ''}
                 autoComplete="off"
                 aria-expanded={isExpanded}
                 aria-controls="search-dropdown"
