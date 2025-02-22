@@ -3,8 +3,16 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchSearchBarSuggestions } from '../../utils/file_fetching.ts';
 
-export default function SearchBar({ lang, placeholder, ariaLabel, toggleAriaLabel, noSuggestionsMessage }) {
-    const [isExpanded, setIsExpanded] = useState(false);
+export default function SearchBar({ 
+    lang, 
+    placeholder, 
+    ariaLabel, 
+    toggleAriaLabel, 
+    noSuggestionsMessage, 
+    mobile,
+    autoExpand 
+}) {
+    const [isExpanded, setIsExpanded] = useState(autoExpand || false);
     const [inputValue, setInputValue] = useState('');
     const [suggestions, setSuggestions] = useState({});
 
@@ -23,6 +31,12 @@ export default function SearchBar({ lang, placeholder, ariaLabel, toggleAriaLabe
             fetchAndSetSuggestions();
         }
     }, [inputValue, suggestions]);
+
+    useEffect(() => {
+        if (autoExpand) {
+            setIsExpanded(true);
+        }
+    }, [autoExpand]);
 
     const handleToggle = () => {
         setIsExpanded((current) => !current);
@@ -44,12 +58,36 @@ export default function SearchBar({ lang, placeholder, ariaLabel, toggleAriaLabe
         }, {});
     }
 
-    const searchBarClass = `transition-all duration-300 ease-in-out absolute right-0 top-0 py-2 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${isExpanded ? 'w-64 opacity-100' : 'w-0 opacity-0'}`;
-    const iconClass = "text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 p-2 top-0";
-    const dropdownClass = "absolute right-0 top-10 w-64 bg-white border border-gray-300 rounded-lg shadow-lg mt-1 z-10 max-h-48 overflow-y-auto";
+    const searchBarClass = `transition-all duration-300 ease-in-out ${
+        mobile 
+            ? `w-full py-2 pl-4 pr-10 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${
+                isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`
+            : `absolute right-0 top-0 py-2 pl-10 pr-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 ${
+                isExpanded ? 'w-64 opacity-100' : 'w-0 opacity-0'
+              }`
+    }`;
+
+    const iconClass = `text-gray-500 transition-opacity duration-300 hover:opacity-75 ease-in-out cursor-pointer z-20 ${
+        mobile ? 'absolute right-3 top-2' : 'absolute right-0 top-0 p-2'
+    }`;
+
+    const dropdownClass = `${
+        mobile 
+            ? 'absolute left-0 right-0 mt-2'
+            : 'absolute right-0 top-10 w-64'
+    } bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto`;
 
     return (
-        <div className="relative flex items-center justify-end w-full">
+        <div className={`relative ${mobile ? 'w-full' : 'flex items-center justify-end w-full'}`}>
+            <FontAwesomeIcon 
+                icon={faMagnifyingGlass} 
+                onClick={!autoExpand ? handleToggle : undefined}
+                className={iconClass}
+                size="lg" 
+                aria-label={toggleAriaLabel}
+                style={{ maxWidth: '1.25rem', maxHeight: '1.25rem' }}
+            />
             <input 
                 type="search" 
                 name="q" 
@@ -62,14 +100,6 @@ export default function SearchBar({ lang, placeholder, ariaLabel, toggleAriaLabe
                 value={inputValue}
                 onChange={handleChange}
                 aria-label={ariaLabel}
-            />
-            <FontAwesomeIcon 
-                icon={faMagnifyingGlass} 
-                onClick={handleToggle}
-                className={iconClass}
-                size="lg" 
-                aria-label={toggleAriaLabel}
-                style={{ maxWidth: '1.25rem', maxHeight: '1.25rem' }}
             />
             {isExpanded && inputValue && (
                 <div id="search-dropdown" className={dropdownClass} role="listbox">

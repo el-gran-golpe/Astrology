@@ -14,32 +14,99 @@ export interface NavBarProps {
 }
 
 const { currentGenre } = Astro.props;
-// Get the translation function
 const t = getTranslationFunction(lang, false);
 ---
 
 <nav class="sticky top-0 bg-gray-800 text-white py-1.5 z-10" aria-label={t("Main navigation")}>
-    <div class="container mx-auto px-6 flex justify-between items-center">
-        <!-- Render the title of the website -->
-        <div class="flex-none">
-            <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label={t("Homepage")}>  
-                <div class="flex items-center">
-                    <Image src={KinemifyNameLogo} height={32} width={32*5.5} style="height: 1.05em; margin-right: -0.025em" alt={t("%1 Logo").replace("%1", "Kinemify")} />
-                </div>
-            </a>
+  <div class="container mx-auto px-6 flex justify-between items-center">
+    <!-- Logo -->
+    <div class="flex-none">
+      <a href={getRelativeLocaleUrl(lang, "")} class="text-3xl font-bold hover:opacity-75 transition-opacity duration-300 flex items-center" aria-label={t("Homepage")}>
+        <div class="flex items-center">
+          <Image src={KinemifyNameLogo} height={32} width={32*5.5} style="height: 1.05em; margin-right: -0.025em" alt={t("%1 Logo").replace("%1", "Kinemify")} />
         </div>
-        <!-- Render the menu items and the search bar -->
-        <ul class="flex justify-center items-center flex-grow" role="menubar">
-            <div class="ml-6">
-                <GenreSwitcher currentGenre={currentGenre} />
-            </div>
-            <div class="flex flex-grow items-center justify-end pl-5">
-                <SearchBar client:only="react" lang={lang} ariaLabel={t("Search for movies")} placeholder={t("Search...")} 
-                                                           toggleAriaLabel={t("Toggle search bar")} noSuggestionsMessage={t("No movies found")}/>
-                <div class="ml-4">
-                    <LanguageSwitcher />
-                </div>
-            </div>
-        </ul>
+      </a>
     </div>
+
+    <!-- Desktop Menu Items -->
+    <div class="hidden sm:flex items-center space-x-4">
+      <SearchBar client:only="react" 
+        lang={lang} 
+        ariaLabel={t("Search for movies")} 
+        placeholder={t("Search...")} 
+        toggleAriaLabel={t("Toggle search bar")} 
+        noSuggestionsMessage={t("No movies found")}
+        mobile={false}
+        autoExpand={false}
+      />
+      <GenreSwitcher currentGenre={currentGenre} />
+      <LanguageSwitcher />
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="mobile-menu-toggle" class="sm:hidden text-white focus:outline-none" aria-label={t("Open menu")}>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu-overlay" 
+     class="fixed inset-0 bg-gray-900 bg-opacity-95 z-30 transform -translate-y-full transition-transform duration-300 ease-in-out">
+  <div class="flex flex-col h-full">
+    <!-- Overlay Header -->
+    <div class="flex justify-between items-center px-4 py-3 border-b border-gray-700">
+      <button id="mobile-menu-close" class="text-white focus:outline-none ml-auto" aria-label={t("Close menu")}>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Overlay Content -->
+    <div class="flex-1 overflow-y-auto px-4 py-6 space-y-8">
+      <div>
+        <SearchBar client:only="react" 
+          lang={lang} 
+          ariaLabel={t("Search for movies")} 
+          placeholder={t("Search...")} 
+          toggleAriaLabel={t("Toggle search bar")} 
+          noSuggestionsMessage={t("No movies found")}
+          mobile
+          autoExpand
+        />
+      </div>
+      
+      <div class="border-t border-gray-700 pt-4">
+        <GenreSwitcher currentGenre={currentGenre} mobile />
+      </div>
+      
+      <div class="border-t border-gray-700 pt-4">
+        <LanguageSwitcher mobile />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.getElementById("mobile-menu-toggle");
+    const menuOverlay = document.getElementById("mobile-menu-overlay");
+    const menuClose = document.getElementById("mobile-menu-close");
+
+    const openMenu = () => {
+      menuOverlay.style.transform = "translateY(0)";
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeMenu = () => {
+      menuOverlay.style.transform = "translateY(-100%)";
+      document.body.style.overflow = "";
+    };
+
+    menuToggle?.addEventListener("click", openMenu);
+    menuClose?.addEventListener("click", closeMenu);
+  });
+</script>
