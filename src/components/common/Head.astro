@@ -39,7 +39,9 @@ const {
   schemaOrgInfo,
 } = Astro.props;
 
-let extend: { name: string; content: string | number }[] = [
+import type { Meta } from 'astro-seo';
+
+let extend: Partial<Meta>[] = [
   { name: "twitter:image", content: OGImage },
   { name: "twitter:image:alt", content: OGImageAlt },
   { name: "twitter:title", content: OGTitle },
@@ -51,7 +53,7 @@ if (keywords) {
   extend = [{ name: "keywords", content: keywords.join(", ") }, ...extend];
 }
 if (OGExtends) {
-  extend = [...extend, ...OGExtends];
+  extend = [...extend, ...(OGExtends as Partial<Meta>[])];
 }
 const OGImageMIMEType = await getMIMETypeFromURL(OGImage);
 const GoogleAnalyticsID = config["GoogleAnalyticsID"];
