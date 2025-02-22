@@ -86,7 +86,7 @@ const gridSections = [
             <main class="container mx-auto px-4 sm:px-6 py-4" role="main">
                 {gridSections.map((section, sectionIdx) => (
                     <section aria-labelledby={section.id} aria-describedby={`${section.id}-description`} class="mb-8">
-                        <h2 id={section.id} class="flex flex-col sm:flex-row sm:items-baseline text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
+                        <h2 id={section.id} class="flex flex-col sm:flex-row sm:items-center text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
                             {section.redirect_url ? (
                                 <a href={getRelativeLocaleUrl(Astro.currentLocale, section.redirect_url)} class="hover:text-gray-300 transition-colors">
                                     <span class="text-white">{t(section.title)}</span>
@@ -94,7 +94,7 @@ const gridSections = [
                             ) : (
                                 <span class="text-white">{t(section.title)}</span>
                             )}
-                            <span class="text-gray-400 font-light text-base sm:text-lg sm:ml-3 mt-0.5 sm:mt-0">
+                            <span class="text-gray-400 font-light text-lg sm:text-xl sm:ml-2 mt-1 sm:mt-0">
                                 {t(section.subtitle)}
                             </span>
                         </h2>

@@ -56,6 +56,10 @@ const t = getTranslationFunction(lang);
   @media (max-width: 640px) {
     .banner-container {
       height: 50vh !important; /* Reduce banner height on mobile */
+      aspect-ratio: 9/16 !important; /* More vertical ratio for mobile */
+      height: auto !important;
+      max-height: 85vh; /* Prevent it from being too tall */
+      /* display: none; Hide the entire banner on mobile */
     }
     .banner-title {
       font-size: 1.75rem !important; /* Smaller title on mobile */
@@ -87,6 +91,9 @@ const t = getTranslationFunction(lang);
       top: auto;
       bottom: 1rem;
       left: 1rem;
+    }
+    .film-slide img {
+      object-position: center 25%; /* Show more of the center-top portion */
     }
   }
 </style>
