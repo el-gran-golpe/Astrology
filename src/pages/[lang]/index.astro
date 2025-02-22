@@ -83,18 +83,20 @@ const gridSections = [
             </header>
             
             <!-- Main content -->
-            <main class="container mx-auto px-6 py-4" role="main">
+            <main class="container mx-auto px-4 sm:px-6 py-4" role="main">
                 {gridSections.map((section, sectionIdx) => (
                     <section aria-labelledby={section.id} aria-describedby={`${section.id}-description`} class="mb-8">
-                        <h2 id={section.id} class="flex items-center text-3xl font-bold mb-6">
+                        <h2 id={section.id} class="flex flex-col sm:flex-row sm:items-center text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
                             {section.redirect_url ? (
-                <a href={getRelativeLocaleUrl(Astro.currentLocale, section.redirect_url)}>
-                    <span class="text-white">{t(section.title)}</span>
-                </a>
-            ) : (
-                <span class="text-white">{t(section.title)}</span>
-            )}
-                        <span class="text-gray-400 font-light ml-2">{t(section.subtitle)}</span>
+                                <a href={getRelativeLocaleUrl(Astro.currentLocale, section.redirect_url)} class="hover:text-gray-300 transition-colors">
+                                    <span class="text-white">{t(section.title)}</span>
+                                </a>
+                            ) : (
+                                <span class="text-white">{t(section.title)}</span>
+                            )}
+                            <span class="text-gray-400 font-light text-lg sm:text-xl sm:ml-2 mt-1 sm:mt-0">
+                                {t(section.subtitle)}
+                            </span>
                         </h2>
                         <p id={`${section.id}-description`} class="sr-only">
                             {t(section.description)}
@@ -110,7 +112,8 @@ const gridSections = [
                                     movieDuration={film.basic_info.duration_minutes}
                                     moviePlot={film.locationInfo.short_synopsis}
                                     movieScore={film.film_affinity_info?.score?.average ?? 'Not available'}
-                                    loading={(sectionIdx === 0 && filmIdx < IMAGES_TO_EAGERLY_LOAD)? "eager" : "lazy"} />
+                                    loading={(sectionIdx === 0 && filmIdx < IMAGES_TO_EAGERLY_LOAD) ? "eager" : "lazy"}
+                                />
                             ))}
                         </Grid>
                     </section>
