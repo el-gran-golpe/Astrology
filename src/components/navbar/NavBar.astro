@@ -80,11 +80,14 @@ const t = getTranslationFunction(lang, false);
       </div>
       
       <div class="border-t border-gray-700 pt-4">
-        <GenreSwitcher currentGenre={currentGenre} mobile />
-      </div>
-      
-      <div class="border-t border-gray-700 pt-4">
-        <LanguageSwitcher mobile />
+        <div class="flex flex-wrap gap-4">
+          <div class="flex-1">
+            <GenreSwitcher currentGenre={currentGenre} mobile />
+          </div>
+          <div class="flex-none">
+            <LanguageSwitcher mobile />
+          </div>
+        </div>
       </div>
     </div>
   </div>
