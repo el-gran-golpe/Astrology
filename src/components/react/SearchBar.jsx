@@ -89,6 +89,11 @@ export default function SearchBar({
 
     return (
         <div className={containerClass}>
+            <style>{`
+                input[type="search"]::-webkit-search-cancel-button {
+                    cursor: pointer;
+                }
+            `}</style>
             <FontAwesomeIcon 
                 icon={faMagnifyingGlass} 
                 onClick={!autoExpand ? handleToggle : undefined}
