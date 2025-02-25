@@ -65,11 +65,18 @@ const keywords = [...translatedGenres]
         </div>
       </header>
 
-      <main class="container mx-auto px-6 py-4" role="main">
-        <div class="flex">
-          <!-- Left column content -->
-          <aside class="w-1/3" aria-labelledby="left-column-info">
-            <LeftColumnInfoPannel
+      <main class="container mx-auto px-4 sm:px-6 py-4" role="main">
+        <div class="flex flex-col lg:flex-row lg:gap-8">
+          <!-- Main content first on mobile -->
+          <section class="w-full lg:w-2/3" aria-labelledby="right-column-info">
+            <MovieTitleAndYear 
+              title={filmInfo.locationInfo.title} 
+              year={filmInfo.basic_info.year} 
+            />
+            
+            <!-- Info Panel appears here on mobile, after title -->
+            <div class="block lg:hidden mb-6">
+              <LeftColumnInfoPannel
                 posterUrl={filmInfo.extended_info.poster_url}
                 genres={filmInfo.basic_info.genres} 
                 duration={filmInfo.basic_info.duration_minutes}
@@ -77,13 +84,13 @@ const keywords = [...translatedGenres]
                 movieSaga={filmInfo.basic_info.saga}
                 otherTitles={filmInfo.basic_info.other_titles}
                 filmTitle={filmInfo.locationInfo.title}
+              />
+            </div>
+
+            <RatingAndReviews 
+              score={parseFloat(filmInfo.film_affinity_info.score.average)} 
+              votes={filmInfo.film_affinity_info.score.votes} 
             />
-          </aside>
-          
-          <!-- Right Column Content -->
-          <section class="w-2/3 pl-8" aria-labelledby="right-column-info">
-            <MovieTitleAndYear title={filmInfo.locationInfo.title} year={filmInfo.basic_info.year} />
-            <RatingAndReviews score={parseFloat(filmInfo.film_affinity_info.score.average)} votes={filmInfo.film_affinity_info.score.votes} />
             <Synopsis synopsis={filmInfo.locationInfo.synopsis} />
             <WhereToWatchTable lang={Astro.params.lang} availableAt={filmInfo.available_at} />
             <MovieStaff 
@@ -94,6 +101,19 @@ const keywords = [...translatedGenres]
               musicians={filmInfo.staff.musicians} 
             />
           </section>
+          
+          <!-- Left column only visible on desktop -->
+          <aside class="hidden lg:block lg:w-1/3" aria-labelledby="left-column-info">
+            <LeftColumnInfoPannel
+              posterUrl={filmInfo.extended_info.poster_url}
+              genres={filmInfo.basic_info.genres} 
+              duration={filmInfo.basic_info.duration_minutes}
+              productionCountries={filmInfo.basic_info.countries}
+              movieSaga={filmInfo.basic_info.saga}
+              otherTitles={filmInfo.basic_info.other_titles}
+              filmTitle={filmInfo.locationInfo.title}
+            />
+          </aside>
         </div>  
       </main>
       
