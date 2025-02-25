@@ -2,7 +2,6 @@
 import { Icon } from 'astro-icon/components';
 import { getTranslationFunction } from '../../utils/localization.ts';
 
-// Get the translation function
 const { lang } = Astro.params;
 const t = getTranslationFunction(lang, false);
 
@@ -21,28 +20,58 @@ const subsections = [
     content: "• ";
     color: white;
 }
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.content.expanded {
+    max-height: 2000px;
+    transition: max-height 0.5s ease-in;
+}
+
+.rotate-icon {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
 </style>
 
 <section class="mt-10 px-4 lg:px-0" aria-labelledby="movie-staff-heading">
     <h2 id="movie-staff-heading" class="text-2xl text-gray-300 mb-2 font-bold">{t("Staff")}</h2>
 
-    <div class="space-y-6">
+    <div class="space-y-4">
         {subsections.map((subsection, idx) => subsection.data && subsection.data.length > 0 && (
-            <section aria-labelledby={`subsection-heading-${idx}`} role="group">
-                <div class="flex justify-between items-center px-5 py-3">
-                    <span id={`subsection-heading-${idx}`} class="text-xl font-semibold text-white font-mono title">{subsection.title}</span>
-                    <div class="p-2 border-4 border-gray-500 rounded-full bg-gray-700 shadow">
-                        <Icon name={subsection.icon} class="fa-sm text-white" />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-800 rounded-lg">
-                    {subsection.data.map((person, personIndex) => (
-                        <div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200" aria-labelledby={`person-name-${idx}-${personIndex}`}>
-                            <p id={`person-name-${idx}-${personIndex}`} class="text-md text-white truncate">{person.name}</p>
-                            <p class="text-sm text-gray-400 truncate">{person.role? t(person.role) : ""}</p>
+            <section class="border border-gray-700 rounded-lg overflow-hidden" aria-labelledby={`subsection-heading-${idx}`} role="group">
+                <button 
+                    class="w-full flex justify-between items-center px-5 py-3 bg-gray-800 hover:bg-gray-700 transition-colors duration-200"
+                    onclick={`document.getElementById('content-${idx}').classList.toggle('expanded');
+                             document.getElementById('arrow-${idx}').classList.toggle('rotate-icon');`}
+                    aria-expanded="false"
+                    aria-controls={`content-${idx}`}
+                >
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 border-2 border-gray-500 rounded-full bg-gray-700 shadow">
+                            <Icon name={subsection.icon} class="fa-sm text-white" />
                         </div>
-                    ))}
+                        <span id={`subsection-heading-${idx}`} class="text-xl font-semibold text-white font-mono">
+                            {subsection.title}
+                            <span class="text-sm text-gray-400 ml-2">({subsection.data.length})</span>
+                        </span>
+                    </div>
+                    <span id={`arrow-${idx}`} class="text-white transition-transform duration-300">▼</span>
+                </button>
+
+                <div id={`content-${idx}`} class="content">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-gray-800">
+                        {subsection.data.map((person, personIndex) => (
+                            <div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors duration-200" aria-labelledby={`person-name-${idx}-${personIndex}`}>
+                                <p id={`person-name-${idx}-${personIndex}`} class="text-md text-white truncate">{person.name}</p>
+                                <p class="text-sm text-gray-400 truncate">{person.role? t(person.role) : ""}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
         ))}
