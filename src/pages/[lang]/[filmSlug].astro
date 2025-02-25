@@ -55,8 +55,8 @@ const keywords = [...translatedGenres]
     <NavBar/>
     <div class="bg-gray-900 text-white">
 
-      <!-- Banner -->
-      <header class="mb-6 mx-0 w-full h-[33vh] relative overflow-hidden">
+      <!-- Banner - only shown on mobile/tablet -->
+      <header class="mb-6 mx-0 w-full h-[33vh] relative overflow-hidden block lg:hidden">
         <Image src={filmInfo.extended_info.poster_url} alt="" class="absolute w-full h-full object-cover" inferSize={true} loading="eager"/>
 
         <!-- Gradient overlay -->
