@@ -22,20 +22,25 @@ const ratingText = score >= 4.5 ? t("Overwhelmingly Positive") :
                    t("Overwhelmingly Negative");
 ---
 
-<section aria-labelledby="rating-reviews-heading" class="mt-8">
-  <h3 id="rating-reviews-heading" class="text-2xl text-gray-300 font-bold mb-4">{t("Rating & Reviews")}</h3>
-  <div class="flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md" role="region" aria-labelledby="user-rating">
-    <div class="flex items-center">
-      <RenderStars rating={score} />
-      <div class="ml-4" id="user-rating">
-        <p class="text-xl text-white font-semibold">
+<section aria-labelledby="rating-reviews-heading" class="mt-6 sm:mt-8">
+  <h3 id="rating-reviews-heading" class="text-xl sm:text-2xl text-gray-300 font-bold mb-3 sm:mb-4">{t("Rating & Reviews")}</h3>
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-gray-800 p-3 sm:p-4 rounded-lg shadow-md" role="region" aria-labelledby="user-rating">
+    <div class="flex items-center mb-3 sm:mb-0">
+      <div class="flex-shrink-0">
+        <RenderStars rating={score} />
+      </div>
+      <div class="ml-3 sm:ml-4" id="user-rating">
+        <p class="text-lg sm:text-xl text-white font-semibold line-clamp-1">
           {ratingText}
         </p>
       </div>
     </div>
-    <div class="ml-4 text-right" id="rating-container">
-      <p itemprop="ratingValue" class="text-xl text-white font-semibold">{score.toFixed(1)}</p>
-      <p class="text-sm text-gray-400">{t("User Score")}</p>
+    <div class="flex justify-between sm:block sm:text-right mt-2 sm:mt-0 border-t sm:border-0 pt-2 sm:pt-0 border-gray-700" id="rating-container">
+      <div class="sm:ml-4">
+        <p itemprop="ratingValue" class="text-xl text-white font-semibold">{score.toFixed(1)}</p>
+        <p class="text-xs sm:text-sm text-gray-400">{t("User Score")}</p>
+        <p class="text-xs text-gray-500">{votes} {t("votes")}</p>
+      </div>
       <meter value={score} min="0" max="5" class="hidden">{score.toFixed(1)}</meter>
     </div>
   </div>
