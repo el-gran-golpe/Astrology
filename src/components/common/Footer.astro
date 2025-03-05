@@ -1,0 +1,58 @@
+---
+import { getTranslationFunction } from '../../utils/localization.ts';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const { lang } = Astro.params;
+const t = getTranslationFunction(lang);
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 border-t border-gray-800 mt-12 py-8">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row justify-between">
+      {/* About Section */}
+      <div class="w-full sm:w-1/2 mb-6 sm:mb-0">
+        <h3 class="text-lg font-semibold text-gray-300 mb-3">{t("About This Project")}</h3>
+        <p class="text-gray-400 text-sm mb-4 max-w-md leading-relaxed">
+          {t("We're just a couple of cinephiles who built this project to share our passion for films. Our goal is to help you easily find movies you'll love.")}
+        </p>
+        <p class="text-gray-500 text-sm mb-4 max-w-md leading-relaxed">
+          {t("If you enjoy our site, feel free to share it with your friends!")}
+        </p>
+      </div>
+
+      {/* Contact & Links Section */}
+      <div class="w-full sm:w-1/2 sm:text-right">
+        <h3 class="text-lg font-semibold text-gray-300 mb-3">{t("Contact")}</h3>
+        <p class="text-gray-400 text-sm mb-4">
+          <a
+            href="mailto:highwaytoretirement@gmail.com"
+            class="text-blue-400 hover:text-blue-300 transition flex items-center sm:justify-end"
+          >
+            highwaytoretirement@gmail.com
+          </a>
+        </p>
+        
+        {/* Removed Twitter and GitHub links */}
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center">
+      <p class="text-gray-500 text-xs mb-4 sm:mb-0">
+        &copy; {currentYear} {"Kinemify. " + t("All rights reserved.")}
+      </p>
+
+      <div class="flex space-x-6 text-xs">
+        <a href={getRelativeLocaleUrl(lang, 'privacy-policy')} class="text-gray-500 hover:text-gray-300 transition">
+          {t("Privacy Policy")}
+        </a>
+        <a href={getRelativeLocaleUrl(lang, 'terms-and-conditions')} class="text-gray-500 hover:text-gray-300 transition">
+          {t("Terms of Service")}
+        </a>
+        <a href={getRelativeLocaleUrl(lang, 'cookie-policy')} class="text-gray-500 hover:text-gray-300 transition">
+          {t("Cookie Policy")}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

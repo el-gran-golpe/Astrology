@@ -7,6 +7,7 @@ import NavBar from "../../components/navbar/NavBar.astro";
 import MovieCard from "../../components/common/moviecard/MovieCard.astro";
 import BestMoviesHero from "../../components/BestMoviesHero.astro";
 import Grid from '../../components/common/Grid.astro';
+import Footer from '../../components/common/Footer.astro';
 
 // Import your getHomePageFilmsByLang function
 import { getHomePageFilms } from "../../utils/staticPathsGeneration.ts";
@@ -73,7 +74,7 @@ const gridSections = [
         <!-- Ensure proper scaling on mobile -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-    <body>
+    <body class="overflow-x-hidden">
         <NavBar />
         <div class="bg-gray-900 text-white">
             
@@ -120,6 +121,7 @@ const gridSections = [
                 ))}
                 
             </main>
+            <Footer />
         </div>
     </body>
 </html>
