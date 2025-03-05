@@ -55,17 +55,15 @@ const t = getTranslationFunction(lang);
   /* Mobile adjustments */
   @media (max-width: 640px) {
     .banner-container {
-      height: 50vh !important; /* Reduce banner height on mobile */
-      aspect-ratio: 9/16 !important; /* More vertical ratio for mobile */
-      height: auto !important;
-      max-height: 85vh; /* Prevent it from being too tall */
-      /* display: none; Hide the entire banner on mobile */
+      height: 100vh !important; /* Full viewport height on mobile */
+      max-height: none !important; /* Remove max-height constraint */
+      aspect-ratio: unset !important; /* Remove aspect ratio constraint */
     }
     .banner-title {
       font-size: 1.75rem !important; /* Smaller title on mobile */
     }
     .banner-subtitle {
-      font-size: 1rem !important; /* Adjust subtitle size */
+      font-size: 1rem !impo rtant; /* Adjust subtitle size */
     }
     .banner-synopsis {
       font-size: 0.875rem !important; /* Smaller synopsis text */
@@ -78,6 +76,7 @@ const t = getTranslationFunction(lang);
       bottom: 1rem; /* Adjust dots container position */
     }
     .arrow {
+      
       height: 1.75rem; /* Smaller arrow size on mobile */
       width: 1.75rem; /* Smaller arrow size on mobile */
     }
@@ -93,7 +92,10 @@ const t = getTranslationFunction(lang);
       left: 1rem;
     }
     .film-slide img {
-      object-position: center 25%; /* Show more of the center-top portion */
+      object-fit: cover !important;
+      object-position: center 20% !important; /* Adjust vertical position */
+      height: 100% !important;
+      width: 100% !important;
     }
   }
 </style>
@@ -106,8 +108,8 @@ const t = getTranslationFunction(lang);
         alt={t("Movie poster of %1").replace("%1", film.locationInfo.title)}
         class="w-full h-full object-cover"
         loading={index === 0 ? 'eager' : 'lazy'}
-        width={720}
-        height={239}
+        width={1920}
+        height={1080}
       />
       <div class="absolute inset-0 flex items-center mx-auto px-6 container">
         <div class="sm:w-1/2 lg:w-1/3 space-y-4" style="z-index: 1;">
