@@ -6,241 +6,157 @@ import { Image } from 'astro:assets';
 
 const { lang } = Astro.params;
 const { films } = Astro.props;
-
 const t = getTranslationFunction(lang);
 ---
 
 <style>
+  /* Base Styles */
   .arrow {
-    height: 2.25rem; /* Adjust the height as needed */
-    width: 2.25rem; /* Adjust the width as needed */
-    opacity: 0.8; /* Slightly transparent */
-  }
-
-  .arrow:hover {
-    transform: scale(1.2); /* Slightly enlarge on hover */
+    height: 2.25rem;
+    width: 2.25rem;
+    opacity: 0.8;
     transition: transform 0.2s ease-in-out;
-    opacity: 1; /* Fully opaque on hover */
   }
-
+  .arrow:hover {
+    transform: scale(1.2);
+    opacity: 1;
+  }
   .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.2s;
-  }
-
+  .fade-leave-active { transition: opacity 0.2s; }
   .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-  }
-
+  .fade-leave-to { opacity: 0; }
   .dots-container {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
     position: absolute;
-    bottom: 2rem; /* Position the dots container 2rem from the bottom */
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
   }
-
-  /* Custom classes for responsive adjustments */
-  .banner-container {
-    /* Default height via inline style (70vh) will be overridden on mobile */
-  }
+  .banner-container {}
   .banner-title {}
   .banner-subtitle {}
   .banner-synopsis {}
   .banner-button {}
 
-  /* Mobile adjustments */
+  /* Mobile adjustments (max-width: 640px) */
   @media (max-width: 640px) {
     .banner-container {
-      height: 100vh !important; /* Full viewport height on mobile */
-      max-height: none !important; /* Remove max-height constraint */
-      aspect-ratio: unset !important; /* Remove aspect ratio constraint */
+      height: 100vh !important;
+      max-height: none !important;
+      aspect-ratio: unset !important;
     }
-    .banner-title {
-      font-size: 1.75rem !important; /* Smaller title on mobile */
-    }
-    .banner-subtitle {
-      font-size: 1rem !impo rtant; /* Adjust subtitle size */
-    }
-    .banner-synopsis {
-      font-size: 0.875rem !important; /* Smaller synopsis text */
-    }
-    .banner-button {
-      padding: 0.75rem 1rem !important; /* Smaller button padding */
-      font-size: 0.875rem !important;
-    }
-    .dots-container {
-      bottom: 1rem; /* Adjust dots container position */
-    }
-    .arrow {
-      
-      height: 1.75rem; /* Smaller arrow size on mobile */
-      width: 1.75rem; /* Smaller arrow size on mobile */
-    }
-    /* Reposition arrows on mobile so they do not overlap the banner text */
-    .arrow-right {
-      top: auto;
-      bottom: 1rem;
-      right: 1rem;
-    }
-    .arrow-left {
-      top: auto;
-      bottom: 1rem;
-      left: 1rem;
-    }
+    .banner-title { font-size: 1.75rem !important; }
+    .banner-subtitle { font-size: 1rem !important; }
+    .banner-synopsis { font-size: 0.875rem !important; }
+    .banner-button { padding: 0.75rem 1rem !important; font-size: 0.875rem !important; }
+    .dots-container { bottom: 1rem; }
+    .arrow { height: 1.75rem !important; width: 1.75rem !important; }
+    .arrow-right { top: auto; bottom: 1rem; right: 1rem; }
+    .arrow-left { top: auto; bottom: 1rem; left: 1rem; }
     .film-slide img {
       object-fit: cover !important;
-      object-position: center 20% !important; /* Adjust vertical position */
+      object-position: center 20% !important;
       height: 100% !important;
       width: 100% !important;
     }
   }
 
-  /* Mobile adjustments - CONTAINER, IMAGE AND TEXT */
-  @media (max-width: 1023px) { /* Use lg breakpoint to match filmSlug.astro */
+  /* Tablet adjustments (max-width: 1023px) */
+  @media (max-width: 1023px) {
     .banner-container {
-      height: 50vh !important; /* Increased from 33vh to 50vh for more vertical space */
-      min-height: 350px !important; /* Increased minimum height to ensure adequate space */
-      overflow: hidden !important; /* Ensure the image doesn't spill out */
+      height: 50vh !important;
+      min-height: 350px !important;
+      overflow: hidden !important;
     }
-    
     .film-slide img {
       object-fit: cover !important;
-      object-position: center 25% !important; /* Adjusted to show the important parts of movie posters */
+      object-position: center 25% !important;
       height: 100% !important;
       width: 100% !important;
     }
-    
-    /* Position text at bottom for mobile */
     .content-container {
-      align-items: flex-end !important; /* Align to bottom */
-      padding-bottom: 4rem !important; /* Increased padding to prevent overlap with controls */
+      align-items: flex-end !important;
+      padding-bottom: 4rem !important;
     }
-    
-    /* Text styling for mobile */
     .banner-title {
-      font-size: 1.5rem !important; /* Smaller title on mobile */
+      font-size: 1.5rem !important;
       line-height: 1.2 !important;
-      margin-bottom: 0.25rem !important; /* Reduced margin to fit more content */
-      padding-right: 1rem !important; /* Space for arrow */
+      margin-bottom: 0.25rem !important;
+      padding-right: 1rem !important;
     }
-    
     .banner-subtitle {
-      font-size: 0.875rem !important; /* Smaller subtitle */
+      font-size: 0.875rem !important;
       margin-bottom: 0.25rem !important;
     }
-    
     .banner-synopsis {
-      /* Show synopsis but with smaller text and fewer lines */
-      display: -webkit-box !important; /* Make sure it's visible */
+      display: -webkit-box !important;
       -webkit-box-orient: vertical !important;
-      font-size: 0.75rem !important; /* Smaller font size */
-      line-height: 1.3 !important; /* Tighter line height */
-      -webkit-line-clamp: 4 !important; /* Show all 4 lines, not just 2 */
-      max-height: 4rem !important; /* Increased height to fit 4 lines */
-      margin-bottom: 0.75rem !important; /* Increased bottom margin for separation */
-      overflow: hidden !important; /* Ensure text doesn't overflow */
-      text-overflow: ellipsis !important; /* Add ellipsis for truncated text */
+      font-size: 0.75rem !important;
+      line-height: 1.3 !important;
+      -webkit-line-clamp: 4 !important;
+      max-height: 4rem !important;
+      margin-bottom: 0.75rem !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
     }
-    
     .banner-button {
-      padding: 0.5rem 1rem !important; /* Smaller button padding */
-      font-size: 0.75rem !important; /* Smaller button text */
-      margin-top: 0.75rem !important; /* Increased margin from synopsis */
+      padding: 0.5rem 1rem !important;
+      font-size: 0.75rem !important;
+      margin-top: 0.75rem !important;
     }
-    
-    /* Fix space between elements */
-    .content-text-container {
-      width: 80% !important; /* Limit width to make room for arrows */
-      /* Fix vertical spacing between elements */
-      & > * {
-        margin-top: 0.25rem !important;
-        margin-bottom: 0.25rem !important;
-      }
-      /* Override space-y-4 with more compact spacing */
-      &.space-y-4 {
-        --tw-space-y-reverse: 0 !important;
-        margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse))) !important;
-        margin-bottom: calc(0.5rem * var(--tw-space-y-reverse)) !important;
-      }
+    .content-text-container { width: 80% !important; }
+    .content-text-container > * {
+      margin-top: 0.25rem !important;
+      margin-bottom: 0.25rem !important;
     }
-    
-    /* Controls positioning */
-    .dots-container {
-      bottom: 1rem !important; /* Position dots closer to bottom */
-    }
-    
-    .arrow {
-      height: 1.5rem !important;
-      width: 1.5rem !important;
-    }
-    
-    .arrow-right {
-      top: auto !important;
-      bottom: 1rem !important;
-      right: 1rem !important;
-    }
-    
-    .arrow-left {
-      top: auto !important;
-      bottom: 1rem !important;
-      left: 1rem !important;
-    }
+    .dots-container { bottom: 1rem !important; }
+    .arrow { height: 1.5rem !important; width: 1.5rem !important; }
+    .arrow-right { top: auto !important; bottom: 1rem !important; right: 1rem !important; }
+    .arrow-left { top: auto !important; bottom: 1rem !important; left: 1rem !important; }
   }
 
-  /* Custom animation for desktop only */
+  /* Desktop animation */
   @keyframes subtleBounce {
     0%, 100% { transform: translateX(0); }
     50% { transform: translateX(5px); }
   }
-  
   .animate-subtleBounce {
-    /* Only apply animation on larger screens */
     @media (min-width: 1024px) {
       animation: subtleBounce 2s infinite ease-in-out;
     }
   }
-  
-  /* Mobile adjustments for arrows and dots */
+
+  /* Mobile arrows & dots (max-width: 1023px) */
   @media (max-width: 1023px) {
-    /* Controls positioning */
     .dots-container {
-      bottom: 0.5rem !important; /* Position dots closer to bottom */
-      z-index: 20 !important; /* Ensure dots are above gradients */
+      bottom: 0.5rem !important;
+      z-index: 20 !important;
       justify-content: center !important;
       left: 50% !important;
       transform: translateX(-50%) !important;
       padding: 0.25rem 0.5rem !important;
-      background-color: rgba(0, 0, 0, 0.3) !important; /* Semi-transparent background */
-      border-radius: 1rem !important; /* Rounded corners */
+      background-color: rgba(0, 0, 0, 0.3) !important;
+      border-radius: 1rem !important;
     }
-    
     .dot {
-      width: 0.5rem !important; /* Smaller dots */
+      width: 0.5rem !important;
       height: 0.5rem !important;
-      margin: 0 0.25rem !important; /* Closer spacing */
+      margin: 0 0.25rem !important;
     }
-    
-    /* Make dots more visible */
-    .dot.bg-red-400 {
-      background-color: #f56565 !important; /* Brighter red */
-    }
-    
+    .dot.bg-red-400 { background-color: #f56565 !important; }
     .arrow {
       height: 1.5rem !important;
       width: 1.5rem !important;
-      background-color: rgba(0, 0, 0, 0.3) !important; /* Semi-transparent background */
-      border-radius: 50% !important; /* Circular background */
-      padding: 0.25rem !important; /* Padding around icon */
+      background-color: rgba(0, 0, 0, 0.3) !important;
+      border-radius: 50% !important;
+      padding: 0.25rem !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
     }
-    
     .arrow-container {
       display: flex !important;
       align-items: center !important;
@@ -248,25 +164,19 @@ const t = getTranslationFunction(lang);
       width: 2.5rem !important;
       height: 2.5rem !important;
     }
-    
     .arrow-right {
       top: auto !important;
       bottom: 0.75rem !important;
       right: 0.75rem !important;
-      z-index: 20 !important; /* Ensure arrows are above gradients */
+      z-index: 20 !important;
     }
-    
     .arrow-left {
       top: auto !important;
       bottom: 0.75rem !important;
       left: 0.75rem !important;
-      z-index: 20 !important; /* Ensure arrows are above gradients */
+      z-index: 20 !important;
     }
-    
-    /* Disable animation on mobile */
-    .animate-subtleBounce {
-      animation: none !important;
-    }
+    .animate-subtleBounce { animation: none !important; }
   }
 </style>
 
@@ -303,28 +213,25 @@ const t = getTranslationFunction(lang);
     </div>
   ))}
 
-  <!-- Enhanced gradient overlay for better text contrast on mobile -->
+  <!-- Gradient Overlays -->
   <div class="absolute w-full h-full bg-gradient-to-r from-black via-gray-800 to-transparent opacity-70" style="z-index: 1;"></div>
-
-  <!-- Bottom gradient for text readability - more intense on mobile -->
   <div class="absolute inset-0" style="pointer-events: none; z-index: 2;">
     <div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-b from-transparent via-transparent to-gray-900"></div>
   </div>
 
-  <!-- Right Arrow -->
+  <!-- Navigation Arrows -->
   <div class="absolute inset-y-0 right-0 flex items-center pr-4 lg:animate-subtleBounce arrow-right" style="z-index: 4;">
     <div class="arrow-container">
       <Icon name="fa-solid:chevron-right" class="arrow text-white cursor-pointer" aria-label={t("Next movie")}/>
     </div>
   </div>
-
-  <!-- Left Arrow: Removed 'lg:flex hidden' so it's visible on all screen sizes -->
   <div class="absolute inset-y-0 left-0 flex items-center pl-4 lg:animate-subtleBounce arrow-left" style="z-index: 4;">
     <div class="arrow-container">
       <Icon name="fa-solid:chevron-left" class="arrow text-white cursor-pointer" aria-label={t("Previous movie")}/>
     </div>
   </div>
 
+  <!-- Navigation Dots -->
   <div class="dots-container space-x-3 lg:space-x-10" role="tablist" aria-label={t("Movie banner navigation")}>
     {films.map((_, dotIndex) => (
       <button
@@ -342,42 +249,34 @@ const t = getTranslationFunction(lang);
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     let activeIndex = 0;
-    const films = Array.from(document.querySelectorAll('.film-slide'));
+    const slides = Array.from(document.querySelectorAll('.film-slide'));
     const dots = Array.from(document.querySelectorAll('.dot'));
 
     function updateActiveSlide(newIndex) {
-      films[activeIndex].classList.remove('opacity-100');
-      films[activeIndex].classList.add('opacity-0');
-      
-      // Fix: Remove both scale-125 and lg:scale-150 classes
+      // Hide current slide & update inactive dot
+      slides[activeIndex].classList.replace('opacity-100', 'opacity-0');
       dots[activeIndex].classList.remove('bg-red-400', 'scale-125', 'lg:scale-150');
       dots[activeIndex].setAttribute('aria-selected', 'false');
       dots[activeIndex].classList.add('bg-gray-500');
 
       activeIndex = newIndex;
-      films[activeIndex].classList.remove('opacity-0');
-      films[activeIndex].classList.add('opacity-100');
+
+      // Show new slide & update active dot
+      slides[activeIndex].classList.replace('opacity-0', 'opacity-100');
       dots[activeIndex].classList.remove('bg-gray-500');
       dots[activeIndex].setAttribute('aria-selected', 'true');
-      
-      // Fix: Add both scale-125 and lg:scale-150 classes
       dots[activeIndex].classList.add('bg-red-400', 'scale-125', 'lg:scale-150');
     }
 
     document.querySelector('.arrow-right').addEventListener('click', () => {
-      const nextIndex = (activeIndex + 1) % films.length;
-      updateActiveSlide(nextIndex);
+      updateActiveSlide((activeIndex + 1) % slides.length);
     });
-
     document.querySelector('.arrow-left').addEventListener('click', () => {
-      const prevIndex = (activeIndex - 1 + films.length) % films.length;
-      updateActiveSlide(prevIndex);
+      updateActiveSlide((activeIndex - 1 + slides.length) % slides.length);
     });
-
-    dots.forEach((dot) => {
+    dots.forEach(dot => {
       dot.addEventListener('click', () => {
-        const index = parseInt(dot.getAttribute('data-index'), 10);
-        updateActiveSlide(index);
+        updateActiveSlide(Number(dot.getAttribute('data-index')));
       });
     });
   });
