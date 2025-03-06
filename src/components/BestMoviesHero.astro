@@ -348,7 +348,9 @@ const t = getTranslationFunction(lang);
     function updateActiveSlide(newIndex) {
       films[activeIndex].classList.remove('opacity-100');
       films[activeIndex].classList.add('opacity-0');
-      dots[activeIndex].classList.remove('bg-red-400', 'scale-150');
+      
+      // Fix: Remove both scale-125 and lg:scale-150 classes
+      dots[activeIndex].classList.remove('bg-red-400', 'scale-125', 'lg:scale-150');
       dots[activeIndex].setAttribute('aria-selected', 'false');
       dots[activeIndex].classList.add('bg-gray-500');
 
@@ -357,7 +359,9 @@ const t = getTranslationFunction(lang);
       films[activeIndex].classList.add('opacity-100');
       dots[activeIndex].classList.remove('bg-gray-500');
       dots[activeIndex].setAttribute('aria-selected', 'true');
-      dots[activeIndex].classList.add('bg-red-400', 'scale-150');
+      
+      // Fix: Add both scale-125 and lg:scale-150 classes
+      dots[activeIndex].classList.add('bg-red-400', 'scale-125', 'lg:scale-150');
     }
 
     document.querySelector('.arrow-right').addEventListener('click', () => {
